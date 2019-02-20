@@ -5,10 +5,6 @@
  */
 package dhbwka.wwi.vertsys.javaee.justdoit.token;
 
-/**
- *
- * @author Licht
- */
 public enum TokenType {
     REMEMBER_ME,
     API,
