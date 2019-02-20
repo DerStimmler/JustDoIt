@@ -7,10 +7,10 @@ package dhbwka.wwi.vertsys.javaee.justdoit.servlets;
 
 import dhbwka.wwi.vertsys.javaee.justdoit.account.AccountBean;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,7 +24,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
-
+    
+    public static final String URL = "/register";
+    
     @EJB
     AccountBean accountBean;
 
@@ -48,8 +50,8 @@ public class RegisterServlet extends HttpServlet {
     throws ServletException, IOException {
         // Prüfen, ob der Anwender seinen Namen eingegeben hat
         HttpSession session = request.getSession();
-
-        List<String> fehler = new ArrayList<String>();
+        //TODO: Check Form auslagern in eine eigene Klasse wie in Wastebin
+        List<String> fehler = new ArrayList<>();
         String name = request.getParameter("name");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -70,13 +72,13 @@ public class RegisterServlet extends HttpServlet {
             session.setAttribute("email", email);
         }
         // Neuen Eintrag speichern
-        if (fehler.isEmpty()) {
+        if (!fehler.isEmpty()) {
+            // Browser auffordern, die Seite neuzuladen
+            response.sendRedirect(request.getContextPath() + RegisterServlet.URL);
+        } else {
             this.accountBean.registerAccount(name, email, password);
-            response.sendRedirect("/login");
+            response.sendRedirect("login");
         }
-
-        // Browser auffordern, die Seite neuzuladen
-        response.sendRedirect(request.getContextPath());
     }
 
     /**

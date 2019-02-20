@@ -13,8 +13,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
@@ -26,6 +27,11 @@ import javax.validation.constraints.Size;
  * @author Licht
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = Account.FIND_BY_USERNAME, query = "select a from Account a where a.username = :username"),
+    @NamedQuery(name = Account.FIND_BY_EMAIL, query = "select a from Account a where a.email = :email"),
+    @NamedQuery(name = Account.FIND_BY_TOKEN, query = "select a from Account a inner join a.tokens t where t.tokenHash = :tokenHash and t.tokenType = :tokenType and t.expiration > CURRENT_TIMESTAMP")
+})
 public class Account implements Serializable {
 
     public static final String FIND_BY_USERNAME = "Account.findByUsername";
@@ -33,7 +39,8 @@ public class Account implements Serializable {
     public static final String FIND_BY_TOKEN = "Account.findByToken";
 
     @Id
-    @GeneratedValue(generator = "account_id_seq", strategy = GenerationType.SEQUENCE)
+    //generator = "account_id_seq", strategy = GenerationType.SEQUENCE
+    @GeneratedValue()
     @SequenceGenerator(name = "account_id_seq", sequenceName = "account_id_seq", allocationSize = 1)
     private Long id;
 

@@ -7,7 +7,7 @@
     <persistence-unit-metadata>
         <persistence-unit-defaults>
             <!-- Dieser Wert muss für jede Anwendung ein anderer sein! -->
-            <schema>NAME_DER_APP_HIER</schema>
+            <schema>JUSTDOIT</schema>
         </persistence-unit-defaults>
     </persistence-unit-metadata>
 

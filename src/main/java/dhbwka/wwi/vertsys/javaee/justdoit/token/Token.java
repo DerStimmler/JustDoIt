@@ -14,15 +14,19 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrePersist;
-import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Size;
 
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = Token.REMOVE_TOKEN, query = "delete from Token t where t.tokenHash = :tokenHash"),
+        @NamedQuery(name = Token.REMOVE_EXPIRED_TOKEN, query = "delete from Token t where t.expiration < CURRENT_TIMESTAMP")
+    })
 public class Token implements Serializable {
     
     public static final String REMOVE_TOKEN = "Token.removeToken";
@@ -30,8 +34,10 @@ public class Token implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    @GeneratedValue(generator = "token_id_seq", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "token_id_seq", sequenceName = "token_id_seq", allocationSize = 1)
+    //TODO: Id besser machen: Sequenz oder Datum + Zeit + zufällige Zahl
+    @GeneratedValue()
+    //generator = "token_id_seq", strategy = GenerationType.SEQUENCE
+    //@SequenceGenerator(name = "token_id_seq", sequenceName = "token_id_seq", allocationSize = 1)
     private Long id;
     
     private String tokenHash;

@@ -23,7 +23,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
     
-        @Override
+    public static final String URL = "/login";
+    
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         // Anfrage an die JSP weiterleiten
@@ -42,7 +44,7 @@ public class LoginServlet extends HttpServlet {
     throws ServletException, IOException {
         // Prüfen, ob der Anwender seinen Namen eingegeben hat
         HttpSession session = request.getSession();
-
+        //TODO: Check Form auslagern in eine eigene Klasse wie in Wastebin
         List<String> fehler = new ArrayList<String>();
         String name = request.getParameter("name");
         String password = request.getParameter("password");
@@ -62,11 +64,12 @@ public class LoginServlet extends HttpServlet {
         // Neuen Eintrag speichern
         if (fehler.isEmpty()) {
             //TODO: Einloggen
-            response.sendRedirect("login");
+            //TODO: Auf Übersichtsseite weiterleiten
+            response.sendRedirect("");
+        } else {
+            // Browser auffordern, die Seite neuzuladen
+            response.sendRedirect(request.getContextPath() + LoginServlet.URL);
         }
-
-        // Browser auffordern, die Seite neuzuladen
-        response.sendRedirect(request.getContextPath());
     }
 
     /**
