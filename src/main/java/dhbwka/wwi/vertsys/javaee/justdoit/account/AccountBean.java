@@ -6,7 +6,7 @@
 package dhbwka.wwi.vertsys.javaee.justdoit.account;
 
 
-import dhbwka.wwi.vertsys.javaee.justdoit.HashGenerator;
+import dhbwka.wwi.vertsys.javaee.justdoit.hash.HashGenerator;
 import dhbwka.wwi.vertsys.javaee.justdoit.token.TokenBean;
 import dhbwka.wwi.vertsys.javaee.justdoit.token.TokenType;
 import javax.ejb.Stateless;

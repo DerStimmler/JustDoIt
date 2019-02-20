@@ -5,7 +5,7 @@
  */
 package dhbwka.wwi.vertsys.javaee.justdoit.token;
 
-import dhbwka.wwi.vertsys.javaee.justdoit.HashGenerator;
+import dhbwka.wwi.vertsys.javaee.justdoit.hash.HashGenerator;
 import dhbwka.wwi.vertsys.javaee.justdoit.account.Account;
 import dhbwka.wwi.vertsys.javaee.justdoit.account.AccountBean;
 import java.time.Instant;

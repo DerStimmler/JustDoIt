@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Account implements Serializable {
 
-     public static final String FIND_BY_USERNAME = "Account.findByUsername";
+    public static final String FIND_BY_USERNAME = "Account.findByUsername";
     public static final String FIND_BY_EMAIL = "Account.findByEmail";
     public static final String FIND_BY_TOKEN = "Account.findByToken";
 
