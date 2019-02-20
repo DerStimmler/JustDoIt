@@ -14,10 +14,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PersistenceContext;
 
-/**
- *
- * @author Licht
- */
 @Singleton
 public class TokenScheduler {
     @PersistenceContext

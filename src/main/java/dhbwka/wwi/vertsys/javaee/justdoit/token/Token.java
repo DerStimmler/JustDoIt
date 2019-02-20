@@ -21,10 +21,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Licht
- */
+
 @Entity
 public class Token implements Serializable {
     

@@ -19,10 +19,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.security.auth.login.LoginException;
 
-/**
- *
- * @author Licht
- */
 @Stateless
 public class TokenBean {
     @PersistenceContext
