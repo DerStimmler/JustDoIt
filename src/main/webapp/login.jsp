@@ -7,7 +7,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Register</title>
+        <title>Login</title>
     </head>
     <body>
             <h1>Login</h1>

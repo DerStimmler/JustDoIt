@@ -7,8 +7,11 @@ package dhbwka.wwi.vertsys.javaee.justdoit.account;
 
 import dhbwka.wwi.vertsys.javaee.justdoit.token.Token;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -39,9 +42,6 @@ public class Account implements Serializable {
     public static final String FIND_BY_TOKEN = "Account.findByToken";
 
     @Id
-    //generator = "account_id_seq", strategy = GenerationType.SEQUENCE
-    @GeneratedValue()
-    @SequenceGenerator(name = "account_id_seq", sequenceName = "account_id_seq", allocationSize = 1)
     private Long id;
 
     @NotNull
@@ -69,6 +69,7 @@ public class Account implements Serializable {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.id =  Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + new Random().nextInt(99999)); //aktuelles Datum + Zeit + 5 stellige Random Zahl
     }
 
     @PrePersist
