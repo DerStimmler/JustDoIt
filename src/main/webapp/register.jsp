@@ -12,16 +12,16 @@
     <body>
             <h1>Register</h1>
             <form method="POST">
-                <input type="text" name="name" placeholder="Name" value="${name}"/>
-                <input type="text" name="email" placeholder="E-Mail-Adresse" value="${email}"/>
-                <input type="text" name="password" placeholder="Password" value="${password}"/>
+                <input type="text" name="name" placeholder="Name" value="${register_form.name}"/>
+                <input type="text" name="email" placeholder="E-Mail-Adresse" value="${register_form.email}"/>
+                <input type="text" name="password" placeholder="Password" value="${register_form.password}"/>
                 <button type="submit">Registrieren</button>
             </form>
 
-            <c:if test="${!empty fehler}">
+            <c:if test="${!empty register_form.errors}">
                 <p>
-                    <c:forEach items="${fehler}" var="item">
-                        ${item}<br>
+                    <c:forEach items="${register_form.errors}" var="error">
+                        ${error}<br>
                     </c:forEach>
                 </p>
             </c:if>

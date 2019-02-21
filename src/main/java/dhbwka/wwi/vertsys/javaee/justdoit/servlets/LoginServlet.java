@@ -5,6 +5,8 @@
  */
 package dhbwka.wwi.vertsys.javaee.justdoit.servlets;
 
+import dhbwka.wwi.vertsys.javaee.justdoit.login.LoginForm;
+import dhbwka.wwi.vertsys.javaee.justdoit.register.RegisterForm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -28,48 +30,50 @@ public class LoginServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        // Objekt mit leeren Eingabewerten im Request Context ablegen,
+        // damit es beim Erstaufruf nicht zum Absturz kommt
+        HttpSession session = request.getSession();
+        LoginForm form = (LoginForm) session.getAttribute("login_form");
+        
+        if (form == null) {
+            session.setAttribute("login_form", new LoginForm());
+        }
+        
         // Anfrage an die JSP weiterleiten
         request.getRequestDispatcher("login.jsp").forward(request, response);
 
-        // In der Session liegende Fehlermeldung verwerfen, damit wir beim
-        // nächsten Aufruf wieder mit einem leeren Eingabefeld anfangen
-        HttpSession session = request.getSession();
-        session.removeAttribute("fehler");
-        session.removeAttribute("name");
-        session.removeAttribute("password");
+        // Fehlermeldungen und so weiter aus der Session löschen, damit sie
+        // beim nächsten Aufruf verschwinden
+        session.removeAttribute("login_form");
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        // Prüfen, ob der Anwender seinen Namen eingegeben hat
-        HttpSession session = request.getSession();
-        //TODO: Check Form auslagern in eine eigene Klasse wie in Wastebin
-        List<String> fehler = new ArrayList<String>();
-        String name = request.getParameter("name");
-        String password = request.getParameter("password");
-        boolean remember = Boolean.parseBoolean(request.getParameter("rememberMe"));
+        
+        request.setCharacterEncoding("utf-8");
+        
+        // Eingegebene Werte prüfen
+        LoginForm form = new LoginForm();
+        
+        form.setName(request.getParameter("name"));
+        form.setPassword(request.getParameter("password"));
+        form.setRememberMe(Boolean.parseBoolean(request.getParameter("rememberMe")));
 
-        if (name == null || name.trim().isEmpty()) {
-            fehler.add("Bitte gib erst deinen Namen ein.");
-            session.setAttribute("fehler", fehler);
-            session.setAttribute("name", name);
-        }
-        if (password == null || password.trim().isEmpty()) {
-            fehler.add("Bitte gib erst dein Passwort ein.");
-            session.setAttribute("fehler", fehler);
-            session.setAttribute("password", password);
-        }
+        form.checkValues();
+        
+        // Formular erneut anzeigen, wenn es Fehler gibt        
+        if (!form.errors.isEmpty()) {
+            // Formular erneut anzeigen, wenn es Fehler gibt
+            HttpSession session = request.getSession();
+            session.setAttribute("login_form", form);
 
-        // Neuen Eintrag speichern
-        if (fehler.isEmpty()) {
-            //TODO: Einloggen
-            //TODO: Auf Übersichtsseite weiterleiten
-            response.sendRedirect("");
-        } else {
-            // Browser auffordern, die Seite neuzuladen
             response.sendRedirect(request.getContextPath() + LoginServlet.URL);
+            return;
         }
+
+        //TODO: Login durchführen
+        response.sendRedirect(request.getContextPath());
     }
 
     /**
@@ -79,7 +83,7 @@ public class LoginServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Servlet for the Registration Page";
+        return "Servlet for the Login Page";
     }
 
 }
