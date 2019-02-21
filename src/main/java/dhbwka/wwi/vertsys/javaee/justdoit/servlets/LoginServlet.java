@@ -22,10 +22,10 @@ import javax.servlet.http.HttpSession;
  *
  * @author tim.schneider
  */
-@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/index.html"})
 public class LoginServlet extends HttpServlet {
     
-    public static final String URL = "/login";
+    public static final String URL = "/index.html";
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -40,7 +40,7 @@ public class LoginServlet extends HttpServlet {
         }
         
         // Anfrage an die JSP weiterleiten
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        request.getRequestDispatcher("index.jsp").forward(request, response);
 
         // Fehlermeldungen und so weiter aus der Session löschen, damit sie
         // beim nächsten Aufruf verschwinden
