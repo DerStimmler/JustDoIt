@@ -1,4 +1,4 @@
-package dhbwka.wwi.vertsys.javaee.justdoit.hash;
+package justdoit.hash;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

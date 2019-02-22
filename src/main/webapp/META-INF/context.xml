@@ -1,2 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context path="/JustDoIt"/>
+<Context path="/justDoIt" swallowOutput="true">
+    <!-- LockOutRealm: Sperrt den Benutzer nach zu vielen Fehlversuchen aus -->
+    <Realm className="org.apache.catalina.realm.LockOutRealm">
+        <!-- Anwendungsspezifischer Auth-Mechanismus -->
+        <Realm
+            className      = "org.apache.catalina.realm.DataSourceRealm"
+
+            dataSourceName = "Default-Database-Unmanaged"
+            userTable      = "justdoit.justdoit_user"
+            userNameCol    = "username"
+            userCredCol    = "password_hash"
+
+            userRoleTable  = "justdoit.user_group"
+            roleNameCol    = "groupname"
+        >
+            <CredentialHandler
+                className = "org.apache.catalina.realm.MessageDigestCredentialHandler"
+                algorithm = "SHA-256"
+            />
+        </Realm>
+    </Realm>
+</Context>
