@@ -1,24 +1,23 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@taglib tagdir="/WEB-INF/tags" prefix="template"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>JustDoIt</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<template:base>
+    <jsp:attribute name="title">Login</jsp:attribute>
+    <jsp:attribute name="menu">
+
+    </jsp:attribute>
+    <jsp:attribute name="main">
         <div class="container">
-            <h1>JustDoIt</h1>
+            <h1>Login</h1>
             <form method="POST">
                 <input type="text" name="name" placeholder="Name" value="${login_form.name}"/>
                 <input type="text" name="password" placeholder="Password" value="${login_form.password}"/>
                 <input type="checkbox" name="rememberMe" value="true" <c:if test="${login_form.rememberMe eq true}">checked</c:if>>
-                <button type="submit">Anmelden</button>
-            </form>
+                    <button type="submit">Anmelden</button>
+                </form>
 
             <c:if test="${!empty login_form.errors}">
                 <p>
@@ -27,11 +26,7 @@
                     </c:forEach>
                 </p>
             </c:if>
-            
-        <div class="registrierenbutton">
-            <a href="<c:url value="/new/"/>">Registrieren</a>
         </div>
-        </div>
-    </body>
-</html>
+    </jsp:attribute>
+</template:base>
 

@@ -1,15 +1,16 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+<%@taglib tagdir="/WEB-INF/tags" prefix="template"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Register</title>
-    </head>
-    <body>
+<template:base>
+    <jsp:attribute name="title">Register</jsp:attribute>
+    <jsp:attribute name="menu">
+
+    </jsp:attribute>
+    <jsp:attribute name="main">
+        <div class="container">
             <h1>Register</h1>
             <form method="POST">
                 <input type="text" name="name" placeholder="Name" value="${register_form.name}"/>
@@ -25,5 +26,6 @@
                     </c:forEach>
                 </p>
             </c:if>
-    </body>
-</html>
+        </div>
+    </jsp:attribute>
+</template:base>
