@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
     <session-config>
         <session-timeout>
             30
@@ -29,11 +32,15 @@
     -->
     <security-role>
         <description>
-            Overview about all roles of justdoit. Every user must have the 
-            role "justdoit-user" if he wants to get access to the website
+            Role for active users
         </description>
         <role-name>justdoit-user</role-name>
-        <role-name>justdoit-user-incativ</role-name>
+    </security-role>
+    <security-role>
+        <description>
+            Role for users who have not validated their email adress
+        </description>
+        <role-name>justdoit-user-inactive</role-name>
     </security-role>
     <!--
         Define form based authentication
