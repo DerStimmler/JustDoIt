@@ -20,11 +20,13 @@ public class SignUpForm {
     private String username = "";
     private String password1 = "";
     private String password2 = "";
+    private String email = "";
     
-    public SignUpForm(String username, String password1, String password2) {
+    public SignUpForm(String username, String password1, String password2, String email) {
         this.username = username;
         this.password1 = password1;
         this.password2 = password2;
+        this.email = email;
     }
     
     
@@ -60,6 +62,15 @@ public class SignUpForm {
         this.username = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+
     /**
      * Eingegebene Werte prüfen
      */
@@ -80,6 +91,10 @@ public class SignUpForm {
         }
         if(!password1.equals(password2)) {
             this.errors.add("Die Passwörter stimmen nicht überein");
+        }
+        if(email == null || email.trim().isEmpty()) {
+            email = "";
+            this.errors.add("Gib erst eine E-Mail-Adresse ein.");
         }
     }    
 }

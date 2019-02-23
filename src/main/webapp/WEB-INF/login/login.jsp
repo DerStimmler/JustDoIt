@@ -23,6 +23,7 @@
 
     <jsp:attribute name="main">
         <div class="container">
+            <h1>Login</h1>
             <form action="j_security_check" method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
@@ -30,13 +31,17 @@
                         Benutzername:
                         <span class="required">*</span>
                     </label>
-                    <input type="text" name="j_username">
+                    <div class="side-by-side">
+                        <input type="text" name="j_username">
+                    </div>
 
                     <label for="j_password">
                         Passwort:
                         <span class="required">*</span>
                     </label>
-                    <input type="password" name="j_password">
+                    <div class="side-by-side">
+                        <input type="password" name="j_password">
+                    </div>
 
                     <%-- Button zum Abschicken --%>
                     <button class="icon-login" type="submit">

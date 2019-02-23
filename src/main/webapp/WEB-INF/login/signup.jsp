@@ -23,6 +23,7 @@
 
     <jsp:attribute name="main">
         <div class="container">
+            <h1>Signup</h1>
             <form method="post" class="stacked">
                 <div class="column">
                     <%-- CSRF-Token --%>
@@ -51,6 +52,14 @@
                     </label>
                     <div class="side-by-side">
                         <input type="password" name="password2" value="${signup_form.password2}">
+                    </div>
+                    
+                    <label for="email">
+                        E-Mail:
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <input type="text" name="email" value="${signup_form.email}">
                     </div>
 
                     <%-- Button zum Abschicken --%>

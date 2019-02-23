@@ -37,13 +37,13 @@ public class UserBean {
         return this.em.find(User.class, this.ctx.getCallerPrincipal().getName());
     }
    
-   public void signup(String username, String password) throws UserAlreadyExistsException {
+   public void signup(String username, String password, String email) throws UserAlreadyExistsException {
         if (em.find(User.class, username) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $Name ist bereits vergeben.".replace("$Name", username));
         }
         //Hash the password
         password = this.hashGenerator.getHashText(password);
-        User user = new User(username, password);
+        User user = new User(username, password, email);
         user.addToGroup("justdoit-user");
         em.persist(user);
     }

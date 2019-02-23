@@ -20,19 +20,30 @@
         <meta charset="utf-8">
 
         <title>JustDoIt | ${title}</title>
-        <link rel="stylesheet" href="<c:url value="/style.css"/>" />
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>" />
 
         <jsp:invoke fragment="head"/>
     </head>
     <body>
-        <!--Menü der Seite -->
+        <!-- Header der Seite -->
+        <header>
+
+        </header>
+
+        <!-- Menü der Seite -->
         <menu>
             <jsp:invoke fragment="menu"/>
         </menu>
+
         <!-- Hauptinhalt der Seite -->
         <main>    
             <jsp:invoke fragment="main"/>
         </main>
+
+        <!-- Footer der Seite -->
+        <footer>
+
+        </footer>
     </body>
 </html>
 

@@ -9,8 +9,11 @@ import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -33,16 +36,23 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
+    @Column(name = "ID")
+    private Long id;
+    
     @Id
     @Column(name = "USERNAME", length = 64)
     @Size(min = 5, max = 64, message = "Ihr gewünschter Benutzername darf nur zwischen 5 und 64 Zeichen lang sein")
     @NotNull(message = "Bitte geben Sie einen Benutzernamen ein!")
     private String username;
 
-    @Column(name = "PASSWORD_HASH", length = 64)
+    @Column(name = "PASSWORD_HASH")
     @NotNull(message = "Bitte geben Sie ein Passwort ein!")
     private String password;
-
+    
+    @Column(name = "EMAIL" )
+    @NotNull(message = "Bitte geben Sie eine E-Mail-Adresse ein!")
+    private String email;
+    
     @ElementCollection
     @CollectionTable(
             name = "USER_GROUP",
@@ -55,9 +65,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
+        this.email = email;
+        this.id =  Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + (10000 + new Random().nextInt(90000))); //aktuelles Datum + Zeit + 5 stellige Random Zahl
     }
 
     public String getUsername() {
@@ -75,6 +87,24 @@ public class User implements Serializable {
     public String getPassword() {
         return this.password;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    
 
     public boolean checkPassword(String password) {
         return this.password.equals(password);
