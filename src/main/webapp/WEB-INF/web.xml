@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-         version="3.1">
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
-    
     <security-constraint>
         <display-name>
             Secured Area
         </display-name>
-
         <web-resource-collection>
             <web-resource-name>justdoit</web-resource-name>
             <url-pattern>/view/*</url-pattern>
         </web-resource-collection>
-        
         <!--
             Only users with the role "justdoit-user" are allowed
             to use the website
@@ -28,7 +21,6 @@
             <role-name>justdoit-user</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <!--
         Übersicht über alle von dieser Webanwendung genutzten Benutzerollen
         für den Admin. Die Vergabe der Rollen erfolgt durch Hinzufügen der
@@ -42,17 +34,20 @@
         </description>
         <role-name>justdoit-user</role-name>
     </security-role>
-
     <!--
         Define form based authentication
     -->
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>justdoit</realm-name>
-        
         <form-login-config>
             <form-login-page>/WEB-INF/login/login.jsp</form-login-page>
             <form-error-page>/WEB-INF/login/error.jsp</form-error-page>
         </form-login-config>
     </login-config>
+    <ejb-local-ref>
+        <ejb-ref-name>hashGenerator</ejb-ref-name>
+        <ejb-ref-type>Session</ejb-ref-type>
+        <ejb-link>#HashGenerator</ejb-link>
+    </ejb-local-ref>
 </web-app>
