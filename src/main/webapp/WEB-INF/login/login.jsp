@@ -32,7 +32,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="j_username">
+                        <input type="text" class="form-control" name="j_username">
                     </div>
 
                     <label for="j_password">
@@ -40,13 +40,10 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="j_password">
+                        <input type="password" class="form-control" name="j_password">
                     </div>
-
                     <%-- Button zum Abschicken --%>
-                    <button class="icon-login" type="submit">
-                        Einloggen
-                    </button>
+                    <input class="btn btn-primary" type="submit" value="Einloggen">
                 </div>
             </form>
         </div>

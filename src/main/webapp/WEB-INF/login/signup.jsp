@@ -35,7 +35,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="username" value="${signup_form.username}">
+                        <input type="text" class="form-control" name="username" value="${signup_form.username}">
                     </div>
 
                     <label for="password1">
@@ -43,7 +43,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="password1" value="${signup_form.password1}">
+                        <input type="password" class="form-control" name="password1" value="${signup_form.password1}">
                     </div>
 
                     <label for="password2">
@@ -51,7 +51,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="password" name="password2" value="${signup_form.password2}">
+                        <input type="password" class="form-control" name="password2" value="${signup_form.password2}">
                     </div>
                     
                     <label for="email">
@@ -59,14 +59,12 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="email" value="${signup_form.email}">
+                        <input type="text" class="form-control" name="email" value="${signup_form.email}">
                     </div>
 
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
-                        <button class="icon-pencil" type="submit">
-                            Registrieren
-                        </button>
+                        <input class="btn btn-primary" type="submit" value="Registrieren">
                     </div>
                 </div>
 
