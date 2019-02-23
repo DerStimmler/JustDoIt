@@ -25,7 +25,7 @@
         <div class="container">
             <h1>Registrieren</h1>
             <form method="post" class="stacked">
-                <div class="column">
+                
                     <%-- CSRF-Token --%>
 <!--                    <input type="hidden" name="csrf_token" value="${csrf_token}">-->
 
@@ -45,17 +45,17 @@
                         <input type="password" class="form-control" name="password2" value="${signup_form.password2}" placeholder="Passwort wiederholen">
                     </div>
 
-                    <div class="form-group">
+                    
                         <label for="email">E-Mail:<span class="required">*</span></label>
                         <input type="email" class="form-control" name="email" value="${signup_form.email}" placeholder="E-Mail">
                         <small id="emailHelp" class="form-text text-muted">We need your E-Mail-Adress to notify you about your taks.</small>
-                    </div>
+                    
 
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">
                         <input class="btn btn-primary" type="submit" value="Registrieren">
                     </div>
-                </div>
+                
 
                 <%-- Fehlermeldungen --%>
                 <c:if test="${!empty signup_form.errors}">

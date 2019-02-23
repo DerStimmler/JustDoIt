@@ -6,9 +6,6 @@
 package justdoit.user;
 
 import java.io.Serializable;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,10 +28,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "JUSTDOIT_USER")
 public class User implements Serializable {
-    //TODO: EMail hinzufügen
-    //TODO: Status Aktiv / nicht Aktiv hinzufügen und bei Authentication abfragen
+
     private static final long serialVersionUID = 1L;
-    private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
 
     @Column(name = "ID")
     private Long id;
@@ -44,8 +39,9 @@ public class User implements Serializable {
     @Size(min = 5, max = 64, message = "Ihr gewünschter Benutzername darf nur zwischen 5 und 64 Zeichen lang sein")
     @NotNull(message = "Bitte geben Sie einen Benutzernamen ein!")
     private String username;
-
-    @Column(name = "PASSWORD_HASH")
+    
+//    //Length 64 reuqired becuase of sha-256
+    @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Bitte geben Sie ein Passwort ein!")
     private String password;
     
