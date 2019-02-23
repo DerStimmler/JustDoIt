@@ -33,6 +33,7 @@
             role "justdoit-user" if he wants to get access to the website
         </description>
         <role-name>justdoit-user</role-name>
+        <role-name>justdoit-user-incativ</role-name>
     </security-role>
     <!--
         Define form based authentication
