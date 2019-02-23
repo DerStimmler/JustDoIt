@@ -27,20 +27,14 @@
             <form action="j_security_check" method="post" class="stacked">
                 <div class="column">
                     <%-- Eingabefelder --%>
-                    <label for="j_username">
-                        Benutzername:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" class="form-control" name="j_username">
+                    <div class="form-group">
+                        <label for="j_username">Benutzername:<span class="required">*</span></label>
+                        <input type="text" class="form-control" name="j_username" placeholder="Benutzername">
                     </div>
 
-                    <label for="j_password">
-                        Passwort:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="password" class="form-control" name="j_password">
+                    <div class="form-group">
+                        <label for="j_password">Passwort:<span class="required">*</span></label>
+                        <input type="password" class="form-control" name="j_password" placeholder="Passwort">
                     </div>
                     <%-- Button zum Abschicken --%>
                     <input class="btn btn-primary" type="submit" value="Einloggen">
