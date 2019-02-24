@@ -1,9 +1,9 @@
 package justdoit.servlet;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import java.io.IOException;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,6 +60,8 @@ public class SignUpServlet extends HttpServlet {
                 this.mailBean.sendMail(email, "Willkommen bei JustDoIt!", "Hallo " + username + ",<br>Vielen Dank für deine Registrierung!");
                 
             } catch (UserAlreadyExistsException ex) {
+                form.errors.add(ex.getMessage());
+            } catch (AddressException ex) {
                 form.errors.add(ex.getMessage());
             } catch (MessagingException ex) {
                 form.errors.add(ex.getMessage());
