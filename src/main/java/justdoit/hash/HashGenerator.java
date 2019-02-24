@@ -12,7 +12,7 @@ public class HashGenerator {
         // EJB needs this one.
     }
 
-    String algorithm = "SHA-256";
+    private final String algorithm = "SHA-256";
 
     public String getHashText(String text) {
 
