@@ -1,8 +1,7 @@
 package justdoit.servlet;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;

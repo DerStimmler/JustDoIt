@@ -32,11 +32,15 @@ public class CategoryBean {
     }
 
     public Category saveNew(Category category) {
+        //TODO: Check if category already exists for the user
+        
         em.persist(category);
         return em.merge(category);
     }
 
     public Category update(Category category) {
+        //TODO: Check if category already exists for the user (changed name)
+        
         return em.merge(category);
     }
     
