@@ -5,46 +5,20 @@
  */
 package justdoit.task.bean;
 
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import justdoit.common.EntityBean;
 import justdoit.task.entitiy.Category;
 
 /**
  *
  * @author Lichter, Ansgar
  */
-public class CategoryBean {
+public class CategoryBean extends EntityBean<Category, Long>{
    @PersistenceContext
    EntityManager em;
    
    public CategoryBean() {
-       
+       super(Category.class);
    }
-   
-   public Category findById(long id) {
-        return em.find(Category.class, id);
-    }
-
-    public List<Category> findAll() {
-        String select = "SELECT c FROM Category c";
-        return em.createQuery(select).getResultList();
-    }
-
-    public Category saveNew(Category category) {
-        //TODO: Check if category already exists for the user
-        
-        em.persist(category);
-        return em.merge(category);
-    }
-
-    public Category update(Category category) {
-        //TODO: Check if category already exists for the user (changed name)
-        
-        return em.merge(category);
-    }
-    
-    public void delete(Category category) {
-        em.remove(em.merge(category));
-    }
 }

@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import justdoit.common.EntityBean;
 import justdoit.task.entitiy.Category;
 import justdoit.task.entitiy.ToDo;
 import justdoit.task.entitiy.ToDoPriority;
@@ -26,13 +27,13 @@ import justdoit.task.entitiy.ToDoStatus;
 
 @Stateless
 @RolesAllowed("justdoit-user")
-public class ToDoBean {
+public class ToDoBean extends EntityBean<ToDo, Long>{
     
     @PersistenceContext 
     EntityManager em;
     
     public ToDoBean() {
-        //EJB needs this one
+        super(ToDo.class);
     }
     
     public List<ToDo> findByUsername(String username) {
@@ -42,7 +43,7 @@ public class ToDoBean {
     }
     
     //Query with dynamic criterias vgl. https://docs.oracle.com/javaee/7/tutorial/persistence-criteria003.htm
-    public List<ToDo> searchToDo(String likeDescription, Category category, ToDoStatus status, ToDoPriority priority) {
+    public List<ToDo> searchToDo(String likeDescription, Category category, ToDoStatus status, ToDoPriority priority, String username) {
         CriteriaBuilder criteriaBuilder = this.em.getCriteriaBuilder();
         CriteriaQuery<ToDo> criteriaQuery = criteriaBuilder.createQuery(ToDo.class);
         
@@ -59,6 +60,11 @@ public class ToDoBean {
         */
         if(likeDescription != null || !likeDescription.trim().isEmpty()) {
             predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(toDo.get("description"), "%" + likeDescription + "%"));
+            criteriaQuery.where(predicate);
+        }
+        
+        if(username != null || !username.trim().isEmpty()) {
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(toDo.get("user.username"), username));
             criteriaQuery.where(predicate);
         }
         
@@ -86,22 +92,4 @@ public class ToDoBean {
         //Execute the query and return the result list
         return this.em.createQuery(criteriaQuery).getResultList();
     }
-    
-    public List<ToDo> findAll() {
-        return em.createQuery("SELECT t FROM ToDo t").getResultList();
-    }
-    
-    public ToDo update(ToDo entity) {
-        return em.merge(entity);
-    }
-    
-    public void delete(ToDo entity) {
-        em.remove(entity);
-    }
-    
-    public void saveNew(ToDo entity) {
-        em.persist(entity);
-    }
-    
-
 }
