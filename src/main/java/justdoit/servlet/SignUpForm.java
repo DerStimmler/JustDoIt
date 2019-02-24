@@ -77,8 +77,6 @@ public class SignUpForm {
      * Eingegebene Werte prüfen
      */
     public void checkValues() {
-        //TODO: Länge des Passworts prüfen
-        //TODO: Email-Prüfung hinzufügen
         if (username == null || username.trim().isEmpty()) {
             username = "";
             this.errors.add("Gib erst einen Namen ein.");
@@ -86,6 +84,9 @@ public class SignUpForm {
         if (password1 == null || password1.trim().isEmpty()) {
             password1 = "";
             this.errors.add("Gib erst ein Passwort ein");
+        }
+        if(password1.length() < 5 || password1.length() > 64) {
+            this.errors.add("Dein Passwort muss zwischen 5 und 64 Zeichen lang sein");
         }
         if (password2 == null || password2.trim().isEmpty()) {
             password2 = "";
