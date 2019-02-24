@@ -1,7 +1,10 @@
 package justdoit.servlet;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import justdoit.exceptions.UserAlreadyExistsException;
+import justdoit.mail.MailBean;
 import justdoit.user.UserBean;
 
 /**
@@ -20,6 +24,9 @@ public class SignUpServlet extends HttpServlet {
             
     @EJB
     UserBean userBean;
+    
+    @EJB
+    MailBean mailBean;
     
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +58,11 @@ public class SignUpServlet extends HttpServlet {
         if (form.getErrors().isEmpty()) {
             try {
                 this.userBean.signup(username, password1, email);
+                this.mailBean.sendMail(email, "Willkommen bei JustDoIt!", "Hallo " + username + ",<br>Vielen Dank für deine Registrierung!");
+                
             } catch (UserAlreadyExistsException ex) {
+                form.errors.add(ex.getMessage());
+            } catch (MessagingException ex) {
                 form.errors.add(ex.getMessage());
             }
         }
