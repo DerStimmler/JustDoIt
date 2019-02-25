@@ -20,7 +20,7 @@ import org.omg.CORBA.CTX_RESTRICT_SCOPE;
  * @author Goeller
  */
 @WebServlet(urlPatterns = {"/changemail/"})
-public class ChangeServletMail extends HttpServlet {
+public class ChangeMailServlet extends HttpServlet {
            
     @EJB
     UserBean userBean;

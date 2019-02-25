@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import justdoit.exceptions.InvalidCredentialsException;
+import justdoit.exceptions.OldPasswordIncorrectException;
 import justdoit.exceptions.UserAlreadyExistsException;
 import justdoit.hash.HashGenerator;
 
@@ -37,6 +38,9 @@ public class UserBean {
         return this.em.find(User.class, this.ctx.getCallerPrincipal().getName());
     }
    
+   public User findById(long id){
+       return em.find(User.class, id);
+   }
    public void signup(String username, String password, String email) throws UserAlreadyExistsException {
         if (em.find(User.class, username) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $Name ist bereits vergeben.".replace("$Name", username));
@@ -50,13 +54,25 @@ public class UserBean {
     }
    
    @RolesAllowed("justdoit-user")
-    public void changePassword(User user, String oldPassword, String newPassword) throws InvalidCredentialsException {
-        if (user == null || !user.checkPassword(oldPassword)) {
-            throw new InvalidCredentialsException("Benutzername oder Passwort sind falsch.");
+    public void changePassword(User username,String passwordAkt, String oldPassword, String newPassword) throws OldPasswordIncorrectException {
+        oldPassword = this.hashGenerator.getHashText(oldPassword);
+        if (username == null || !passwordAkt.equals(oldPassword)) {
+            throw new OldPasswordIncorrectException("Altes Passwort ist nicht korrekt.");
         }
         //Hash the password
         newPassword = this.hashGenerator.getHashText(newPassword);
-        user.setPassword(newPassword);
+        username.setPassword(newPassword);
+        em.merge(username);
+    }
+    
+    @RolesAllowed("justdoit-user")
+    public void changeMail(User username, String passwordAkt,String oldPassword ,String email){
+        oldPassword = this.hashGenerator.getHashText(oldPassword);
+        if (username == null || !passwordAkt.equals(oldPassword)) {
+            throw new OldPasswordIncorrectException("Altes Passwort ist nicht korrekt.");
+        }
+        username.setEmail(email);
+        em.merge(username);
     }
     
     @RolesAllowed("justdoit-user")

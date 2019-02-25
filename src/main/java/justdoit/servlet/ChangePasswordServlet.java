@@ -20,7 +20,7 @@ import org.omg.CORBA.CTX_RESTRICT_SCOPE;
  * @author Goeller
  */
 @WebServlet(urlPatterns = {"/changepw/"})
-public class ChangeServlet extends HttpServlet {
+public class ChangePasswordServlet extends HttpServlet {
            
     @EJB
     UserBean userBean;
@@ -53,7 +53,7 @@ public class ChangeServlet extends HttpServlet {
         String password2 = request.getParameter("password2");
         
         //ChangeForm form = new ChangeForm(username,password0 ,password1, password2, email);
-        ChangeForm form = new ChangeForm(password0 ,password1, password2);
+        ChangePasswordForm form = new ChangePasswordForm(password0 ,password1, password2);
         form.checkValues();
         
         // Passwort ändern
