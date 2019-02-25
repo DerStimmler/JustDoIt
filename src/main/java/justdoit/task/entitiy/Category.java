@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import justdoit.user.User;
 
-/**
+/*
  *
  * @author Lichter, Ansgar
  */

@@ -23,6 +23,8 @@ import justdoit.hash.HashGenerator;
 
 @Stateless
 public class UserBean {
+    //TODO: UserBean von EntityBean erben lassen und entsprechend anpassen (update und delete können hier dann gelöscht werden)
+    
    @PersistenceContext
    EntityManager em;
    
