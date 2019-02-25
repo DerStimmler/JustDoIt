@@ -19,7 +19,7 @@ import justdoit.task.bean.CategoryBean;
 import justdoit.task.bean.ToDoBean;
 import justdoit.task.entitiy.Category;
 import justdoit.task.entitiy.ToDo;
-import static org.eclipse.persistence.internal.helper.Helper.toDo;
+import justdoit.user.UserBean;
 
 /**
  *
@@ -33,6 +33,9 @@ public class CategoriesServlet extends HttpServlet {
     
     @EJB
     ToDoBean toDoBean;
+    
+    @EJB
+    UserBean userBean;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -85,10 +88,13 @@ public class CategoriesServlet extends HttpServlet {
         if (action.equals("create")) {
             //Neue Kategorie speichern
             Category category = new Category(request.getParameter("category_name"));
+            category.setUsername(this.userBean.getCurrentUser());
             //TODO: Category validieren
             this.categoryBean.saveNew(category);
         } else if (action.equals("delete")) {
-            //Ausgewählte Kategorien holen
+            //Ausgewählte Kategorien löschen
+            
+            //Ausgewählte Kategorien besorgen
             String[] selectedCategoryIds = request.getParameterValues("category");
             Category category;
             
@@ -115,8 +121,7 @@ public class CategoriesServlet extends HttpServlet {
                 this.categoryBean.delete(category);
             }
         }
-
-        //Ausgewählte Kategorien löschen
+        response.sendRedirect(request.getRequestURI());
     }
 
     /**

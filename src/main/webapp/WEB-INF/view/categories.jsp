@@ -67,7 +67,7 @@
                     <c:otherwise>
                         <c:forEach items="${categories}" var="category">
                             <input type="checkbox" name="category" value="${category.id}" id="${'category'.concat(category.id)}">
-                            <label for="${'category'.concat(category.id)}">${category.name}</label> 
+                            <label for="${'category'.concat(category.id)}">${category.category}</label> 
                         </c:forEach>
                         <div class="side-by-side">
                             <button class="icon-pencil" name="action" value="delete" type="submit">
