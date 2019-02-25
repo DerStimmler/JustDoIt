@@ -36,7 +36,7 @@ public class MailBean {
 
     private MailConfig mailConfig = readConfigFromFile();
 
-    public void sendMail(String to, String subject, String text) throws AddressException, MessagingException {
+    public void sendMail(MailContent mailContent) throws AddressException, MessagingException {
         MailAuthenticator auth = new MailAuthenticator(mailConfig.username, mailConfig.password);
 
         Properties properties = new Properties();
@@ -53,9 +53,9 @@ public class MailBean {
         try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(mailConfig.from));
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to, false));
-            msg.setSubject(subject);
-            msg.setContent(text, "text/html; charset=utf-8");
+            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailContent.recipientAdress, false));
+            msg.setSubject(mailContent.subject);
+            msg.setContent(mailContent.content, "text/html; charset=utf-8");
             msg.setSentDate(new Date());
             Transport.send(msg);
         } catch (MessagingException e) {
