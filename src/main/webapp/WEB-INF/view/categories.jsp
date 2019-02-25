@@ -32,14 +32,14 @@
         <div>
             <form method="post" class="stacked">
                 <div class="column">
-                    
+
                     <%-- Eingabefelder --%>
                     <label for="category_name">
                         Kategorie:
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="category_name" value="${category_form.name}">
+                        <input type="text" name="category_name" value="${category_form.values["category_name"][0]}">
                     </div>
 
                     <%-- Button zum Abschicken --%>
@@ -51,14 +51,14 @@
                 </div>
 
                 <%-- Fehlermeldungen --%>
-                <c:if test="${!empty signup_form.errors}">
+                <c:if test="${!empty category_form.errors}">
                     <ul class="errors">
-                        <c:forEach items="${signup_form.errors}" var="error">
+                        <c:forEach items="${category_form.errors}" var="error">
                             <li>${error}</li>
                             </c:forEach>
                     </ul>
                 </c:if>
-                
+
                 <%-- Vorhandene Kategorien --%>
                 <c:choose>
                     <c:when test="${empty categories}">
@@ -66,8 +66,11 @@
                     </c:when>
                     <c:otherwise>
                         <c:forEach items="${categories}" var="category">
-                            <input type="checkbox" name="category" value="${category.id}" id="${'category'.concat(category.id)}">
-                            <label for="${'category'.concat(category.id)}">${category.category}</label> 
+                            <div class="row">
+                                <%--TODO: value und id anpassen, sobald category primary key angepasst wird --%>
+                                <input type="checkbox" name="category" value="${category.id}" id="${'category'.concat(category.id)}">
+                                <label for="${'category'.concat(category.id)}">${category.category}</label> 
+                            </div>
                         </c:forEach>
                         <div class="side-by-side">
                             <button class="icon-pencil" name="action" value="delete" type="submit">
