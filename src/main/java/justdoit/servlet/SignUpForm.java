@@ -24,14 +24,17 @@ public class SignUpForm {
     private String password2 = "";
     private String email = "";
     
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public SignUpForm(String username, String password1, String password2, String email) {
         this.username = username;
         this.password1 = password1;
         this.password2 = password2;
         this.email = email;
     }
+//</editor-fold>
     
     
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public List<String> getErrors() {
         return errors;
     }
@@ -39,38 +42,39 @@ public class SignUpForm {
     public void setErrors(List<String> errors) {
         this.errors = errors;
     }
-
+    
     public String getUsername() {
         return this.username;
     }
-
+    
     public void setPassword1(String password1) {
         this.password1 = password1;
     }
-
+    
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
-
+    
     public String getPassword1() {
         return password1;
     }
-
+    
     public String getPassword2() {
         return password2;
     }
-
+    
     public void setUsername(String name) {
         this.username = name;
     }
-
+    
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
+//</editor-fold>
     
 
     /**

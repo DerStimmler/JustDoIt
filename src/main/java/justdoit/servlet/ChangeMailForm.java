@@ -25,33 +25,37 @@ public class ChangeMailForm {
     private String email = "";
     
     //ChangeForm zur Mail Zurücksetzung
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ChangeMailForm (String password0,String email){
         this.password0=password0;
         this.email=email;
     }
+//</editor-fold>
     
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public List<String> getErrors() {
         return errors;
     }
     
     public void setErrors(List<String> errors) {
         this.errors = errors;
-    }   
+    }
     
     public void setPassword0(String password0) {
         this.password0 = password0;
-    }    
-   
+    }
+    
     public String getPassword0() {
         return password0;
-    }    
+    }
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
+//</editor-fold>
     /**
      * Eingegebene Werte prüfen
      */

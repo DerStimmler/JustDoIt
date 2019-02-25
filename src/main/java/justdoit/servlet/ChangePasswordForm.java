@@ -26,43 +26,47 @@ public class ChangePasswordForm {
     private String password2 = "";
  
     //ChangeForm zur PW Zurücksetzung
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ChangePasswordForm(String password0, String password1, String password2) {
         this.password0= password0;
         this.password1 = password1;
         this.password2 = password2;
     }
+//</editor-fold>
     
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public List<String> getErrors() {
         return errors;
     }
     
     public void setErrors(List<String> errors) {
         this.errors = errors;
-    }   
+    }
     
     public void setPassword0(String password0) {
         this.password0 = password0;
-    }    
+    }
     
     public void setPassword1(String password1) {
         this.password1 = password1;
     }
-
+    
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
-
+    
     public String getPassword0() {
         return password0;
-    }    
+    }
     
     public String getPassword1() {
         return password1;
     }
-
+    
     public String getPassword2() {
         return password2;
     }
+//</editor-fold>
     /**
      * Eingegebene Werte prüfen
      */

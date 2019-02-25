@@ -61,44 +61,48 @@ public class User implements Serializable {
     public User() {
     }
 
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.id =  Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + (10000 + new Random().nextInt(90000))); //aktuelles Datum + Zeit + 5 stellige Random Zahl
     }
+//</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public String getUsername() {
         return username;
     }
-
+    
     public void setUsername(String id) {
         this.username = id;
     }
-
+    
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     public String getPassword() {
         return this.password;
     }
-
+    
     public Long getId() {
         return id;
     }
-
+    
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public String getEmail() {
         return email;
     }
-
+    
     public void setEmail(String email) {
         this.email = email;
     }
+//</editor-fold>
     
     
 
