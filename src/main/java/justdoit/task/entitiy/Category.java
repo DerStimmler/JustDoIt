@@ -33,61 +33,60 @@ public class Category implements Serializable {
     
     @ManyToOne
     @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
-    private User username;
+    private User user;
     
     @NotNull(message = "Der Kategorie muss ein Name gegeben werden")
     private String category;
     
     @OneToMany(mappedBy = "category")
     List<ToDo> toDos = new ArrayList<>();
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public User getUsername() {
-        return username;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public List<ToDo> getToDos() {
-        return toDos;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUsername(User username) {
-        this.username = username;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setToDos(List<ToDo> toDos) {
-        this.toDos = toDos;
-    }
     
+    //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
     public Category() {
         
     }
-
+    
     public Category(String category) {
         this.category = category;
     }
-
-    @Override
-    public String toString() {
-        return "justdoit.task.Categroy[ id=" + id + " ]";
+    //</editor-fold>
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="Getter and Setter">
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
     
+    public Long getId() {
+        return id;
+    }
+    
+    public User getUser() {
+        return user;
+    }
+    
+    public String getCategory() {
+        return category;
+    }
+    
+    public List<ToDo> getToDos() {
+        return toDos;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
+    public void setToDos(List<ToDo> toDos) {
+        this.toDos = toDos;
+    }
+    //</editor-fold>    
 }

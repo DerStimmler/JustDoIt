@@ -9,8 +9,8 @@ package justdoit.exceptions;
  *
  * @author Lichter, Ansgar
  */
-public class InvalidCredentialsException extends RuntimeException {
-    public InvalidCredentialsException(String message) {
+public class InvalidCredentialException extends RuntimeException {
+    public InvalidCredentialException(String message) {
             super(message);
         }
 }

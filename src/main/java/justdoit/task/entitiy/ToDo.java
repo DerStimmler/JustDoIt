@@ -60,24 +60,8 @@ public class ToDo implements Serializable {
     @ManyToOne
     @NotNull(message = "Die Aufgabe muss einem Benutzer zugeordnet werden")
     private User user;
-    
-    
-    public void setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-
-    public void setDueTime(Time dueTime) {
-        this.dueTime = dueTime;
-    }
-
-    public Date getDueDate() {
-        return dueDate;
-    }
-
-    public Time getDueTime() {
-        return dueTime;
-    }
-
+   
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, User user) {
         this.name = name;
         this.category = category;
@@ -88,10 +72,28 @@ public class ToDo implements Serializable {
         this.dueTime = dueTime;
         this.user = user;
     }
-
+    
     public ToDo() {
     }
-
+//</editor-fold>
+    
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+    
+    public void setDueTime(Time dueTime) {
+        this.dueTime = dueTime;
+    }
+    
+    public Date getDueDate() {
+        return dueDate;
+    }
+    
+    public Time getDueTime() {
+        return dueTime;
+    }
+    
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
@@ -151,9 +153,8 @@ public class ToDo implements Serializable {
     public void setUsername(User user) {
         this.user = user;
     }
+    //</editor-fold>
     
-    
-
     @Override
     public String toString() {
         return "justdoit.task.ToDo[ id=" + id + " ]";

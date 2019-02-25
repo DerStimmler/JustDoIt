@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import justdoit.common.ValidationBean;
 import justdoit.task.bean.CategoryBean;
 import justdoit.task.bean.ToDoBean;
 import justdoit.task.entitiy.Category;
@@ -27,7 +28,7 @@ import justdoit.user.UserBean;
  */
 @WebServlet(name = "CategriesServlet", urlPatterns = {"/categories/"})
 public class CategoriesServlet extends HttpServlet {
-
+    
     @EJB
     CategoryBean categoryBean;
     
@@ -36,6 +37,9 @@ public class CategoriesServlet extends HttpServlet {
     
     @EJB
     UserBean userBean;
+    
+    @EJB
+    ValidationBean validationBean;
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -77,61 +81,65 @@ public class CategoriesServlet extends HttpServlet {
             throws ServletException, IOException {
         //Action auslesen
         String action = request.getParameter("action");
-        
+
         /*
         * Abhängig davon, welcher Button gedrückt wurde, wird entweder eine
         * neue Kategorie erstellt oder die ausgewählten Kategorien werden gelöscht.
         * Dies ist möglich, da beide Buttons ein Attribut mit dem namen "Action"
         * besitzen und entsprechend Ihrer aufgabe wird dem Action-Parameter als
         * Wert "Create" oder "Delete" übergeben.
-        */
+         */
         if (action.equals("create")) {
-            //Neue Kategorie speichern
-            Category category = new Category(request.getParameter("category_name"));
-            category.setUsername(this.userBean.getCurrentUser());
-            //TODO: Category validieren
-            this.categoryBean.saveNew(category);
+            this.createCategory(request, response);
         } else if (action.equals("delete")) {
-            //Ausgewählte Kategorien löschen
-            
-            //Ausgewählte Kategorien besorgen
-            String[] selectedCategoryIds = request.getParameterValues("category");
-            Category category;
-            
-            for(String categoryId : selectedCategoryIds) {
-                // Kategorie suchen
-                try{
-                category = this.categoryBean.findById(Long.parseLong(categoryId));
-                } catch (NumberFormatException ex) {
-                    continue;
-                }
-                //Wenn keine Kategorie gefunden wurde, mit der näcshten fortfahren
-                if(category == null) {
-                   continue;
-                }
-                //Kategorie in den zugeordneten Aufgaben löschen
-                List<ToDo> toDos = category.getToDos();
-                if(toDos != null) {
-                    toDos.forEach((ToDo toDo) -> {
-                        toDo.setCategory(null);
-                        this.toDoBean.update(toDo);
-                    });
-                }
-                //Kategorie löschen
-                this.categoryBean.delete(category);
-            }
+            this.deleteCategory(request, response);
         }
         response.sendRedirect(request.getRequestURI());
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "List of all Categories with the possibility of creating new Categories";
+    
+    private void createCategory(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Category category = new Category(request.getParameter("category_name"));
+        category.setUser(this.userBean.getCurrentUser());
+        List<String> errors = this.validationBean.validate(category);
+        
+        if (errors.isEmpty()) {
+            this.categoryBean.saveNew(category);
+        } else {
+            Form form = new Form();
+            form.setValues(request.getParameterMap());
+            form.setErrors(errors);
+            
+            HttpSession session = request.getSession();
+            session.setAttribute("category_form", form);
+        }
     }
+    
+    private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
+        //Ausgewählte Kategorien besorgen
+        String[] selectedCategoryIds = request.getParameterValues("category");
+        Category category;
+        
+        for (String categoryId : selectedCategoryIds) {
+            try {
+                category = this.categoryBean.findById(Long.parseLong(categoryId));
+            } catch (NumberFormatException ex) {
+                continue;
+            }
+            if (category == null) {
+                continue;
+            }
+            List<ToDo> toDos = category.getToDos();
+            if (toDos != null) {
+                toDos.forEach((ToDo toDo) -> {
+                    toDo.setCategory(null);
+                    this.toDoBean.update(toDo);
+                });
+            }
+            this.categoryBean.delete(category);
+        }
+    }
+    
 }
