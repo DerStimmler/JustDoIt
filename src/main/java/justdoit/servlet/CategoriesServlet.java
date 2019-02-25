@@ -58,7 +58,7 @@ public class CategoriesServlet extends HttpServlet {
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/categories.jsp");
         dispatcher.forward(request, response);
-
+        
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
         session.removeAttribute("categories_form");
