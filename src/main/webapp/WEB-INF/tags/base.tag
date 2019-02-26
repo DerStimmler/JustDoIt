@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : base
     Created on : 21.02.2019, 22:18:34
     Author     : Goeller
@@ -34,12 +34,20 @@
         </header>
 
         <!-- Menü der Seite -->
-        <menu>
-            <jsp:invoke fragment="menu"/>
-        </menu>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <span class="navbar-brand mb-0 h1">JustDoIt</span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <jsp:invoke fragment="menu"/>
+                </ul>
+            </div>
+        </nav>
 
         <!-- Hauptinhalt der Seite -->
-        <main>    
+        <main class="bg-dark">
             <jsp:invoke fragment="main"/>
         </main>
 
