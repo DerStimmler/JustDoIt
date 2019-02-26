@@ -31,13 +31,18 @@
         <!-- Menü der Seite -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <span class="navbar-brand mb-0 h1">JustDoIt</span>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
                     <jsp:invoke fragment="menu"/>
                 </ul>
+
+                <form action="<c:url value="/logout/"/>">
+                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                </form>
+
             </div>
         </nav>
 
