@@ -25,7 +25,13 @@
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-grid.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>" />
 
+        <!--        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+                <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+                <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+                <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+
         <jsp:invoke fragment="head"/>
+
     </head>
     <body>
         <!-- Menü der Seite -->
@@ -55,6 +61,10 @@
         <footer class="fixed-bottom bg-light">
             JustDoIt
         </footer>
+
+        <!-- Skripte für Bootstrap -->
+        <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
     </body>
 </html>
 
