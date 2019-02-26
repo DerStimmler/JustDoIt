@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -52,7 +53,10 @@ public class User implements Serializable {
     List<String> groups = new ArrayList<>();
     
     @ManyToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    List<ToDo> todos = new ArrayList<>();   
+    List<ToDo> todos = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "user")
+    List<ToDo> categories = new ArrayList<>(); 
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public User() {

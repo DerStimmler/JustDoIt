@@ -14,7 +14,9 @@ import justdoit.common.ValidationBean;
 import justdoit.task.bean.CategoryBean;
 import justdoit.task.bean.ToDoBean;
 import justdoit.task.entitiy.Category;
+import justdoit.task.entitiy.CategoryId;
 import justdoit.task.entitiy.ToDo;
+import justdoit.user.User;
 import justdoit.user.UserBean;
 
 @WebServlet(name = "CategriesServlet", urlPatterns = {"/categories/"})
@@ -44,17 +46,14 @@ public class CategoriesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Alle vorhandenen Kategorien suchen
-        List<Category> categories = this.categoryBean.findAll();
+        User currentUser = this.userBean.getCurrentUser();
+        List<Category> categories = this.categoryBean.findByUser(currentUser);
 
-        //Kategorien als Attribut setzen
         request.setAttribute("categories", categories);
 
-        // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/categories.jsp");
         dispatcher.forward(request, response);
 
-        // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
         session.removeAttribute("categories_form");
     }
@@ -70,16 +69,9 @@ public class CategoriesServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Action auslesen
+
         String action = request.getParameter("action");
 
-        /*
-        * Abhängig davon, welcher Button gedrückt wurde, wird entweder eine
-        * neue Kategorie erstellt oder die ausgewählten Kategorien werden gelöscht.
-        * Dies ist möglich, da beide Buttons ein Attribut mit dem namen "Action"
-        * besitzen und entsprechend Ihrer aufgabe wird dem Action-Parameter als
-        * Wert "Create" oder "Delete" übergeben.
-         */
         if (action.equals("create")) {
             this.createCategory(request, response);
         } else if (action.equals("delete")) {
@@ -90,8 +82,7 @@ public class CategoriesServlet extends HttpServlet {
 
     private void createCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Category category = new Category(request.getParameter("category_name"));
-        category.setUser(this.userBean.getCurrentUser());
+        Category category = new Category(request.getParameter("category_name"), this.userBean.getCurrentUser());
         List<String> errors = this.validationBean.validate(category);
 
         if (errors.isEmpty()) {
@@ -109,16 +100,13 @@ public class CategoriesServlet extends HttpServlet {
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Ausgewählte Kategorien besorgen
-        String[] selectedCategoryIds = request.getParameterValues("category");
+        User currentUser = this.userBean.getCurrentUser();
+        String[] selectedCategoryNames = request.getParameterValues("category");
         Category category;
 
-        for (String categoryId : selectedCategoryIds) {
-            try {
-                category = this.categoryBean.findById(Long.parseLong(categoryId));
-            } catch (NumberFormatException ex) {
-                continue;
-            }
+        for (String categoryName : selectedCategoryNames) {
+            CategoryId categoryId = new CategoryId(currentUser.getUsername(), categoryName);
+            category = this.categoryBean.findById(categoryId);
             if (category == null) {
                 continue;
             }

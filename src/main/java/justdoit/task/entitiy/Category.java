@@ -3,31 +3,42 @@ package justdoit.task.entitiy;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import justdoit.user.User;
 
 @Entity
+@IdClass(CategoryId.class)
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //TODO: Schlüssel User und Name?
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue()
     private Long id;
-
+    
+    @Id
+    @NotNull(message = "Der Kategorie muss ein Name gegeben werden")
+    private String categoryName;
+    
+    @Id
+    @Column(name="USERNAME_PK")
+    private String username;
+    
     @ManyToOne
+    @PrimaryKeyJoinColumn(name="USERNAME_PK", referencedColumnName="USERNAME")
     @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
     private User user;
 
-    @NotNull(message = "Der Kategorie muss ein Name gegeben werden")
-    private String category;
+//    @Id
+//    @NotNull
+//    private String categoryUsername;
 
     @OneToMany(mappedBy = "category")
     List<ToDo> toDos = new ArrayList<>();
@@ -37,8 +48,10 @@ public class Category implements Serializable {
 
     }
 
-    public Category(String category) {
-        this.category = category;
+    public Category(String categoryName, User user) {
+        this.categoryName = categoryName;
+        this.user = user;
+        this.username = user.getUsername();
     }
     //</editor-fold>
 
@@ -47,36 +60,37 @@ public class Category implements Serializable {
         return serialVersionUID;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public User getUser() {
+    public User getCategoryUser() {
         return user;
     }
 
-    public String getCategory() {
-        return category;
+    public String getCategoryName() {
+        return categoryName;
     }
 
     public List<ToDo> getToDos() {
         return toDos;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setUser(User user) {
+    public void setCategoryUser(User user) {
         this.user = user;
+        this.username = user.getUsername();
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public void setToDos(List<ToDo> toDos) {
         this.toDos = toDos;
+    }
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
     //</editor-fold>
 }

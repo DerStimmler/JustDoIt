@@ -68,8 +68,8 @@
                         <c:forEach items="${categories}" var="category">
                             <div class="row">
                                 <%--TODO: value und id anpassen, sobald category primary key angepasst wird --%>
-                                <input type="checkbox" name="category" value="${category.id}" id="${'category'.concat(category.id)}">
-                                <label for="${'category'.concat(category.id)}">${category.category}</label> 
+                                <input type="checkbox" name="category" value="${category.categoryName}" id="${'category'.concat(category.id)}">
+                                <label for="${'category'.concat(category.id)}">${category.categoryName}</label> 
                             </div>
                         </c:forEach>
                         <div class="side-by-side">
