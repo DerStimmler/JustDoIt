@@ -20,9 +20,10 @@
         <meta charset="utf-8">
 
         <title>JustDoIt | ${title}</title>
-        <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.min.css"/>" >
+
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-reboot.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-grid.min.css"/>" >
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>" />
 
         <!--        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -58,8 +59,9 @@
         </main>
 
         <!-- Footer der Seite -->
-        <footer class="fixed-bottom bg-light">
-            JustDoIt
+        <footer class="page-footer fixed-bottom font-small bg-light">
+            <div class="footer-copyright text-center">JustDoIt © 2019
+            </div>
         </footer>
 
         <!-- Skripte für Bootstrap -->

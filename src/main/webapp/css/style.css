@@ -12,7 +12,6 @@ html, body {
 
 body {
     font-family: sans-serif;
-    font-size: 12pt;
     display: flex;
     flex-direction: column;
 }
@@ -40,7 +39,7 @@ footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    height: 60px;
+    height: 40px;
 }
 
 main {
