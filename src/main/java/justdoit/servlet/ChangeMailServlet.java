@@ -1,7 +1,10 @@
 package justdoit.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import justdoit.exceptions.OldPasswordIncorrectException;
+import justdoit.common.ValidationBean;
+import justdoit.hash.HashGenerator;
 import justdoit.user.User;
 import justdoit.user.UserBean;
 
@@ -18,6 +22,12 @@ public class ChangeMailServlet extends HttpServlet {
 
     @EJB
     UserBean userBean;
+
+    @EJB
+    ValidationBean validationBean;
+
+    @Inject
+    HashGenerator hashGenerator;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -44,30 +54,27 @@ public class ChangeMailServlet extends HttpServlet {
         String passwordakt = user.getPassword();
         String password0 = request.getParameter("password0");
         String email = request.getParameter("email");
-
-        //password 0 ist das angegebene aktuelle Passwort
-        ChangeMailForm form = new ChangeMailForm(password0, email);
-        form.checkMailValues();
-
-        // Mail ändern
-        if (form.getErrors().isEmpty()) {
-            try {
-                this.userBean.changeMail(user, passwordakt, password0, email);
-            } catch (OldPasswordIncorrectException ex) {
-                //form.errors.add(ex.getMessage());
-            }
+        List<String> errors = new ArrayList<String>();
+        Form form = new Form();
+        form.setValues(request.getParameterMap());
+//ALTES PASSWORT ÜBERPRÜFEN
+        password0 = this.hashGenerator.getHashText(password0);
+        if (!passwordakt.equals(password0)) {
+            errors.add("Aktuelles Passwort ist nicht korrekt.");
         }
-        // Weiter zur nächsten Seite
-        if (form.getErrors().isEmpty()) {
-            // Keine Fehler: Startseite aufrufen
+
+        user.setEmail(email);
+        //Check neue Email in valdiationBean
+        errors = validationBean.validate(user, errors);
+        if (errors.isEmpty()) {
+            this.userBean.update(user);
             response.sendRedirect(request.getContextPath() + "/view/dashboard/");
         } else {
+            form.setErrors(errors);
             // Fehler: Formuler erneut anzeigen
             HttpSession session = request.getSession();
             session.setAttribute("changeMail_form", form);
-
             response.sendRedirect(request.getRequestURI());
         }
     }
-
 }

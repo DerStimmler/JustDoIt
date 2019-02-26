@@ -32,22 +32,22 @@
                     <%-- Eingabefelder --%>
                     <div class="form-group">
                         <label for="username">Benutzername:<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="username" value="${signup_form.username}" placeholder="Benutzername">
+                        <input type="text" class="form-control" name="username" value="${signup_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
                     </div>
 
                     <div class="form-group">
                         <label for="password1">Passwort:<span class="required">*</span></label>
-                        <input type="password" class="form-control" name="password1" value="${signup_form.password1}" placeholder="Passwort">
+                        <input type="password" class="form-control" name="password1" value="${signup_form.values["password1"][0]}" placeholder="Passwort" required="required">
                     </div>
 
                     <div class="form-group">
                         <label for="password2">Passwort wiederholen:<span class="required">*</span></label>
-                        <input type="password" class="form-control" name="password2" value="${signup_form.password2}" placeholder="Passwort wiederholen">
+                        <input type="password" class="form-control" name="password2" value="${signup_form.values["password2"][0]}" placeholder="Passwort wiederholen" required="required">
                     </div>
 
                     
                         <label for="email">E-Mail:<span class="required">*</span></label>
-                        <input type="email" class="form-control" name="email" value="${signup_form.email}" placeholder="E-Mail">
+                        <input type="email" class="form-control" name="email" value="${signup_form.values["email"][0]}" placeholder="E-Mail" required="required">
                         <small id="emailHelp" class="form-text text-muted">We need your E-Mail-Adress to notify you about your taks.</small>
                     
 

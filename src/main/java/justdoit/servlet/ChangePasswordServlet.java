@@ -1,7 +1,10 @@
 package justdoit.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import justdoit.exceptions.OldPasswordIncorrectException;
+import justdoit.common.ValidationBean;
+import justdoit.hash.HashGenerator;
 import justdoit.user.User;
 import justdoit.user.UserBean;
 
@@ -18,6 +22,12 @@ public class ChangePasswordServlet extends HttpServlet {
 
     @EJB
     UserBean userBean;
+
+    @EJB
+    ValidationBean validationBean;
+
+    @Inject
+    HashGenerator hashGenerator;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -38,37 +48,40 @@ public class ChangePasswordServlet extends HttpServlet {
 
         // username automatisch auslesen & Formulareingaben auslesen
         User user = userBean.getCurrentUser();
-        //String username = request.getParameter("username");
         String username = user.getUsername();
         long id = user.getId();
         String passwordakt = user.getPassword();
         String password0 = request.getParameter("password0");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
-
-        //ChangeForm form = new ChangeForm(username,password0 ,password1, password2, email);
-        ChangePasswordForm form = new ChangePasswordForm(password0, password1, password2);
-        form.checkValues();
-
-        // Passwort ändern
-        if (form.getErrors().isEmpty()) {
-            try {
-                this.userBean.changePassword(user, passwordakt, password0, password1);
-            } catch (OldPasswordIncorrectException ex) {
-                form.errors.add(ex.getMessage());
-            }
+        List<String> errors= new ArrayList<String>();
+        Form form = new Form();
+        form.setValues(request.getParameterMap());
+        //ALTES PASSWORT ÜBERPRÜFEN
+            password0 = this.hashGenerator.getHashText(password0);
+        if (!passwordakt.equals(password0)) {
+                errors.add("Aktuelles Passwort ist nicht korrekt.");
         }
-        // Weiter zur nächsten Seite
-        if (form.getErrors().isEmpty()) {
-            // Keine Fehler: Startseite aufrufen
+
+        //Passwort Hashen dann uNeues Passwort in User Objekt
+        password1 = this.hashGenerator.getHashText(password1);
+        password2 = this.hashGenerator.getHashText(password2);
+        user.setPassword(password1);
+        //Check neues Passwort in valdiationBean
+        errors=validationBean.validate(user,errors);
+        //Prüfung neues Passwort korrekt wiederholt?     
+        if (!password1.equals(password2)) {
+            errors.add("Die Passwörter stimmen nicht überein");
+        }
+        if (errors.isEmpty()) {
+            this.userBean.update(user);
             response.sendRedirect(request.getContextPath() + "/view/dashboard/");
         } else {
+            form.setErrors(errors);
             // Fehler: Formuler erneut anzeigen
             HttpSession session = request.getSession();
             session.setAttribute("change_form", form);
-
             response.sendRedirect(request.getRequestURI());
         }
     }
-
 }

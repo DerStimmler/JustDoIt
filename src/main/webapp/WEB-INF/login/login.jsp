@@ -29,12 +29,12 @@
                     <%-- Eingabefelder --%>
                     <div class="form-group">
                         <label for="j_username">Benutzername:<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="j_username" placeholder="Benutzername">
+                        <input type="text" class="form-control" name="j_username" placeholder="Benutzername" required="required" autofocus="autofocus">
                     </div>
 
                     <div class="form-group">
                         <label for="j_password">Passwort:<span class="required">*</span></label>
-                        <input type="password" class="form-control" name="j_password" placeholder="Passwort">
+                        <input type="password" class="form-control" name="j_password" placeholder="Passwort" required="required">
                     </div>
                     <%-- Button zum Abschicken --%>
                     <input class="btn btn-primary" type="submit" value="Einloggen">
