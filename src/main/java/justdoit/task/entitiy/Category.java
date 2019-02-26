@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import justdoit.user.User;
 
 @Entity
@@ -25,10 +26,12 @@ public class Category implements Serializable {
     
     @Id
     @NotNull(message = "Der Kategorie muss ein Name gegeben werden")
+    @Size(min = 1, message = "Bitte geben Sie der Kategorie einen gültigen Namen")
     private String categoryName;
     
     @Id
     @Column(name="USERNAME_PK")
+    @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
     private String username;
     
     @ManyToOne

@@ -7,6 +7,7 @@ package justdoit.task.entitiy;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javax.validation.constraints.NotNull;
 import justdoit.user.User;
 
 /**
@@ -14,8 +15,9 @@ import justdoit.user.User;
  * @author Lichter, Ansgar
  */
 public class CategoryId implements Serializable{
-
+    
     private String categoryName;
+    
     private String username;
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">

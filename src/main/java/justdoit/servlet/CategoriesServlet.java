@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import justdoit.common.ValidationBean;
+import justdoit.exceptions.CategoryAlreadyExistsException;
 import justdoit.task.bean.CategoryBean;
 import justdoit.task.bean.ToDoBean;
 import justdoit.task.entitiy.Category;
@@ -82,11 +83,17 @@ public class CategoriesServlet extends HttpServlet {
 
     private void createCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //TODO: bessere Lösung finden
+        CategoryId categoryId = new CategoryId(this.userBean.getCurrentUser().getUsername(), request.getParameter("category_name"));
         Category category = new Category(request.getParameter("category_name"), this.userBean.getCurrentUser());
         List<String> errors = this.validationBean.validate(category);
 
         if (errors.isEmpty()) {
-            this.categoryBean.saveNew(category);
+            try{
+                this.categoryBean.saveNew(category, categoryId);
+            } catch(CategoryAlreadyExistsException ex) {
+                errors.add("Die Kategorie existiert bereits");
+            }
         } else {
             Form form = new Form();
             form.setValues(request.getParameterMap());
