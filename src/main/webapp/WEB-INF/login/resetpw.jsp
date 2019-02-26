@@ -39,7 +39,7 @@
                         <%-- Eingabefelder --%>
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="text" class="form-control" name="username" value="${resetpw_form.username}" placeholder="Benutzername" required="required" autofocus="autofocus">
+                                <input type="text" class="form-control" name="username" value="${resetpw_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
                             </div>
                         </div>
                         <%-- Button zum Abschicken --%>

@@ -1,9 +1,11 @@
 package justdoit.servlet;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+import java.util.Random;
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,15 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import justdoit.exceptions.UserAlreadyExistsException;
+import justdoit.common.ValidationBean;
+import justdoit.hash.HashGenerator;
 import justdoit.mail.MailBean;
-import justdoit.mail.RegisterMailContent;
+import justdoit.mail.ResetPasswordMailContent;
 import justdoit.user.User;
 import justdoit.user.UserBean;
 
-/**
- * Sign Up Controller
- */
 @WebServlet(urlPatterns = {"/resetpw/"})
 public class ResetPasswordServlet extends HttpServlet {
 
@@ -28,6 +28,12 @@ public class ResetPasswordServlet extends HttpServlet {
 
     @EJB
     MailBean mailBean;
+
+    @EJB
+    ValidationBean validationBean;
+
+    @Inject
+    HashGenerator hashGenerator;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -49,22 +55,47 @@ public class ResetPasswordServlet extends HttpServlet {
         // Formulareingaben auslesen
         String username = request.getParameter("username");
 
-        Form form = new Form(request.getParameterMap());
-        form // Neuen Benutzer anlegen
-        if (form.getErrors().isEmpty()) {
+        List<String> errors = this.validationBean.validate(username);
 
+        User user = this.userBean.findByUsername(username);
+
+        if (user == null) {
+            errors.add("Der Benutzer existiert nicht!");
         }
+
+        Form form = new Form();
+        form.setValues(request.getParameterMap());
+        form.setErrors(errors);
+
         // Weiter zur nächsten Seite
-        if (form.getErrors().isEmpty()) {
+        if (errors.isEmpty()) {
+            this.resetPassword(user);
             // Keine Fehler: Startseite aufrufen
             response.sendRedirect(request.getContextPath() + "/index.html");
         } else {
             // Fehler: Formuler erneut anzeigen
             HttpSession session = request.getSession();
-            session.setAttribute("signup_form", form);
+            session.setAttribute("resetpw_form", form);
 
             response.sendRedirect(request.getRequestURI());
         }
     }
 
+    private void resetPassword(User user) {
+
+        String newPassword = this.generateNewPassword();
+        user.setPassword(this.hashGenerator.getHashText(newPassword));
+        this.userBean.update(user);
+        this.sendResetPasswordMail(user, newPassword);
+    }
+
+    private void sendResetPasswordMail(User user, String newPassword) {
+        ResetPasswordMailContent resetPasswordMailContent = new ResetPasswordMailContent(user, newPassword);
+        String pw = resetPasswordMailContent.getNewPassword();
+        this.mailBean.sendMail(resetPasswordMailContent);
+    }
+
+    private String generateNewPassword() {
+        return Long.toHexString(Double.doubleToLongBits(Math.random())).substring(0, 9);
+    }
 }

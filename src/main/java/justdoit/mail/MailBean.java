@@ -27,7 +27,7 @@ public class MailBean {
 
     private MailConfig mailConfig = readConfigFromFile();
 
-    public void sendMail(MailContent mailContent) throws AddressException, MessagingException {
+    public void sendMail(MailContent mailContent) {
         MailAuthenticator auth = new MailAuthenticator(mailConfig.username, mailConfig.password);
 
         Properties properties = new Properties();

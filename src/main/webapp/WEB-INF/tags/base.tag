@@ -28,13 +28,8 @@
         <jsp:invoke fragment="head"/>
     </head>
     <body>
-        <!-- Header der Seite -->
-        <header>
-
-        </header>
-
         <!-- Menü der Seite -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <span class="navbar-brand mb-0 h1">JustDoIt</span>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -52,7 +47,7 @@
         </main>
 
         <!-- Footer der Seite -->
-        <footer>
+        <footer class="fixed-bottom bg-light">
             JustDoIt
         </footer>
     </body>

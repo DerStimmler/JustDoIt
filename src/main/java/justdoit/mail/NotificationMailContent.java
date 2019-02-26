@@ -18,6 +18,7 @@ public class NotificationMailContent extends MailContent {
         this.taskName = taskName;
         this.dueDate = dueDate;
         this.dueTime = dueTime;
+        this.setContent();
     }
 
     public NotificationMailContent() {

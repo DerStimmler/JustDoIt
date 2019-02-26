@@ -1,3 +1,8 @@
+a {
+    text-decoration: none;
+    cursor: pointer;
+}
+
 html, body {
     padding: 0;
     margin: 0;
@@ -39,6 +44,7 @@ footer {
 }
 
 main {
+    background-color: darkgrey;
     padding-left: 10%;
     padding-right: 10%;
     padding-bottom: 5%;
@@ -46,17 +52,4 @@ main {
     display: flex;
     flex-direction: column;
     flex: 1;
-}
-
-h1 {
-    text-align: center;
-    color: blue;
-    text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
-    margin: 0;
-}
-
-a {
-    text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
 }

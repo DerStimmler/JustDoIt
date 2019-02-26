@@ -65,23 +65,19 @@ public class SignUpServlet extends HttpServlet {
 
             } catch (UserAlreadyExistsException ex) {
                 form.errors.add(ex.getMessage());
-            } catch (AddressException ex) {
-                form.errors.add(ex.getMessage());
-            } catch (MessagingException ex) {
-                form.errors.add(ex.getMessage());
+            }
+            // Weiter zur nächsten Seite
+            if (form.getErrors().isEmpty()) {
+                // Keine Fehler: Startseite aufrufen
+                response.sendRedirect(request.getContextPath() + "/index.html");
+            } else {
+                // Fehler: Formuler erneut anzeigen
+                HttpSession session = request.getSession();
+                session.setAttribute("signup_form", form);
+
+                response.sendRedirect(request.getRequestURI());
             }
         }
-        // Weiter zur nächsten Seite
-        if (form.getErrors().isEmpty()) {
-            // Keine Fehler: Startseite aufrufen
-            response.sendRedirect(request.getContextPath() + "/index.html");
-        } else {
-            // Fehler: Formuler erneut anzeigen
-            HttpSession session = request.getSession();
-            session.setAttribute("signup_form", form);
 
-            response.sendRedirect(request.getRequestURI());
-        }
     }
-
 }
