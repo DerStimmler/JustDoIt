@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.user;
 
 import javax.annotation.Resource;
@@ -12,15 +7,10 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import justdoit.exceptions.InvalidCredentialException;
 import justdoit.exceptions.OldPasswordIncorrectException;
 import justdoit.exceptions.UserAlreadyExistsException;
 import justdoit.hash.HashGenerator;
 
-/**
- *
- * @author Lichter, Ansgar
- */
 @Stateless
 public class UserBean {
     //TODO: UserBean von EntityBean erben lassen und entsprechend anpassen (update und delete können hier dann gelöscht werden)

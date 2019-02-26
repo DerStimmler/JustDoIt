@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.servlet;
 
 import java.io.IOException;
@@ -22,22 +17,18 @@ import justdoit.task.entitiy.Category;
 import justdoit.task.entitiy.ToDo;
 import justdoit.user.UserBean;
 
-/**
- *
- * @author Lichter, Ansgar
- */
 @WebServlet(name = "CategriesServlet", urlPatterns = {"/categories/"})
 public class CategoriesServlet extends HttpServlet {
-    
+
     @EJB
     CategoryBean categoryBean;
-    
+
     @EJB
     ToDoBean toDoBean;
-    
+
     @EJB
     UserBean userBean;
-    
+
     @EJB
     ValidationBean validationBean;
 
@@ -96,32 +87,32 @@ public class CategoriesServlet extends HttpServlet {
         }
         response.sendRedirect(request.getRequestURI());
     }
-    
+
     private void createCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Category category = new Category(request.getParameter("category_name"));
         category.setUser(this.userBean.getCurrentUser());
         List<String> errors = this.validationBean.validate(category);
-        
+
         if (errors.isEmpty()) {
             this.categoryBean.saveNew(category);
         } else {
             Form form = new Form();
             form.setValues(request.getParameterMap());
             form.setErrors(errors);
-            
+
             HttpSession session = request.getSession();
             session.setAttribute("category_form", form);
         }
     }
-    
+
     private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         //Ausgewählte Kategorien besorgen
         String[] selectedCategoryIds = request.getParameterValues("category");
         Category category;
-        
+
         for (String categoryId : selectedCategoryIds) {
             try {
                 category = this.categoryBean.findById(Long.parseLong(categoryId));
@@ -141,5 +132,5 @@ public class CategoriesServlet extends HttpServlet {
             this.categoryBean.delete(category);
         }
     }
-    
+
 }

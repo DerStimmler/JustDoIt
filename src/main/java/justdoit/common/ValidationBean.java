@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.common;
 
 import java.util.ArrayList;
@@ -14,25 +9,19 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 /**
+ * This bean validates an entity before saving the entity to the database. (cf.
+ * https://www.baeldung.com/javax-validation).
  *
- * @author Lichter, Ansgar
  */
-
-/**
- * This bean validates an entity before saving the entity to the database.
- * (cf. https://www.baeldung.com/javax-validation).
- * 
- */
-
 @Stateless
 public class ValidationBean {
-    
+
     @Resource
     Validator validator;
-    
+
     /**
      * This method validates an entity and returns a new List of errors.
-     * 
+     *
      * @param <T>
      * @param object
      * @return List with error messages
@@ -41,11 +30,11 @@ public class ValidationBean {
         List<String> errors = new ArrayList<>();
         return this.validate(object, errors);
     }
-    
+
     /**
-     * This method validates an entity and adds the error message to a 
-     * already existing list which is passed as a parameter.
-     * 
+     * This method validates an entity and adds the error message to a already
+     * existing list which is passed as a parameter.
+     *
      * @param <T>
      * @param object
      * @param errors
@@ -53,11 +42,11 @@ public class ValidationBean {
      */
     public <T> List<String> validate(T object, List<String> errors) {
         Set<ConstraintViolation<T>> violations = this.validator.validate(object);
-        
+
         violations.forEach((ConstraintViolation<T> violation) -> {
             errors.add(violation.getMessage());
         });
-        
+
         return errors;
     }
 }

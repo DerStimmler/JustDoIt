@@ -1,24 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.mail;
 
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import justdoit.user.User;
-import justdoit.user.UserBean;
 
-/**
- *
- * @author tim.schneider
- */
 @Stateless
 public class ResetPasswordMailContent extends MailContent {
 
     private String newPassword;
 
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ResetPasswordMailContent(User user, String newPassword) {
         super(user, "ResetPassword Mail");
         this.newPassword = newPassword;
@@ -27,7 +17,9 @@ public class ResetPasswordMailContent extends MailContent {
     public ResetPasswordMailContent() {
 
     }
+//</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public String getNewPassword() {
         return newPassword;
     }
@@ -35,5 +27,6 @@ public class ResetPasswordMailContent extends MailContent {
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
+//</editor-fold>
 
 }

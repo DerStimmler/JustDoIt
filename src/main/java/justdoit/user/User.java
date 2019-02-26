@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.user;
 
 import java.io.Serializable;
@@ -21,10 +16,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- *
- * @author Lichter, Ansgar
- */
 @Entity
 @Table(name = "JUSTDOIT_USER")
 public class User implements Serializable {
@@ -33,22 +24,22 @@ public class User implements Serializable {
 
     @Column(name = "ID")
     private Long id;
-    
+
     @Id
     @Column(name = "USERNAME", length = 64)
     @Size(min = 5, max = 64, message = "Ihr gewünschter Benutzername darf nur zwischen 5 und 64 Zeichen lang sein")
     @NotNull(message = "Bitte geben Sie einen Benutzernamen ein!")
     private String username;
-    
+
 //    //Length 64 reuqired becuase of sha-256
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Bitte geben Sie ein Passwort ein!")
     private String password;
-    
-    @Column(name = "EMAIL" )
+
+    @Column(name = "EMAIL")
     @NotNull(message = "Bitte geben Sie eine E-Mail-Adresse ein!")
     private String email;
-    
+
     @ElementCollection
     @CollectionTable(
             name = "USER_GROUP",
@@ -56,17 +47,16 @@ public class User implements Serializable {
     )
     @Column(name = "GROUPNAME")
     List<String> groups = new ArrayList<>();
-    
-    
+
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public User() {
     }
 
-//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public User(String username, String password, String email) {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.id =  Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + (10000 + new Random().nextInt(90000))); //aktuelles Datum + Zeit + 5 stellige Random Zahl
+        this.id = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + (10000 + new Random().nextInt(90000))); //aktuelles Datum + Zeit + 5 stellige Random Zahl
     }
 //</editor-fold>
 
@@ -74,37 +64,35 @@ public class User implements Serializable {
     public String getUsername() {
         return username;
     }
-    
+
     public void setUsername(String id) {
         this.username = id;
     }
-    
+
     public void setPassword(String password) {
         this.password = password;
     }
-    
+
     public String getPassword() {
         return this.password;
     }
-    
+
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getEmail() {
         return email;
     }
-    
+
     public void setEmail(String email) {
         this.email = email;
     }
 //</editor-fold>
-    
-    
 
     public boolean checkPassword(String password) {
         return this.password.equals(password);

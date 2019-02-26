@@ -1,21 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.mail;
 
 import java.sql.Time;
 import java.util.Date;
-import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import justdoit.user.User;
-import justdoit.user.UserBean;
 
-/**
- *
- * @author tim.schneider
- */
 @Stateless
 public class NotificationMailContent extends MailContent {
 
@@ -23,6 +12,7 @@ public class NotificationMailContent extends MailContent {
     private Date dueDate;
     private Time dueTime;
 
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public NotificationMailContent(User user, String taskName, Date dueDate, Time dueTime) {
         super(user, "Benachrichtigungsmail");
         this.taskName = taskName;
@@ -33,7 +23,9 @@ public class NotificationMailContent extends MailContent {
     public NotificationMailContent() {
 
     }
+//</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public String getTaskName() {
         return taskName;
     }
@@ -57,5 +49,6 @@ public class NotificationMailContent extends MailContent {
     public void setDueTime(Time dueTime) {
         this.dueTime = dueTime;
     }
+//</editor-fold>
 
 }

@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.mail;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
 import org.apache.commons.io.IOUtils;
 
-/**
- *
- * @author tim.schneider
- */
 public class TemplateParser {
 
     private final String pathRegisterMailTemplate = "/RegisterMailTemplate.html";

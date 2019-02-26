@@ -1,19 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.mail;
 
-import javax.ejb.EJB;
-import javax.inject.Inject;
 import justdoit.user.User;
-import justdoit.user.UserBean;
 
-/**
- *
- * @author tim.schneider
- */
 abstract class MailContent {
 
     TemplateParser templateParser;
@@ -23,6 +11,7 @@ abstract class MailContent {
     protected String subject;
     protected String content;
 
+//<editor-fold defaultstate="collapsed" desc="Konstruktor">
     protected MailContent(User user, String subject) {
         this.username = user.getUsername();
         this.recipientAdress = user.getEmail();
@@ -35,7 +24,9 @@ abstract class MailContent {
     protected MailContent() {
 
     }
+//</editor-fold>
 
+//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public String getUsername() {
         return username;
     }
@@ -67,4 +58,5 @@ abstract class MailContent {
     public void setContent(String content) {
         this.content = content;
     }
+//</editor-fold>
 }
