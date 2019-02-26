@@ -12,6 +12,7 @@ public class ResetPasswordMailContent extends MailContent {
     public ResetPasswordMailContent(User user, String newPassword) {
         super(user, "ResetPassword Mail");
         this.newPassword = newPassword;
+        this.setContent();
     }
 
     public ResetPasswordMailContent() {

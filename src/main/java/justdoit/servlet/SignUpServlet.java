@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,10 +71,6 @@ public class SignUpServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/index.html");
             } catch (UserAlreadyExistsException ex) {
                 errors.add(ex.getMessage());
-            } catch (AddressException ex) {
-                errors.add(ex.getMessage());
-            } catch (MessagingException ex) {
-                errors.add(ex.getMessage());
             }
         } else {
             Form form = new Form();
@@ -84,9 +78,6 @@ public class SignUpServlet extends HttpServlet {
             form.setErrors(errors);
             HttpSession session = request.getSession();
             session.setAttribute("signup_form", form);
-
-            response.sendRedirect(request.getRequestURI());
         }
     }
-
 }

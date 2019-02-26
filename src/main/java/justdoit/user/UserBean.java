@@ -43,7 +43,6 @@ public class UserBean {
         em.persist(user);
     }
 
-    @RolesAllowed("justdoit-user")
     public User update(User user) {
         return em.merge(user);
     }

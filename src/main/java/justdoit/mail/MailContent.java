@@ -16,13 +16,15 @@ abstract class MailContent {
         this.username = user.getUsername();
         this.recipientAdress = user.getEmail();
         this.subject = subject;
-
-        templateParser = new TemplateParser();
-        this.content = templateParser.parseTemplate(this);
     }
 
     protected MailContent() {
 
+    }
+
+    protected void setContent() {
+        templateParser = new TemplateParser();
+        this.content = templateParser.parseTemplate(this);
     }
 //</editor-fold>
 
