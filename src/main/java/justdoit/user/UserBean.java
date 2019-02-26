@@ -7,7 +7,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import justdoit.exceptions.OldPasswordIncorrectException;
 import justdoit.exceptions.UserAlreadyExistsException;
 import justdoit.hash.HashGenerator;
 
@@ -44,29 +43,6 @@ public class UserBean {
         em.persist(user);
     }
 
-    @RolesAllowed("justdoit-user")
-    public void changePassword(User username, String passwordAkt, String oldPassword, String newPassword) throws OldPasswordIncorrectException {
-        oldPassword = this.hashGenerator.getHashText(oldPassword);
-        if (username == null || !passwordAkt.equals(oldPassword)) {
-            throw new OldPasswordIncorrectException("Altes Passwort ist nicht korrekt.");
-        }
-        //Hash the password
-        newPassword = this.hashGenerator.getHashText(newPassword);
-        username.setPassword(newPassword);
-        em.merge(username);
-    }
-
-    @RolesAllowed("justdoit-user")
-    public void changeMail(User username, String passwordAkt, String oldPassword, String email) {
-        oldPassword = this.hashGenerator.getHashText(oldPassword);
-        if (username == null || !passwordAkt.equals(oldPassword)) {
-            throw new OldPasswordIncorrectException("Altes Passwort ist nicht korrekt.");
-        }
-        username.setEmail(email);
-        em.merge(username);
-    }
-
-    @RolesAllowed("justdoit-user")
     public User update(User user) {
         return em.merge(user);
     }

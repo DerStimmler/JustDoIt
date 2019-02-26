@@ -25,20 +25,16 @@
         <div class="container">
             <h1>Benutzerdaten ändern</h1>
             <form method="post" class="stacked">
-                
-                    <%-- CSRF-Token --%>
-<!--                    <input type="hidden" name="csrf_token" value="${csrf_token}">-->
-
                     
                     <%-- Eingabefelder --%>
                         <div class="form-group">
                             <label for="password0">aktuelles Passwort:<span class="required">*</span></label>
-                            <input type="password" class="form-control" name="password0" value="${changeMail_form.password0}" placeholder="aktuelles Passwort">
+                            <input type="password" class="form-control" name="password0" value="${changeMail_form.values["password0"][0]}" placeholder="aktuelles Passwort" required="required" autofocus="autofocus">
                          </div>
                          
                             <div class="form-group">
                                 <label for="email">E-Mail-Adresse:<span class="required">*</span></label>
-                                <input type="email" class="form-control" name="email" value="${changeMail_form.email}" placeholder="E-Mail-Adresse">
+                                <input type="email" class="form-control" name="email" value="${changeMail_form.values["email"][0]}" placeholder="E-Mail-Adresse" required="required">
                             </div>    
                     <%--
                         <label for="email">E-Mail:<span class="required">*</span></label>

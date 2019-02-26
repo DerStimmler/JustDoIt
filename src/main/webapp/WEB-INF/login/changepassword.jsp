@@ -33,15 +33,15 @@
                     <%-- Eingabefelder --%>
                         <div  class="form-group">
                             <label for="password0">aktuelles Passwort:<span class="required">*</span></label>
-                            <input type="password" class="form-control" name="password0" value="${change_form.password0}" placeholder="aktuelles Passwort">
+                            <input type="password" class="form-control" name="password0" value="${change_form.values['password0'][0]}" placeholder="aktuelles Passwort" required="required" autofocus="autofocus">
                         </div>  
                             <div class="form-group">
                                 <label for="password1">Passwort:<span class="required">*</span></label>
-                                <input type="password" class="form-control" name="password1" value="${change_form.password1}" placeholder="Passwort">
+                                <input type="password" class="form-control" name="password1" value="${change_form.values['password1'][0]}" placeholder="Passwort" required="required">
                             </div>
                             <div class="form-group">
                                  <label for="password2">Passwort wiederholen:<span class="required">*</span></label>
-                                 <input type="password" class="form-control" name="password2" value="${change_form.password2}" placeholder="Passwort wiederholen">
+                                 <input type="password" class="form-control" name="password2" value="${change_form.values['password2'][0]}" placeholder="Passwort wiederholen" required="required">
                             </div>
 
                     <%--

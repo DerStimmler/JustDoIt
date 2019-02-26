@@ -16,30 +16,46 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/signup/"/>">Registrieren</a>
-        </div>
+        <li class="nav-item">
+            <a class="nav-link" href="<c:url value="/"/>">Home</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Benutzerdaten ändern
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="<c:url value="/changemail/"/>">E-Mail ändern</a>
+                <a class="dropdown-item" href="<c:url value="/changepw/"/>">Passwort ändern</a>
+            </div>
+        </li>
     </jsp:attribute>
 
     <jsp:attribute name="main">
         <div class="container">
-            <h1>Login</h1>
-            <form action="j_security_check" method="post" class="stacked">
-                <div class="column">
-                    <%-- Eingabefelder --%>
-                    <div class="form-group">
-                        <label for="j_username">Benutzername:<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="j_username" placeholder="Benutzername">
+            <div class="card card-login mx-auto mt-5">
+                <div class="card-header">Login</div>
+                <div class="card-body">
+                    <form action="j_security_check" method="post" class="stacked">
+                        <%-- Eingabefelder --%>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <input type="text" class="form-control" name="j_username" placeholder="Benutzername" required="required" autofocus="autofocus">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <input type="password" class="form-control" name="j_password" placeholder="Passwort" required="required">
+                            </div>
+                        </div>
+                        <%-- Button zum Abschicken --%>
+                        <input class="btn btn-primary btn-block" type="submit" value="Einloggen">
+                    </form>
+                    <div class="text-center">
+                        <a class="d-block small mt-3" href="<c:url value="/signup/"/>">Registrieren</a>
+                        <a class="d-block small" href="<c:url value="/resetpw/"/>">Passwort vergessen?</a>
                     </div>
-
-                    <div class="form-group">
-                        <label for="j_password">Passwort:<span class="required">*</span></label>
-                        <input type="password" class="form-control" name="j_password" placeholder="Passwort">
-                    </div>
-                    <%-- Button zum Abschicken --%>
-                    <input class="btn btn-primary" type="submit" value="Einloggen">
                 </div>
-            </form>
+            </div>
         </div>
     </jsp:attribute>
 </template:base>

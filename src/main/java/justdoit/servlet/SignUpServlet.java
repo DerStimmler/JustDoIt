@@ -1,9 +1,9 @@
 package justdoit.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import justdoit.common.ValidationBean;
 import justdoit.exceptions.UserAlreadyExistsException;
 import justdoit.mail.MailBean;
 import justdoit.mail.RegisterMailContent;
@@ -28,6 +29,9 @@ public class SignUpServlet extends HttpServlet {
 
     @EJB
     MailBean mailBean;
+
+    @EJB
+    ValidationBean validationBean;
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -51,37 +55,29 @@ public class SignUpServlet extends HttpServlet {
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
         String email = request.getParameter("email");
-
-        SignUpForm form = new SignUpForm(username, password1, password2, email);
-        form.checkValues();
-
-        // Neuen Benutzer anlegen
-        if (form.getErrors().isEmpty()) {
+        User user = new User(username, password1, email);
+        List<String> errors = new ArrayList<String>();
+        if (!password1.equals(password2)) {
+            errors.add("Die Passwörter stimmen nicht überein");
+        }
+        errors = validationBean.validate(user, errors);
+        if (errors.isEmpty()) {
             try {
                 this.userBean.signup(username, password1, email);
-                User user = this.userBean.findByUsername(username);
-                RegisterMailContent mailContent = new RegisterMailContent(user);
+                User usermail = this.userBean.findByUsername(username);
+                RegisterMailContent mailContent = new RegisterMailContent(usermail);
                 this.mailBean.sendMail(mailContent);
-
+                // Keine Fehler: Startseite aufrufen
+                response.sendRedirect(request.getContextPath() + "/index.html");
             } catch (UserAlreadyExistsException ex) {
-                form.errors.add(ex.getMessage());
-            } catch (AddressException ex) {
-                form.errors.add(ex.getMessage());
-            } catch (MessagingException ex) {
-                form.errors.add(ex.getMessage());
+                errors.add(ex.getMessage());
             }
-        }
-        // Weiter zur nächsten Seite
-        if (form.getErrors().isEmpty()) {
-            // Keine Fehler: Startseite aufrufen
-            response.sendRedirect(request.getContextPath() + "/index.html");
         } else {
-            // Fehler: Formuler erneut anzeigen
+            Form form = new Form();
+            form.setValues(request.getParameterMap());
+            form.setErrors(errors);
             HttpSession session = request.getSession();
             session.setAttribute("signup_form", form);
-
-            response.sendRedirect(request.getRequestURI());
         }
     }
-
 }

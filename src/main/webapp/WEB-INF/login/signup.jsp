@@ -23,39 +23,40 @@
 
     <jsp:attribute name="main">
         <div class="container">
-            <h1>Registrieren</h1>
-            <form method="post" class="stacked">
-                
-                    <%-- CSRF-Token --%>
-<!--                    <input type="hidden" name="csrf_token" value="${csrf_token}">-->
-
-                    <%-- Eingabefelder --%>
-                    <div class="form-group">
-                        <label for="username">Benutzername:<span class="required">*</span></label>
-                        <input type="text" class="form-control" name="username" value="${signup_form.username}" placeholder="Benutzername">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password1">Passwort:<span class="required">*</span></label>
-                        <input type="password" class="form-control" name="password1" value="${signup_form.password1}" placeholder="Passwort">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="password2">Passwort wiederholen:<span class="required">*</span></label>
-                        <input type="password" class="form-control" name="password2" value="${signup_form.password2}" placeholder="Passwort wiederholen">
-                    </div>
-
-                    
-                        <label for="email">E-Mail:<span class="required">*</span></label>
-                        <input type="email" class="form-control" name="email" value="${signup_form.email}" placeholder="E-Mail">
-                        <small id="emailHelp" class="form-text text-muted">We need your E-Mail-Adress to notify you about your taks.</small>
-                    
-
-                    <%-- Button zum Abschicken --%>
-                    <div class="side-by-side">
-                        <input class="btn btn-primary" type="submit" value="Registrieren">
-                    </div>
-                
+            <div class="card card-register mx-auto mt-5">
+                <div class="card-header">Registrieren</div>
+                <div class="card-body">
+                    <form method="post" class="stacked">
+                        <%-- Eingabefelder --%>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <input type="text" class="form-control" name="username" value="${signup_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="password" class="form-control" name="password1" value="${signup_form.values["password1"][0]}" placeholder="Passwort" required="required">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-label-group">
+                                        <input type="password" class="form-control" name="password2" value="${signup_form.values["password2"][0]}" placeholder="Passwort wiederholen" required="required">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <input type="email" class="form-control" name="email" value="${signup_form.values["email"][0]}" placeholder="E-Mail" required="required">
+                                <small id="emailHelp" class="form-text text-muted">We need your E-Mail-Adress to notify you about your taks.</small>
+                            </div>
+                        </div>
+                        <%-- Button zum Abschicken --%>
+                        <input class="btn btn-primary btn-block" type="submit" value="Registrieren">
+                    </form>
+                </div>
 
                 <%-- Fehlermeldungen --%>
                 <c:if test="${!empty signup_form.errors}">
@@ -65,7 +66,8 @@
                             </c:forEach>
                     </ul>
                 </c:if>
-            </form>
+            </div>
         </div>
+
     </jsp:attribute>
 </template:base>

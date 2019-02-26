@@ -39,7 +39,7 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <input type="text" name="category_name" value="${category_form.values["category_name"][0]}">
+                        <input type="text" name="category_name" value="${category_form.values["category_name"][0]}" autofocus="autofocus">
                     </div>
 
                     <%-- Button zum Abschicken --%>
