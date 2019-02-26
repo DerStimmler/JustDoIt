@@ -6,15 +6,18 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import justdoit.task.entitiy.ToDo;
 
 @Entity
 @Table(name = "JUSTDOIT_USER")
@@ -47,6 +50,9 @@ public class User implements Serializable {
     )
     @Column(name = "GROUPNAME")
     List<String> groups = new ArrayList<>();
+    
+    @ManyToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    List<ToDo> todos = new ArrayList<>();   
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public User() {
@@ -91,6 +97,14 @@ public class User implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<ToDo> getTodos() {
+        return todos;
+    }
+
+    public void setTodos(List<ToDo> todos) {
+        this.todos = todos;
     }
 //</editor-fold>
 

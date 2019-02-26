@@ -2,7 +2,9 @@ package justdoit.task.entitiy;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import justdoit.user.User;
@@ -48,9 +51,9 @@ public class ToDo implements Serializable {
     @NotNull(message = "Bitte geben Sie eine Uhrzeit an")
     private Time dueTime;
 
-    @ManyToOne
-    @NotNull(message = "Die Aufgabe muss einem Benutzer zugeordnet werden")
-    private User user;
+    @ManyToMany
+    @NotNull(message = "Die Aufgabe muss mindestens einem Benutzer zugeordnet werden")
+    List<User> user=new ArrayList<>();
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, User user) {
@@ -61,7 +64,7 @@ public class ToDo implements Serializable {
         this.priority = priority;
         this.dueDate = dueDate;
         this.dueTime = dueTime;
-        this.user = user;
+        this.user = (List<User>) user;
     }
 
     public ToDo() {
@@ -113,10 +116,6 @@ public class ToDo implements Serializable {
         return priority;
     }
 
-    public User getUser() {
-        return user;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -141,7 +140,11 @@ public class ToDo implements Serializable {
         this.priority = priority;
     }
 
-    public void setUsername(User user) {
+    public List<User> getUser() {
+        return user;
+    }
+
+    public void setUser(List<User> user) {
         this.user = user;
     }
     //</editor-fold>
