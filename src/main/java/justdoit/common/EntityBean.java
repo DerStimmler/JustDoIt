@@ -39,10 +39,10 @@ public abstract class EntityBean<Entity, EntityId> {
     // Datensätze speichern, ändern, löschen
     //
     public Entity saveNew(Entity entity, EntityId id) throws EntityAlreadyExistsException {
-        if(this.findById(id) != null) {
-            throw new EntityAlreadyExistsException("Der / Die" + this.entityClass + "existiert bereits");
+        if (this.findById(id) != null) {
+            throw new EntityAlreadyExistsException(this.entityClass.toString());
         }
-        
+
         em.persist(entity);
         return em.merge(entity);
     }

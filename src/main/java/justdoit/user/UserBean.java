@@ -33,7 +33,7 @@ public class UserBean {
 
     public void signup(String username, String password, String email) throws UserAlreadyExistsException {
         if (em.find(User.class, username) != null) {
-            throw new UserAlreadyExistsException("Der Benutzername $Name ist bereits vergeben.".replace("$Name", username));
+            throw new UserAlreadyExistsException(username);
         }
         //Hash the password
         password = this.hashGenerator.getHashText(password);
