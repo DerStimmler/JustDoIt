@@ -85,7 +85,7 @@
                     <div class="side-by-side">
                         <select name="todo_priority">
                             <c:forEach items="${priorities}" var="priority">
-                                <option value="${priority}">${priority}</option>
+                                <option value="${priority}">${priority.label}</option>
                             </c:forEach>
                         </select>
                     </div>
