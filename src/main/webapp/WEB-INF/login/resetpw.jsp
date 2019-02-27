@@ -16,18 +16,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <li class="nav-item">
-            <a class="nav-link" href="<c:url value="/"/>">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Benutzerdaten ändern
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="<c:url value="/changemail/"/>">E-Mail ändern</a>
-                <a class="dropdown-item" href="<c:url value="/changepw/"/>">Passwort ändern</a>
-            </div>
-        </li>
+
     </jsp:attribute>
 
     <jsp:attribute name="main">
@@ -35,6 +24,10 @@
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">Passwort zurücksetzen</div>
                 <div class="card-body">
+                    <div class="text-center mb-4">
+                        <h4>Passwort vergessen?</h4>
+                        <p>Gib deinen Benutzernamen ein und wir schicken dir eine E-Mail mit einem neuen Passwort.</p>
+                    </div>
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
                         <div class="form-group">

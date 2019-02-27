@@ -14,18 +14,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/logout/"/>">Logout</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/changepw/"/>">Passwort ändern</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/changemail/"/>">E-Mail-Adresse ändern</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/index.html"/>">Dashboard</a>
-        </div>
+
     </jsp:attribute>
 
     <jsp:attribute name="main">
@@ -69,14 +58,14 @@
                             <div class="row">
                                 <%--TODO: value und id anpassen, sobald category primary key angepasst wird --%>
                                 <input type="checkbox" name="category" value="${category.categoryName}" id="${'category'.concat(category.id)}">
-                                <label for="${'category'.concat(category.id)}">${category.categoryName}</label> 
+                                <label for="${'category'.concat(category.id)}">${category.categoryName}</label>
                             </div>
                         </c:forEach>
                         <div class="side-by-side">
                             <button class="icon-pencil" name="action" value="delete" type="submit">
                                 Ausgewählte Kategorien löschen
                             </button>
-                        </div>    
+                        </div>
                     </c:otherwise>
                 </c:choose>
             </form>

@@ -34,7 +34,7 @@ public class ChangeMailServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/changemail.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/changemail.jsp");
         dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen

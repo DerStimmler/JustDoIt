@@ -14,18 +14,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/logout/"/>">Logout</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/changepw/"/>">Passwort ändern</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/changemail/"/>">E-Mail-Adresse ändern</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/categories/"/>">Kategorien bearbeiten</a>
-        </div>
+
     </jsp:attribute>
 
     <jsp:attribute name="main">

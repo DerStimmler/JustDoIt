@@ -34,7 +34,7 @@ public class ChangePasswordServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/changepassword.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/changepassword.jsp");
         dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen
@@ -54,13 +54,13 @@ public class ChangePasswordServlet extends HttpServlet {
         String password0 = request.getParameter("password0");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
-        List<String> errors= new ArrayList<String>();
+        List<String> errors = new ArrayList<String>();
         Form form = new Form();
         form.setValues(request.getParameterMap());
         //ALTES PASSWORT ÜBERPRÜFEN
-            password0 = this.hashGenerator.getHashText(password0);
+        password0 = this.hashGenerator.getHashText(password0);
         if (!passwordakt.equals(password0)) {
-                errors.add("Aktuelles Passwort ist nicht korrekt.");
+            errors.add("Aktuelles Passwort ist nicht korrekt.");
         }
 
         //Passwort Hashen dann uNeues Passwort in User Objekt
@@ -68,8 +68,8 @@ public class ChangePasswordServlet extends HttpServlet {
         password2 = this.hashGenerator.getHashText(password2);
         user.setPassword(password1);
         //Check neues Passwort in valdiationBean
-        errors=validationBean.validate(user,errors);
-        //Prüfung neues Passwort korrekt wiederholt?     
+        errors = validationBean.validate(user, errors);
+        //Prüfung neues Passwort korrekt wiederholt?
         if (!password1.equals(password2)) {
             errors.add("Die Passwörter stimmen nicht überein");
         }

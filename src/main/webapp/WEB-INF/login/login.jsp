@@ -16,18 +16,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <li class="nav-item">
-            <a class="nav-link" href="<c:url value="/"/>">Home</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Benutzerdaten ändern
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="<c:url value="/changemail/"/>">E-Mail ändern</a>
-                <a class="dropdown-item" href="<c:url value="/changepw/"/>">Passwort ändern</a>
-            </div>
-        </li>
+
     </jsp:attribute>
 
     <jsp:attribute name="main">

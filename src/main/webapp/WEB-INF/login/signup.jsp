@@ -16,9 +16,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/logout/"/>">Einloggen</a>
-        </div>
+
     </jsp:attribute>
 
     <jsp:attribute name="main">
