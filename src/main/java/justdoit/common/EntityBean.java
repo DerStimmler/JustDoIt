@@ -3,7 +3,7 @@ package justdoit.common;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import justdoit.exceptions.CategoryAlreadyExistsException;
+import justdoit.exceptions.EntityAlreadyExistsException;
 
 /**
  * Abstrakte Basisklasse für EJBs, die einfach nur Standardmethoden zum Lesen
@@ -38,11 +38,9 @@ public abstract class EntityBean<Entity, EntityId> {
     //
     // Datensätze speichern, ändern, löschen
     //
-    public Entity saveNew(Entity entity, EntityId id) throws CategoryAlreadyExistsException {
+    public Entity saveNew(Entity entity, EntityId id) throws EntityAlreadyExistsException {
         if(this.findById(id) != null) {
-            //TODO: add empty constructor
-            //TODO: rename exception, its not only category
-            throw new CategoryAlreadyExistsException("");
+            throw new EntityAlreadyExistsException("Der / Die" + this.entityClass + "existiert bereits");
         }
         
         em.persist(entity);

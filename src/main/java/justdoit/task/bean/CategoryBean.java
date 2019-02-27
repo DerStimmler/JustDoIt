@@ -13,7 +13,7 @@ import justdoit.user.User;
 @Stateless
 @RolesAllowed("justdoit-user")
 public class CategoryBean extends EntityBean<Category, CategoryId> {
-
+    
     @PersistenceContext
     EntityManager em;
 
