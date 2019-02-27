@@ -54,12 +54,15 @@ public class CreateToDoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
+        
         List<User> users = this.userBean.findAll();
         session.setAttribute("users", users);
 
         List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
         session.setAttribute("categories", categories);
+        //TODO: In deutscher Sprache anzeigen
+        ToDoPriority[] priorities = ToDoPriority.values();
+        session.setAttribute("priorities", priorities);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/createToDo.jsp");
         dispatcher.forward(request, response);
@@ -99,16 +102,16 @@ public class CreateToDoServlet extends HttpServlet {
                 }
             }
         }
-        //Parse Date
-        Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
-        //Parse Time
-        Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
 
-        //Check ToDo
+        Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
+        Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
+        
+        ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         ToDo todo = new ToDo(request.getParameter("todo_title"),
                 todoCategory, //request.getParameter("todo_category"),
                 request.getParameter("todo_description"),
-                ToDoStatus.OPEN, ToDoPriority.URGENT,
+                ToDoStatus.OPEN, 
+                priority,
                 dueDate,
                 dueTime,
                 user);
