@@ -3,6 +3,7 @@ package justdoit.servlet;
 import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import justdoit.common.ValidationBean;
-import justdoit.exceptions.CategoryAlreadyExistsException;
+import justdoit.exceptions.EntityAlreadyExistsException;
 import justdoit.task.bean.CategoryBean;
 import justdoit.task.bean.ToDoBean;
 import justdoit.task.entitiy.Category;
@@ -22,6 +23,9 @@ import justdoit.user.UserBean;
 
 @WebServlet(name = "CategriesServlet", urlPatterns = {"/categories/"})
 public class CategoriesServlet extends HttpServlet {
+
+    public final String categoryAlreadyExistsExceptionMessage = "Die Kategorie $category exisitert bereits! Bitte wählen Sie einen anderen Namen!";
+    public final String unexpectedExceptionMessage = "Es ist ein unterwarteter Fehler auftereten! Bitte versuchen Sie es erneut!";
 
     @EJB
     CategoryBean categoryBean;
@@ -89,12 +93,20 @@ public class CategoriesServlet extends HttpServlet {
         List<String> errors = this.validationBean.validate(category);
 
         if (errors.isEmpty()) {
-            try{
+            try {
                 this.categoryBean.saveNew(category, categoryId);
-            } catch(CategoryAlreadyExistsException ex) {
-                errors.add("Die Kategorie existiert bereits");
+                return;
+            } catch (EJBException ex) {
+                Exception exc = ex.getCausedByException();
+                if (exc instanceof EntityAlreadyExistsException) {
+                    errors.add(this.categoryAlreadyExistsExceptionMessage.replace("$category", category.getCategoryName()));
+                } else {
+                    errors.add(this.unexpectedExceptionMessage);
+                }
             }
-        } else {
+        }
+
+        if (!errors.isEmpty()) {
             Form form = new Form();
             form.setValues(request.getParameterMap());
             form.setErrors(errors);
@@ -104,7 +116,7 @@ public class CategoriesServlet extends HttpServlet {
         }
     }
 
-    private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
+private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         User currentUser = this.userBean.getCurrentUser();
