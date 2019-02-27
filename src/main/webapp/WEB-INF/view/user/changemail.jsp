@@ -8,11 +8,11 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Passwort vergessen
+        E-Mail-Adresse ändern
     </jsp:attribute>
 
     <jsp:attribute name="head">
-
+        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -22,28 +22,28 @@
     <jsp:attribute name="main">
         <div class="container">
             <div class="card card-register mx-auto mt-5">
-                <div class="card-header">Passwort zurücksetzen</div>
+                <div class="card-header">E-Mail-Adresse ändern</div>
                 <div class="card-body">
-                    <div class="text-center mb-4">
-                        <h4>Passwort vergessen?</h4>
-                        <p>Gib deinen Benutzernamen ein und wir schicken dir eine E-Mail mit einem neuen Passwort.</p>
-                    </div>
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
                         <div class="form-group">
                             <div class="form-label-group">
-                                <input type="text" class="form-control" name="username" value="${resetpw_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
+                                <input type="password" class="form-control" name="password0" value="${changeMail_form.values["password0"][0]}" placeholder="aktuelles Passwort" required="required" autofocus="autofocus">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-label-group">
+                                <input type="email" class="form-control" name="email" value="${changeMail_form.values["email"][0]}" placeholder="E-Mail-Adresse" required="required">
                             </div>
                         </div>
                         <%-- Button zum Abschicken --%>
-                        <input class="btn btn-primary btn-block" type="submit" value="Passwort zurücksetzen">
+                        <input class="btn btn-primary btn-block" type="submit" value="Ändern">
                     </form>
                 </div>
-
                 <%-- Fehlermeldungen --%>
-                <c:if test="${!empty resetpw_form.errors}">
+                <c:if test="${!empty changeMail_form.errors}">
                     <ul class="errors">
-                        <c:forEach items="${resetpw_form.errors}" var="error">
+                        <c:forEach items="${changeMail_form.errors}" var="error">
                             <li>${error}</li>
                             </c:forEach>
                     </ul>

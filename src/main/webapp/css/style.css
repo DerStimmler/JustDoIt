@@ -52,3 +52,7 @@ main {
     flex-direction: column;
     flex: 1;
 }
+
+.errors {
+    color: red;
+}

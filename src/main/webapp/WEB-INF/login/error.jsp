@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Copyright © 2018 Dennis Schulmeister-Zimolong
 
     E-Mail: dhbw@windows3.de
@@ -23,9 +23,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/"/>">Nochmal versuchen</a>
-        </div>
+
     </jsp:attribute>
 
     <jsp:attribute name="main">
