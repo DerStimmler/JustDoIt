@@ -21,7 +21,7 @@ import justdoit.task.entitiy.ToDo;
 import justdoit.user.User;
 import justdoit.user.UserBean;
 
-@WebServlet(name = "CategriesServlet", urlPatterns = {"/categories/"})
+@WebServlet(name = "CategriesServlet", urlPatterns = {"/view/categories/"})
 public class CategoriesServlet extends HttpServlet {
 
     public final String categoryAlreadyExistsExceptionMessage = "Die Kategorie $category exisitert bereits! Bitte wählen Sie einen anderen Namen!";

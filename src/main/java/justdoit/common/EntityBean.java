@@ -40,7 +40,7 @@ public abstract class EntityBean<Entity, EntityId> {
     //
     public Entity saveNew(Entity entity, EntityId id) throws EntityAlreadyExistsException {
         if(this.findById(id) != null) {
-            throw new EntityAlreadyExistsException("Der / Die" + this.entityClass + "existiert bereits");
+            throw new EntityAlreadyExistsException("Der / Die" + this.entityClass.getName() + "existiert bereits");
         }
         
         em.persist(entity);

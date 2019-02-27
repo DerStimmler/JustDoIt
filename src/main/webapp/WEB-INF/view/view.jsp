@@ -24,7 +24,10 @@
             <a href="<c:url value="/changemail/"/>">E-Mail-Adresse ändern</a>
         </div>
         <div class="menuitem">
-            <a href="<c:url value="/categories/"/>">Kategorien bearbeiten</a>
+            <a href="<c:url value="/view/categories/"/>">Kategorien bearbeiten</a>
+        </div>
+        <div class="menuitem">
+            <a href="<c:url value="/view/todo/create/"/>">ToDo erstellen</a>
         </div>
     </jsp:attribute>
 
