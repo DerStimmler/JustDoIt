@@ -14,7 +14,6 @@ public class Error404Servlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/error/404.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/error/404.jsp").forward(request, response);
     }
 }
