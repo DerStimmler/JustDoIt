@@ -3,7 +3,7 @@ package justdoit.task.entitiy;
 import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -45,10 +45,10 @@ public class ToDo implements Serializable {
     @NotNull(message = "Der Aufgabe muss eine Priorität zugeordnet werden")
     private ToDoPriority priority;
 
-    @NotNull(message = "Bitte geben Sie ein Fälligkeitsdatum an")
+    @NotNull(message = "Bitte geben Sie ein Fälligkeitsdatum in der Form DD.MM.YYYY an")
     private Date dueDate;
 
-    @NotNull(message = "Bitte geben Sie eine Uhrzeit an")
+    @NotNull(message = "Bitte geben Sie eine Uhrzeit in der Form HH:MM an")
     private Time dueTime;
 
     @ManyToMany
@@ -56,7 +56,7 @@ public class ToDo implements Serializable {
     List<User> user=new ArrayList<>();
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
-    public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, User user) {
+    public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, List<User> user) {
         this.name = name;
         this.category = category;
         this.description = description;
@@ -64,7 +64,7 @@ public class ToDo implements Serializable {
         this.priority = priority;
         this.dueDate = dueDate;
         this.dueTime = dueTime;
-        this.user = (List<User>) user;
+        this.user = user;
     }
 
     public ToDo() {

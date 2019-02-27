@@ -1,5 +1,6 @@
 package justdoit.user;
 
+import java.util.List;
 import javax.annotation.Resource;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJBContext;
@@ -50,5 +51,9 @@ public class UserBean {
     @RolesAllowed("justdoit-user")
     public void delete(User user) {
         this.em.remove(user);
+    }
+    
+    public List<User> findAll() {
+        return this.em.createQuery("SELECT u FROM User u").getResultList();
     }
 }

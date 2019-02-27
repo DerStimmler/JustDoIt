@@ -44,7 +44,7 @@
                         <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/view.jsp' ? ' active' : ''}" href="<c:url value="/"/>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/categories.jsp' ? ' active' : ''}" href="<c:url value="/categories/"/>">Kategorien</a>
+                        <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/categories.jsp' ? ' active' : ''}" href="<c:url value="/view/categories/"/>">Kategorien</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <c:if test = "${fn:contains(pageContext.request.requestURI, '/justDoIt/WEB-INF/view/user/')}">active</c:if>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,6 +54,9 @@
                                 <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changemail.jsp' ? ' active' : ''}" href="<c:url value="/view/user/changemail/"/>">E-Mail ändern</a>
                             <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changepassword.jsp' ? ' active' : ''}" href="<c:url value="/view/user/changepw/"/>">Passwort ändern</a>
                         </div>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/createToDo.jsp' ? ' active' : ''}" href="<c:url value="/view/todo/create/"/>">ToDo erstellen</a>
                     </li>
                     <jsp:invoke fragment="menu"/>
                     <!-- /Navbar Items -->

@@ -39,8 +39,8 @@ public abstract class EntityBean<Entity, EntityId> {
     // Datensätze speichern, ändern, löschen
     //
     public Entity saveNew(Entity entity, EntityId id) throws EntityAlreadyExistsException {
-        if (this.findById(id) != null) {
-            throw new EntityAlreadyExistsException(this.entityClass.toString());
+        if(this.findById(id) != null) {
+            throw new EntityAlreadyExistsException(this.entityClass.getName());
         }
 
         em.persist(entity);
