@@ -60,6 +60,11 @@ public class SignUpServlet extends HttpServlet {
         String email = request.getParameter("email");
         User user = new User(username, password1, email);
         List<String> errors = new ArrayList<String>();
+
+        // Passwort länge nicht in ValidationBean geprüft da dort der hash (immer 64 Zeichen) getestet wird
+        if (password1.length() < 5 || password1.length() > 50) {
+            errors.add("Das Passwort muss zwischen 5 und 50 Zeichen lang sein");
+        }
         if (!password1.equals(password2)) {
             errors.add("Die Passwörter stimmen nicht überein");
         }

@@ -57,6 +57,11 @@ public class ChangePasswordServlet extends HttpServlet {
         List<String> errors = new ArrayList<String>();
         Form form = new Form();
         form.setValues(request.getParameterMap());
+
+        // Passwort länge nicht in ValidationBean geprüft da dort der hash (immer 64 Zeichen) getestet wird
+        if (password1.length() < 5 || password1.length() > 50) {
+            errors.add("Das Passwort muss zwischen 5 und 50 Zeichen lang sein");
+        }
         //ALTES PASSWORT ÜBERPRÜFEN
         password0 = this.hashGenerator.getHashText(password0);
         if (!passwordakt.equals(password0)) {
