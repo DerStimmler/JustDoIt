@@ -17,7 +17,7 @@ import justdoit.hash.HashGenerator;
 import justdoit.user.User;
 import justdoit.user.UserBean;
 
-@WebServlet(urlPatterns = {"/changepw/"})
+@WebServlet(urlPatterns = {"/view/user/changepw/"})
 public class ChangePasswordServlet extends HttpServlet {
 
     @EJB

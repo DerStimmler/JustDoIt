@@ -17,7 +17,7 @@ import justdoit.hash.HashGenerator;
 import justdoit.user.User;
 import justdoit.user.UserBean;
 
-@WebServlet(urlPatterns = {"/changemail/"})
+@WebServlet(urlPatterns = {"/view/user/changemail/"})
 public class ChangeMailServlet extends HttpServlet {
 
     @EJB

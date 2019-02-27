@@ -38,6 +38,8 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+
+                    <!-- Navbar Items -->
                     <li class="nav-item">
                         <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/view.jsp' ? ' active' : ''}" href="<c:url value="/"/>">Home</a>
                     </li>
@@ -49,12 +51,16 @@
                                 Benutzerdaten ändern
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changemail.jsp' ? ' active' : ''}" href="<c:url value="/changemail/"/>">E-Mail ändern</a>
-                            <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changepassword.jsp' ? ' active' : ''}" href="<c:url value="/changepw/"/>">Passwort ändern</a>
+                                <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changemail.jsp' ? ' active' : ''}" href="<c:url value="/view/user/changemail/"/>">E-Mail ändern</a>
+                            <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changepassword.jsp' ? ' active' : ''}" href="<c:url value="/view/user/changepw/"/>">Passwort ändern</a>
                         </div>
                     </li>
                     <jsp:invoke fragment="menu"/>
+                    <!-- /Navbar Items -->
+
                 </ul>
+
+                <!-- Login/Logout Button -->
                 <c:choose>
                     <c:when test = "${fn:contains(pageContext.request.requestURI, '/justDoIt/WEB-INF/view/')}">
                         <form action="<c:url value="/logout/"/>">
