@@ -17,7 +17,7 @@ import justdoit.hash.HashGenerator;
 import justdoit.user.User;
 import justdoit.user.UserBean;
 
-@WebServlet(urlPatterns = {"/changemail/"})
+@WebServlet(urlPatterns = {"/view/user/changemail/"})
 public class ChangeMailServlet extends HttpServlet {
 
     @EJB
@@ -34,7 +34,7 @@ public class ChangeMailServlet extends HttpServlet {
             throws ServletException, IOException {
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/changemail.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/changemail.jsp");
         dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen

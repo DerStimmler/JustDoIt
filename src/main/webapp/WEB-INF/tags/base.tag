@@ -26,11 +26,6 @@
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>" />
 
-        <!--        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-                <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-                <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-                <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
-
         <jsp:invoke fragment="head"/>
 
     </head>
@@ -43,12 +38,45 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+
+                    <!-- Navbar Items -->
+                    <li class="nav-item">
+                        <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/view.jsp' ? ' active' : ''}" href="<c:url value="/"/>">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/categories.jsp' ? ' active' : ''}" href="<c:url value="/categories/"/>">Kategorien</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle <c:if test = "${fn:contains(pageContext.request.requestURI, '/justDoIt/WEB-INF/view/user/')}">active</c:if>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Benutzerdaten ändern
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changemail.jsp' ? ' active' : ''}" href="<c:url value="/view/user/changemail/"/>">E-Mail ändern</a>
+                            <a class="dropdown-item ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/user/changepassword.jsp' ? ' active' : ''}" href="<c:url value="/view/user/changepw/"/>">Passwort ändern</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                            <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/createToDo.jsp' ? ' active' : ''}" href="<c:url value="/view/todo/create/"/>">ToDo erstellen</a>
+                    </li>
                     <jsp:invoke fragment="menu"/>
+                    <!-- /Navbar Items -->
+
                 </ul>
 
-                <form action="<c:url value="/logout/"/>">
-                    <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
-                </form>
+                <!-- Login/Logout Button -->
+                <c:choose>
+                    <c:when test = "${fn:contains(pageContext.request.requestURI, '/justDoIt/WEB-INF/view/')}">
+                        <form action="<c:url value="/logout/"/>">
+                            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+                        </form>
+                    </c:when>
+                    <c:otherwise>
+                        <form action="<c:url value="/login/"/>">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+
 
             </div>
         </nav>

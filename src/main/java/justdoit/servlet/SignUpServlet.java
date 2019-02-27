@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.ejb.EJBException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,8 @@ import justdoit.user.UserBean;
  */
 @WebServlet(urlPatterns = {"/signup/"})
 public class SignUpServlet extends HttpServlet {
+
+    public final String userAlreadyExistsExceptionMessage = "Der Benutzername $username ist bereits vergeben! Bitte wählen Sie einen andere!";
 
     @EJB
     UserBean userBean;
@@ -69,15 +72,21 @@ public class SignUpServlet extends HttpServlet {
                 this.mailBean.sendMail(mailContent);
                 // Keine Fehler: Startseite aufrufen
                 response.sendRedirect(request.getContextPath() + "/index.html");
-            } catch (UserAlreadyExistsException ex) {
-                errors.add(ex.getMessage());
+            } catch (EJBException ex) {
+                Exception exc = ex.getCausedByException();
+                if (exc instanceof UserAlreadyExistsException) {
+                    errors.add(this.userAlreadyExistsExceptionMessage.replace("$username", user.getUsername()));
+                }
+                //andere exception
             }
-        } else {
+        }
+        if (!errors.isEmpty()) {
             Form form = new Form();
             form.setValues(request.getParameterMap());
             form.setErrors(errors);
             HttpSession session = request.getSession();
             session.setAttribute("signup_form", form);
+            response.sendRedirect(request.getRequestURI());
         }
     }
 }

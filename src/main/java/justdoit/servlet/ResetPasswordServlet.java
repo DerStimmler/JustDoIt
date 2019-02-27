@@ -91,7 +91,6 @@ public class ResetPasswordServlet extends HttpServlet {
 
     private void sendResetPasswordMail(User user, String newPassword) {
         ResetPasswordMailContent resetPasswordMailContent = new ResetPasswordMailContent(user, newPassword);
-        String pw = resetPasswordMailContent.getNewPassword();
         this.mailBean.sendMail(resetPasswordMailContent);
     }
 
