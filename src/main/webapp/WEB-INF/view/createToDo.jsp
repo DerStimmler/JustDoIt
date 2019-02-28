@@ -13,6 +13,10 @@
         <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
     </jsp:attribute>
 
+    <jsp:attribute name="menu">
+
+    </jsp:attribute>
+
     <jsp:attribute name="main">
         <div>
             <form method="post" class="stacked">

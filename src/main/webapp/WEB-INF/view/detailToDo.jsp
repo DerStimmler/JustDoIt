@@ -20,18 +20,19 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/delete.css"/>">
         <div class="container">
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-10"> <c:forEach items="${todo.name}"> <c:out value="${todo.name}"/> </c:forEach></div>
+                        <div class="col-md-8"> <c:forEach items="${todo.name}"> <c:out value="${todo.name}"/> </c:forEach></div>
                             <form method="post" class="stacked">
-                                <div class="col-md-1 side-by-side">
-                                    <button class="icon-pencil" name="action" value="delete" type="submit">
-                                        Delete
+                                <div class="side-by-side">
+                                    <button type="button" class="btn btn-labeled btn-danger" name="action" value="delete">
+                                        <span class="btn-label"><i class="glpyhicon glyphicon-trash"></i></span>  Delete
                                     </button>
                                 </div>
-                                <div class="col-md-1 side-by-side">
+                                <div class="col-md-2 side-by-side">
                                     <button class="icon-pencil" name="action" value="edit" type="submit">
                                         Edit
                                     </button>

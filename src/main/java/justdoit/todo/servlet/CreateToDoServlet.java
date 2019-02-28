@@ -55,7 +55,7 @@ public class CreateToDoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+
         List<User> users = this.userBean.findAll();
         session.setAttribute("users", users);
 
@@ -83,39 +83,44 @@ public class CreateToDoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<User> user = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         List<String> errors = new ArrayList<>();
         HttpSession session = request.getSession();
 
+        User currentUser = this.userBean.getCurrentUser();
         User todoUser = this.userBean.findByUsername(request.getParameter("todo_user"));
-        user.add(todoUser);
+        users.add(todoUser);
 
         CategoryId id = new CategoryId(request.getParameter("todo_user"), request.getParameter("todo_category"));
         Category todoCategory = this.categoryBean.findById(id);
-        if (todoUser != this.userBean.getCurrentUser() && todoCategory == null) {
-            try {
-                this.categoryBean.saveNew(todoCategory, id);
-            } catch (EJBException ex) {
-                if(ex.getCausedByException() instanceof EntityAlreadyExistsException) {
-                    errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
-                               .replace("$user", todoUser.getUsername())
-                               .replace("$category", todoCategory.getCategoryName()));
+        if (todoUser != currentUser) {
+            users.add(currentUser);
+            if (todoCategory == null) {
+                try {
+                    todoCategory = new Category(request.getParameter("todo_category"), todoUser);
+                    this.categoryBean.saveNew(todoCategory, id);
+                } catch (EJBException ex) {
+                    if (ex.getCausedByException() instanceof EntityAlreadyExistsException) {
+                        errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
+                                .replace("$user", todoUser.getUsername())
+                                .replace("$category", request.getParameter("todo_category")));
+                    }
                 }
             }
         }
 
         Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
         Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
-        
+
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         ToDo todo = new ToDo(request.getParameter("todo_title"),
                 todoCategory, //request.getParameter("todo_category"),
                 request.getParameter("todo_description"),
-                ToDoStatus.OPEN, 
+                ToDoStatus.OPEN,
                 priority,
                 dueDate,
                 dueTime,
-                user);
+                users);
         errors = this.validationBean.validate(todo, errors);
 
         if (!errors.isEmpty()) {
