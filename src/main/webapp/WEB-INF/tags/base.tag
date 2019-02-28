@@ -44,7 +44,7 @@
                         <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/view.jsp' ? ' active' : ''}" href="<c:url value="/"/>">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/categories.jsp' ? ' active' : ''}" href="<c:url value="/categories/"/>">Kategorien</a>
+                        <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/categories.jsp' ? ' active' : ''}" href="<c:url value="/view/categories/"/>">Kategorien</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle <c:if test = "${fn:contains(pageContext.request.requestURI, '/justDoIt/WEB-INF/view/user/')}">active</c:if>" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
