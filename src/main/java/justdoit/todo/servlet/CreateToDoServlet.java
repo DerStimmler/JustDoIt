@@ -1,9 +1,7 @@
 package justdoit.todo.servlet;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -55,7 +53,7 @@ public class CreateToDoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+
         List<User> users = this.userBean.findAll();
         session.setAttribute("users", users);
 
@@ -96,22 +94,22 @@ public class CreateToDoServlet extends HttpServlet {
             try {
                 this.categoryBean.saveNew(todoCategory, id);
             } catch (EJBException ex) {
-                if(ex.getCausedByException() instanceof EntityAlreadyExistsException) {
+                if (ex.getCausedByException() instanceof EntityAlreadyExistsException) {
                     errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
-                               .replace("$user", todoUser.getUsername())
-                               .replace("$category", todoCategory.getCategoryName()));
+                            .replace("$user", todoUser.getUsername())
+                            .replace("$category", todoCategory.getCategoryName()));
                 }
             }
-        }
+        };
 
-        Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
-        Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
-        
+        String dueDate = FormatUtils.formatDate(request.getParameter("todo_due_date"));
+        String dueTime = FormatUtils.formatTime(request.getParameter("todo_due_time"));
+
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         ToDo todo = new ToDo(request.getParameter("todo_title"),
                 todoCategory, //request.getParameter("todo_category"),
                 request.getParameter("todo_description"),
-                ToDoStatus.OPEN, 
+                ToDoStatus.OPEN,
                 priority,
                 dueDate,
                 dueTime,

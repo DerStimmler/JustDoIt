@@ -11,7 +11,7 @@ public class ResetPasswordMailContent extends MailContent {
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ResetPasswordMailContent(User user, String newPassword) {
-        super(user, "ResetPassword Mail");
+        super(user, "Passwortwiederherstellung | " + user.getUsername() + " | JustDoIt");
         this.newPassword = newPassword;
         this.setContent();
     }

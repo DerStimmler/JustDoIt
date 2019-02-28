@@ -1,5 +1,8 @@
 package justdoit.todo.ejb;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
@@ -16,7 +19,6 @@ import justdoit.todo.jpa.ToDoPriority;
 import justdoit.todo.jpa.ToDoStatus;
 
 @Stateless
-@RolesAllowed("justdoit-user")
 public class ToDoBean extends EntityBean<ToDo, Long> {
 
     @PersistenceContext
@@ -30,6 +32,11 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
         return em.createQuery("SELECT t FROM ToDo t WHERE t.user.username = :username ORDER BY t.dueDate, t.dueTime")
                 .setParameter("username", username)
                 .getResultList();
+    }
+
+    public List<ToDo> getDueTasks() {
+        String tomorrow = new SimpleDateFormat("yyyy-MM-dd").format(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
+        return em.createQuery("SELECT t FROM ToDo t WHERE t.dueDate = :dueDate").setParameter("dueDate", tomorrow).getResultList();
     }
 
     //Query with dynamic criterias vgl. https://docs.oracle.com/javaee/7/tutorial/persistence-criteria003.htm

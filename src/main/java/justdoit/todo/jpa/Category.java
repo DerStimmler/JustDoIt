@@ -23,26 +23,25 @@ public class Category implements Serializable {
 
     @GeneratedValue()
     private Long id;
-    
+
     @Id
     @NotNull(message = "Der Kategorie muss ein Name gegeben werden")
     @Size(min = 1, message = "Bitte geben Sie der Kategorie einen gültigen Namen")
     private String categoryName;
-    
+
     @Id
-    @Column(name="USERNAME_PK")
+    @Column(name = "USERNAME_PK")
     @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
     private String username;
-    
+
     @ManyToOne
-    @PrimaryKeyJoinColumn(name="USERNAME_PK", referencedColumnName="USERNAME")
+    @PrimaryKeyJoinColumn(name = "USERNAME_PK", referencedColumnName = "USERNAME")
     @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
     private User user;
 
 //    @Id
 //    @NotNull
 //    private String categoryUsername;
-
     @OneToMany(mappedBy = "category")
     List<ToDo> toDos = new ArrayList<>();
 
@@ -87,7 +86,7 @@ public class Category implements Serializable {
     public void setToDos(List<ToDo> toDos) {
         this.toDos = toDos;
     }
-    
+
     public Long getId() {
         return id;
     }
