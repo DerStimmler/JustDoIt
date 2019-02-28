@@ -18,8 +18,70 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
-        <p>
-            Der Login hat erfolgreich funktioniert! :)
-        </p>
-    </jsp:attribute>
-</template:base>
+        <div id="accordion">
+            <div class="card col col-md-12">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            DHBW
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="row">
+                        <div class="card col col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Offen</h5>
+                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
+                            </div>
+                        </div>
+                        <div class="card col col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title">In Bearbeitung</h5>
+                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
+                            </div>
+                        </div>
+                        <div class="card col col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Abgebrochen</h5>
+                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card col col-md-12">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Privat
+                        </button>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                    <div class="row">
+                        <div class="card col col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Offen</h5>
+                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
+                            </div>
+                        </div>
+                        <div class="card col col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title">In Bearbeitung</h5>
+                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
+                            </div>
+                        </div>
+                        <div class="card col col-md-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Abgebrochen</h5>
+                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </jsp:attribute>
+    </template:base>
