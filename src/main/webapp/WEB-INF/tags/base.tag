@@ -56,7 +56,7 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                            <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/createToDo.jsp' ? ' active' : ''}" href="<c:url value="/view/todo/create/"/>">ToDo erstellen</a>
+                        <a class="nav-link ${pageContext.request.requestURI eq '/justDoIt/WEB-INF/view/createToDo.jsp' ? ' active' : ''}" href="<c:url value="/view/todo/create/"/>">ToDo erstellen</a>
                     </li>
                     <jsp:invoke fragment="menu"/>
                     <!-- /Navbar Items -->
@@ -65,7 +65,8 @@
 
                 <!-- Login/Logout Button -->
                 <c:choose>
-                    <c:when test = "${fn:contains(pageContext.request.requestURI, '/justDoIt/WEB-INF/view/')}">
+                    <c:when test="${not empty pageContext.request.userPrincipal}">
+                        <p class="my-2 my-sm-0 pr-2">${pageContext.request.userPrincipal.name}</p>
                         <form action="<c:url value="/logout/"/>">
                             <button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
                         </form>
@@ -76,8 +77,6 @@
                         </form>
                     </c:otherwise>
                 </c:choose>
-
-
             </div>
         </nav>
 
