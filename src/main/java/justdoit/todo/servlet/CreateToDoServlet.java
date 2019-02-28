@@ -83,13 +83,17 @@ public class CreateToDoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        List<User> user = new ArrayList<>();
+        List<User> users = new ArrayList<>();
         List<String> errors = new ArrayList<>();
         HttpSession session = request.getSession();
-
+        
+        User currentUser = this.userBean.getCurrentUser();
         User todoUser = this.userBean.findByUsername(request.getParameter("todo_user"));
-        user.add(todoUser);
-
+        users.add(todoUser);
+        if(todoUser != currentUser) {
+            users.add(currentUser);
+        }
+            
         CategoryId id = new CategoryId(request.getParameter("todo_user"), request.getParameter("todo_category"));
         Category todoCategory = this.categoryBean.findById(id);
         if (todoUser != this.userBean.getCurrentUser() && todoCategory == null) {
@@ -115,7 +119,7 @@ public class CreateToDoServlet extends HttpServlet {
                 priority,
                 dueDate,
                 dueTime,
-                user);
+                users);
         errors = this.validationBean.validate(todo, errors);
 
         if (!errors.isEmpty()) {
