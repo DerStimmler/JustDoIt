@@ -21,6 +21,7 @@
 
         <title>JustDoIt | ${title}</title>
 
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/fontawesome/css/all.min.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-reboot.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-grid.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.min.css"/>" >
@@ -88,7 +89,9 @@
         <!-- Footer der Seite -->
         <footer class="page-footer fixed-bottom font-small bg-light">
             <div class="footer-copyright text-center">JustDoIt © 2019
+                <a class="float-right text-right pr-5" target="_blank" href="https://github.com/DerStimmler/JustDoIt"><i class="fab fa-github" style="color:black"></i></a>
             </div>
+
         </footer>
 
         <!-- Skripte für Bootstrap -->

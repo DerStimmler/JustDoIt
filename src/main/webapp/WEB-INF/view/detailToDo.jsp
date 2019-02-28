@@ -29,7 +29,7 @@
                             <form method="post" class="stacked">
                                 <div class="side-by-side">
                                     <button type="button" class="btn btn-labeled btn-danger" name="action" value="delete">
-                                        <span class="btn-label"><i class="glpyhicon glyphicon-trash"></i></span>  Delete
+                                        <span class="btn-label"><i class="fas fa-trash-alt"></i></span>  Delete
                                     </button>
                                 </div>
                                 <div class="col-md-2 side-by-side">
