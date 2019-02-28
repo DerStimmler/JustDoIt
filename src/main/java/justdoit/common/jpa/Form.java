@@ -16,7 +16,11 @@ public class Form {
     }
 
     public void setValues(Map<String, String[]> values) {
-        this.values = values;
+        this.values = new HashMap<>();
+
+        for (String key : values.keySet()) {
+            this.values.put(key, values.get(key));
+        }
     }
 
     public List<String> getErrors() {

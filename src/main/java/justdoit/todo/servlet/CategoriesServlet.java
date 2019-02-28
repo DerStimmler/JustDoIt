@@ -88,7 +88,7 @@ public class CategoriesServlet extends HttpServlet {
 
     private void createCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //TODO: bessere Lösung finden
+        
         CategoryId categoryId = new CategoryId(this.userBean.getCurrentUser().getUsername(), request.getParameter("category_name"));
         Category category = new Category(request.getParameter("category_name"), this.userBean.getCurrentUser());
         List<String> errors = this.validationBean.validate(category);
