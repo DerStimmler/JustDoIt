@@ -13,21 +13,6 @@
         <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
     </jsp:attribute>
 
-    <jsp:attribute name="menu">
-        <div class="menuitem">
-            <a href="<c:url value="/logout/"/>">Logout</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/changepw/"/>">Passwort ändern</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/changemail/"/>">E-Mail-Adresse ändern</a>
-        </div>
-        <div class="menuitem">
-            <a href="<c:url value="/index.html"/>">Dashboard</a>
-        </div>
-    </jsp:attribute>
-
     <jsp:attribute name="main">
         <div>
             <form method="post" class="stacked">
