@@ -67,6 +67,17 @@
                             </c:forEach>
                         </select>
                     </div>
+                    <label for="todo_priority">
+                        Priorität
+                        <span class="required">*</span>
+                    </label>
+                    <div class="side-by-side">
+                        <select name="todo_priority">
+                            <c:forEach items="${priorities}" var="priority">
+                                <option value="${priority}">${priority.label}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
 
                     <%-- Button zum Abschicken --%>
                     <div class="side-by-side">

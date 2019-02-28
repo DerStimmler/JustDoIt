@@ -56,7 +56,6 @@
                     <c:otherwise>
                         <c:forEach items="${categories}" var="category">
                             <div class="row">
-                                <%--TODO: value und id anpassen, sobald category primary key angepasst wird --%>
                                 <input type="checkbox" name="category" value="${category.categoryName}" id="${'category'.concat(category.id)}">
                                 <label for="${'category'.concat(category.id)}">${category.categoryName}</label>
                             </div>
