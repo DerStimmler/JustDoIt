@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import justdoit.comment.jpa.Comment;
+import justdoit.todo.jpa.Category;
 import justdoit.todo.jpa.ToDo;
 
 @Entity
@@ -33,16 +35,16 @@ public class User implements Serializable {
     @Column(name = "USERNAME", length = 64)
     @Size(min = 5, max = 64, message = "Ihr gewünschter Benutzername darf nur zwischen 5 und 64 Zeichen lang sein")
     @NotNull(message = "Bitte geben Sie einen Benutzernamen ein!")
-    private String username;
+    private String username = "";
 
 //    //Length 64 reuqired becuase of sha-256
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Bitte geben Sie ein Passwort ein!")
-    private String password;
+    private String password = "";
 
     @Column(name = "EMAIL")
     @NotNull(message = "Bitte geben Sie eine E-Mail-Adresse ein!")
-    private String email;
+    private String email = "";
 
     @ElementCollection
     @CollectionTable(
@@ -56,9 +58,12 @@ public class User implements Serializable {
     List<ToDo> todos = new ArrayList<>();
     
     @OneToMany(mappedBy = "user")
-    List<ToDo> categories = new ArrayList<>(); 
+    List<Category> categories = new ArrayList<>(); 
+    
+    @OneToMany(mappedBy = "user")
+    List<Comment> comments = new ArrayList<>();
 
-//<editor-fold defaultstate="collapsed" desc="Konstruktor">
+    //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public User() {
     }
 
@@ -68,9 +73,9 @@ public class User implements Serializable {
         this.email = email;
         this.id = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + (10000 + new Random().nextInt(90000))); //aktuelles Datum + Zeit + 5 stellige Random Zahl
     }
-//</editor-fold>
+    //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
+    //<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public String getUsername() {
         return username;
     }
@@ -110,12 +115,15 @@ public class User implements Serializable {
     public void setTodos(List<ToDo> todos) {
         this.todos = todos;
     }
-//</editor-fold>
-
-    public boolean checkPassword(String password) {
-        return this.password.equals(password);
+    
+    public List<Comment> getComments() {
+        return comments;
     }
 
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+    
     public List<String> getGroups() {
         List<String> groupsCopy = new ArrayList<>();
 
@@ -125,7 +133,7 @@ public class User implements Serializable {
 
         return groupsCopy;
     }
-
+    
     public void addToGroup(String groupname) {
         if (!this.groups.contains(groupname)) {
             this.groups.add(groupname);
@@ -135,5 +143,9 @@ public class User implements Serializable {
     public void removeFromGroup(String groupname) {
         this.groups.remove(groupname);
     }
+    //</editor-fold>
 
+    public boolean checkPassword(String password) {
+        return this.password.equals(password);
+    }   
 }

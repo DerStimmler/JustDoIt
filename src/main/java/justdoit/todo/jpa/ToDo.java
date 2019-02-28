@@ -14,7 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import justdoit.comment.jpa.Comment;
 import justdoit.common.jpa.User;
 
 @Entity
@@ -54,6 +56,9 @@ public class ToDo implements Serializable {
     @ManyToMany
     @NotNull(message = "Die Aufgabe muss mindestens einem Benutzer zugeordnet werden")
     List<User> user=new ArrayList<>();
+    
+    @OneToMany(mappedBy = "todo")
+    List<Comment> comments = new ArrayList<>();
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, List<User> user) {
