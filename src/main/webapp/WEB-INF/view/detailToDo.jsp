@@ -25,41 +25,45 @@
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-8"> <c:forEach items="${todo.name}"> <c:out value="${todo.name}"/> </c:forEach></div>
-                            <form method="post" class="stacked">
-                                <div class="side-by-side">
-                                    <button type="button" class="btn btn-labeled btn-danger" name="action" value="delete">
-                                        <span class="btn-label"><i class="fas fa-trash-alt"></i></span>  Delete
-                                    </button>
-                                </div>
-                                <div class="col-md-2 side-by-side">
-                                    <button class="icon-pencil" name="action" value="edit" type="submit">
-                                        Edit
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                        <div class="col-md-9 float-left"> <output type="titel" name="titel">${todo.name}</div>
+                        <form method="post" class="stacked">
+                            <div class="side-by-side float-right">
+                                <button type="submit" class="btn btn-labeled btn-dark" name="action" value="edit">
+                                    <span class="btn-label"><i class="fas fa-edit"></i></span>  Edit
+                                </button>
+                                <button type="submit" class="btn btn-labeled btn-danger" name="action" value="delete">
+                                    <span class="btn-label"><i class="fas fa-trash-alt"></i></span>  Delete
+                                </button>
+                            </div>
+                        </form>
                     </div>
+                </div>
                 <%-- Inhalt ToDo --%>
                 <div class="card-body">
                     <%-- Ausgabefelder --%>
                     <div  class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel">Bearbeiter:${todo.user}</output>
+                            <%--   <c:forEach items="${todo_justdoit_user}"> --%>
+                            <output type="titel" name="titel">Bearbeiter: ${todo_justdoit_user.user_username}</output>
+                                <%-- </c:forEach> --%>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel">Fälligkeitsdatum:${todo.dueDate}</output>
+                            <output type="titel" name="titel">Fälligkeitsdatum: ${todo.dueDate}</output>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel">Beschreibung:${todo.description}</output>
+                            <output type="titel" name="titel">Beschreibung: ${todo.description}</output>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <%-- Kommentare Container für jedes Kommentar einen eigenen --%>
+        <div class="container">
+
         </div>
         <%-- Fehlermeldungen --%>
         <c:if test="${!empty change_form.errors}">
