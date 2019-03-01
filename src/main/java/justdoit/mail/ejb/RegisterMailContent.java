@@ -9,7 +9,7 @@ public class RegisterMailContent extends MailContent {
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public RegisterMailContent(User user) {
-        super(user, "Registrierung");
+        super(user, "Willkommen bei JustDoIt! | " + user.getUsername() + " | JustDoIt");
         this.setContent();
     }
 

@@ -48,20 +48,20 @@ public class ToDo implements Serializable {
     private ToDoPriority priority;
 
     @NotNull(message = "Bitte geben Sie ein Fälligkeitsdatum in der Form DD.MM.YYYY an")
-    private Date dueDate;
+    private String dueDate;
 
     @NotNull(message = "Bitte geben Sie eine Uhrzeit in der Form HH:MM an")
-    private Time dueTime;
+    private String dueTime;
 
     @ManyToMany
     @NotNull(message = "Die Aufgabe muss mindestens einem Benutzer zugeordnet werden")
-    List<User> user=new ArrayList<>();
-    
+    List<User> user = new ArrayList<>();
+
     @OneToMany(mappedBy = "todo")
     List<Comment> comments = new ArrayList<>();
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
-    public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, List<User> user) {
+    public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, String dueDate, String dueTime, List<User> user) {
         this.name = name;
         this.category = category;
         this.description = description;
@@ -77,19 +77,19 @@ public class ToDo implements Serializable {
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Getter&Setter">
-    public void setDueDate(Date dueDate) {
+    public void setDueDate(String dueDate) {
         this.dueDate = dueDate;
     }
 
-    public void setDueTime(Time dueTime) {
+    public void setDueTime(String dueTime) {
         this.dueTime = dueTime;
     }
 
-    public Date getDueDate() {
+    public String getDueDate() {
         return dueDate;
     }
 
-    public Time getDueTime() {
+    public String getDueTime() {
         return dueTime;
     }
 

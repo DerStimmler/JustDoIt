@@ -117,7 +117,7 @@ public class CategoriesServlet extends HttpServlet {
         }
     }
 
-private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
+    private void deleteCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         User currentUser = this.userBean.getCurrentUser();

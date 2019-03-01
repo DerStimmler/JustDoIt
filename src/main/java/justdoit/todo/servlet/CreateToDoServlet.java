@@ -1,9 +1,7 @@
 package justdoit.todo.servlet;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
@@ -93,6 +91,7 @@ public class CreateToDoServlet extends HttpServlet {
 
         CategoryId id = new CategoryId(request.getParameter("todo_user"), request.getParameter("todo_category"));
         Category todoCategory = this.categoryBean.findById(id);
+
         if (todoUser != currentUser) {
             users.add(currentUser);
             if (todoCategory == null) {
@@ -107,10 +106,10 @@ public class CreateToDoServlet extends HttpServlet {
                     }
                 }
             }
-        }
+        };
 
-        Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
-        Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
+        String dueDate = FormatUtils.formatDate(request.getParameter("todo_due_date"));
+        String dueTime = FormatUtils.formatTime(request.getParameter("todo_due_time"));
 
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         ToDo todo = new ToDo(request.getParameter("todo_title"),
