@@ -10,7 +10,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -28,9 +28,16 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <select name="todo_user">
+                        <select class="js-example-basic-multiple col-md-10 form-control" name="todo_user" multiple="multiple" id="usernameSelect">
                             <c:forEach items="${users}" var="user">
-                                <option value="${user.getUsername()}">${user.getUsername()}</option>
+                                <c:choose>
+                                    <c:when test="${user} eq ${pageContext.request.userPrincipal.name}">
+                                        <option selected="selected" value="${user.getUsername()}">${user.getUsername()}</option>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <option value="${user.getUsername()}">${user.getUsername()}</option>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </select>
                     </div>

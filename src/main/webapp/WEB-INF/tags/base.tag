@@ -21,6 +21,7 @@
 
         <title>JustDoIt | ${title}</title>
 
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/select2/select2.min.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/fontawesome/css/all.min.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-reboot.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-grid.min.css"/>" >
@@ -95,8 +96,11 @@
         </footer>
 
         <!-- Skripte für Bootstrap -->
-        <script type="text/javascript" src="<c:url value="/js/jquery.js"/>"></script>
-        <script type="text/javascript" src="<c:url value="/js/bootstrap.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/jquery/jquery.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/bootstrap/bootstrap.min.js"/>"></script>
+        <!-- Skript für Select2 -->
+        <script type="text/javascript" src="<c:url value="/js/select2/select2.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/select2/select2_multiple.js"/>"></script>
     </body>
 </html>
 
