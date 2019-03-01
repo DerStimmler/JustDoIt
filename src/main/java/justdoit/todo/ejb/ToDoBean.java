@@ -7,9 +7,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import javax.persistence.metamodel.Metamodel;
+import javax.persistence.metamodel.SingularAttribute;
 import justdoit.common.ejb.EntityBean;
+import justdoit.common.jpa.User;
 import justdoit.todo.jpa.Category;
 import justdoit.todo.jpa.ToDo;
 import justdoit.todo.jpa.ToDoPriority;
@@ -27,7 +32,7 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
     }
 
     public List<ToDo> findByUsername(String username) {
-        return em.createQuery("SELECT t FROM ToDo t WHERE t.user.username = :username ORDER BY t.dueDate, t.dueTime")
+        return em.createQuery("SELECT t FROM ToDo t  JOIN t.user u WHERE u.username = :username ORDER BY t.dueDate, t.dueTime")
                 .setParameter("username", username)
                 .getResultList();
     }
@@ -48,13 +53,16 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
         * If there are already other query options they will be connected with an
         * and
          */
-        if (likeDescription != null || !likeDescription.trim().isEmpty()) {
-            predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(toDo.get("description"), "%" + likeDescription + "%"));
+        if (username != null || !username.trim().isEmpty()) {
+            Metamodel m = em.getMetamodel();
+            EntityType<ToDo> ToDo_ = m.entity(ToDo.class);
+            Join<ToDo, User> u = toDo.join(ToDo_.getList("user", User.class));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(u.get("username"), username));
             criteriaQuery.where(predicate);
         }
 
-        if (username != null || !username.trim().isEmpty()) {
-            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(toDo.get("user.username"), username));
+        if (likeDescription != null || !likeDescription.trim().isEmpty()) {
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(toDo.get("description"), "%" + likeDescription + "%"));
             criteriaQuery.where(predicate);
         }
 
