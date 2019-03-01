@@ -4,9 +4,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
+<link rel="stylesheet" type="text/css" href="<c:url value="/css/view.css"/>" />
 <template:base>
     <jsp:attribute name="title">
-        Hier koennten Ihre Aufgaben stehen!
+        JustDoIt - Dashboard
     </jsp:attribute>
 
     <jsp:attribute name="head">
@@ -18,70 +19,37 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
-        <div id="accordion">
-            <div class="card col col-md-12">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            DHBW
-                        </button>
-                    </h5>
-                </div>
+        <c:forEach items="${categories}" var="category">
+            <div id="dataParent">
+                <div class="card col col-md-12">
+                    <div class="card-header" id="heading${category.categoryName}">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapse${category.categoryName}" aria-expanded="true" aria-controls="collapse${category.categoryName}">
+                                ${category.categoryName}
+                            </button>
+                        </h5>
+                    </div>
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="row">
-                        <div class="card col col-md-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Offen</h5>
-                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
-                            </div>
-                        </div>
-                        <div class="card col col-md-4">
-                            <div class="card-body">
-                                <h5 class="card-title">In Bearbeitung</h5>
-                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
-                            </div>
-                        </div>
-                        <div class="card col col-md-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Abgebrochen</h5>
-                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
-                            </div>
+                    <div id="collapse${category.categoryName}" class="collapse show" aria-labelledby="heading${category.categoryName}">
+                        <div class="row">
+                            <c:forEach items="${statuses}" var="status" >
+                                <div class="card col col-md-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${status.label}</h5>
+                                        <c:forEach items="${dashboard[category.categoryName][status.label]}" var="todo">
+                                            <div class="row">
+                                                <a href="${pageContext.request.contextPath}/view/todo/detail/${todo.id}" class="col col-md-7 href">${todo.name}</a>
+                                                <span class="${todo.priority} col col-md-1"></span>
+                                                <span class="col col-md-4">${todo.dueDate}</span>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </div>
+                            </c:forEach>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="card col col-md-12">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0">
-                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Privat
-                        </button>
-                    </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="row">
-                        <div class="card col col-md-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Offen</h5>
-                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
-                            </div>
-                        </div>
-                        <div class="card col col-md-4">
-                            <div class="card-body">
-                                <h5 class="card-title">In Bearbeitung</h5>
-                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
-                            </div>
-                        </div>
-                        <div class="card col col-md-4">
-                            <div class="card-body">
-                                <h5 class="card-title">Abgebrochen</h5>
-                                <p class="card-text">Liste der ToDos mit Name, Kreis mit Farbe für Priorität, Fälligkeitsdatum</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </jsp:attribute>
-    </template:base>
+        </c:forEach>
+    </jsp:attribute>
+</template:base>
