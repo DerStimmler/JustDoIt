@@ -52,15 +52,9 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
         Root<ToDo> toDo = criteriaQuery.from(ToDo.class);
         criteriaQuery.select(toDo);
 
-        //Predicate to connect the different and queries
         Predicate predicate = criteriaBuilder.conjunction();
 
-        /*
-        * If the search value is present the value will be added to the search value.
-        * If there are already other query options they will be connected with an
-        * and
-         */
-        if (username != null || !username.trim().isEmpty()) {
+        if (username != null && !username.trim().isEmpty()) {
             Metamodel m = em.getMetamodel();
             EntityType<ToDo> ToDo_ = m.entity(ToDo.class);
             Join<ToDo, User> u = toDo.join(ToDo_.getList("user", User.class));
@@ -68,13 +62,13 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
             criteriaQuery.where(predicate);
         }
 
-        if (likeDescription != null || !likeDescription.trim().isEmpty()) {
+        if (likeDescription != null && !likeDescription.trim().isEmpty()) {
             predicate = criteriaBuilder.and(predicate, criteriaBuilder.like(toDo.get("description"), "%" + likeDescription + "%"));
             criteriaQuery.where(predicate);
         }
 
         if (category != null) {
-            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(toDo.get("category"), category));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(toDo.get("category").get("categoryName"), category.getCategoryName()));
             criteriaQuery.where(predicate);
         }
 
@@ -88,13 +82,8 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
             criteriaQuery.where(predicate);
         }
 
-        /*
-        * Order By DueDate and DueTime that the next task which the user have
-        * to take care of is shown as first task
-         */
         criteriaQuery.orderBy(criteriaBuilder.asc(toDo.get("dueDate")), criteriaBuilder.asc(toDo.get("dueTime")));
 
-        //Execute the query and return the result list
         return this.em.createQuery(criteriaQuery).getResultList();
     }
 }
