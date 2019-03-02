@@ -53,13 +53,13 @@ public class User implements Serializable {
     )
     @Column(name = "GROUPNAME")
     List<String> groups = new ArrayList<>();
-    
-    @ManyToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+
+    @ManyToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<ToDo> todos = new ArrayList<>();
-    
+
     @OneToMany(mappedBy = "user")
-    List<Category> categories = new ArrayList<>(); 
-    
+    List<Category> categories = new ArrayList<>();
+
     @OneToMany(mappedBy = "user")
     List<Comment> comments = new ArrayList<>();
 
@@ -115,7 +115,7 @@ public class User implements Serializable {
     public void setTodos(List<ToDo> todos) {
         this.todos = todos;
     }
-    
+
     public List<Comment> getComments() {
         return comments;
     }
@@ -123,7 +123,7 @@ public class User implements Serializable {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
-    
+
     public List<String> getGroups() {
         List<String> groupsCopy = new ArrayList<>();
 
@@ -133,7 +133,7 @@ public class User implements Serializable {
 
         return groupsCopy;
     }
-    
+
     public void addToGroup(String groupname) {
         if (!this.groups.contains(groupname)) {
             this.groups.add(groupname);
@@ -147,5 +147,5 @@ public class User implements Serializable {
 
     public boolean checkPassword(String password) {
         return this.password.equals(password);
-    }   
+    }
 }
