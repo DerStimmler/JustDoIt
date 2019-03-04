@@ -2,9 +2,12 @@ package justdoit.mail.ejb;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Singleton;
+import javax.mail.MessagingException;
 import justdoit.common.jpa.User;
 import justdoit.todo.ejb.ToDoBean;
 import justdoit.todo.jpa.ToDo;
@@ -28,7 +31,11 @@ public class NotificationMailScheduler {
             }
         }
         for (NotificationMailContent notificationMailContent : notificationMailContentList) {
-            this.mailBean.sendMail(notificationMailContent);
+            try {
+                this.mailBean.sendMail(notificationMailContent);
+            } catch (MessagingException ex) {
+                Logger.getLogger(NotificationMailScheduler.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

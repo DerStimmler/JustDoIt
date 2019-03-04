@@ -26,7 +26,7 @@ public class MailBean {
 
     private MailConfig mailConfig = readConfigFromFile();
 
-    public void sendMail(MailContent mailContent) {
+    public void sendMail(MailContent mailContent) throws MessagingException {
         MailAuthenticator auth = new MailAuthenticator(mailConfig.username, mailConfig.password);
 
         Properties properties = new Properties();
@@ -40,17 +40,13 @@ public class MailBean {
 
         Session session = Session.getDefaultInstance(properties, auth);
 
-        try {
-            Message msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(mailConfig.from));
-            msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailContent.recipientAdress, false));
-            msg.setSubject(mailContent.subject);
-            msg.setContent(mailContent.content, "text/html; charset=utf-8");
-            msg.setSentDate(new Date());
-            Transport.send(msg);
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        }
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress(mailConfig.from));
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mailContent.recipientAdress, false));
+        msg.setSubject(mailContent.subject);
+        msg.setContent(mailContent.content, "text/html; charset=utf-8");
+        msg.setSentDate(new Date());
+        Transport.send(msg);
     }
 
     private MailConfig readConfigFromFile() {
