@@ -92,15 +92,27 @@
             <div class="footer-copyright text-center">JustDoIt © 2019
                 <a class="float-right text-right pr-5" target="_blank" href="https://github.com/DerStimmler/JustDoIt"><i class="fab fa-github" style="color:black"></i></a>
             </div>
-
         </footer>
 
         <!-- Skripte für Bootstrap -->
         <script type="text/javascript" src="<c:url value="/js/jquery/jquery.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/js/bootstrap/bootstrap.min.js"/>"></script>
+
         <!-- Skript für Select2 -->
         <script type="text/javascript" src="<c:url value="/js/select2/select2.min.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/js/select2/select2_multiple.js"/>"></script>
+        <!-- Preselect Current User in CreateToDo -->
+        <script>
+            $('#usernameSelectCreateToDo').val('${pageContext.request.userPrincipal.name}');
+            $('#usernameSelectCreateToDo').trigger('change');
+        </script>
+        <!-- Preselect Users in EditToDo -->
+        <script>
+            <c:forEach items="${userstodo}" var="user">
+            $('#usernameSelectEditToDo').val('${user}');
+            $('#usernameSelectEditToDo').trigger('change');
+            </c:forEach>
+        </script>
     </body>
 </html>
 

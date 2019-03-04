@@ -11,6 +11,7 @@
 
     <jsp:attribute name="head">
 
+
     </jsp:attribute>
 
     <jsp:attribute name="menu">
@@ -28,16 +29,9 @@
                         <span class="required">*</span>
                     </label>
                     <div class="side-by-side">
-                        <select class="js-example-basic-multiple col-md-10 form-control" name="todo_user" multiple="multiple" id="usernameSelect">
+                        <select class="js-example-basic-multiple col-md-10 form-control" name="todo_user" multiple="multiple" id="usernameSelectCreateToDo">
                             <c:forEach items="${users}" var="user">
-                                <c:choose>
-                                    <c:when test="${user} eq ${pageContext.request.userPrincipal.name}">
-                                        <option selected="selected" value="${user.getUsername()}">${user.getUsername()}</option>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <option value="${user.getUsername()}">${user.getUsername()}</option>
-                                    </c:otherwise>
-                                </c:choose>
+                                <option value="${user.getUsername()}">${user.getUsername()}</option>
                             </c:forEach>
                         </select>
                     </div>
