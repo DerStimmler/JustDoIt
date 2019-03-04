@@ -4,8 +4,11 @@ import justdoit.common.jpa.Form;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -75,7 +78,11 @@ public class SignUpServlet extends HttpServlet {
                 this.userBean.signup(username, password1, email);
                 User usermail = this.userBean.findByUsername(username);
                 RegisterMailContent mailContent = new RegisterMailContent(usermail);
-                this.mailBean.sendMail(mailContent);
+                try {
+                    this.mailBean.sendMail(mailContent);
+                } catch (MessagingException ex) {
+                    errors.add("Die E-Mail Adresse ist ungültig!");
+                }
                 // Keine Fehler: Startseite aufrufen
                 response.sendRedirect(request.getContextPath() + "/index.html");
             } catch (EJBException ex) {
@@ -83,7 +90,6 @@ public class SignUpServlet extends HttpServlet {
                 if (exc instanceof UserAlreadyExistsException) {
                     errors.add(this.userAlreadyExistsExceptionMessage.replace("$username", user.getUsername()));
                 }
-                //andere exception
             }
         }
         if (!errors.isEmpty()) {

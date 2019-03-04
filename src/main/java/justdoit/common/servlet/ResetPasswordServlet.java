@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 import javax.ejb.EJB;
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -92,7 +93,13 @@ public class ResetPasswordServlet extends HttpServlet {
 
     private void sendResetPasswordMail(User user, String newPassword) {
         ResetPasswordMailContent resetPasswordMailContent = new ResetPasswordMailContent(user, newPassword);
-        this.mailBean.sendMail(resetPasswordMailContent);
+
+        try {
+            this.mailBean.sendMail(resetPasswordMailContent);
+        } catch (MessagingException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     private String generateNewPassword() {
