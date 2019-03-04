@@ -1,26 +1,13 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/*
-    Created on : 01.03.2019, 09:16:34
-    Author     : Licht
-*/
-
-href {
-    color: black;
-}
-
-urgent {
+.URGENT {
     height: 1em;
     width: 1em;
     background-color: red;
     border-radius: 50%;
     display: inline-block;
+    color: red;
 }
 
-important {
+.IMPORTANT {
     height: 1em;
     width: 1em;
     background-color: yellow;
@@ -28,7 +15,7 @@ important {
     display: inline-block;
 }
 
-unimportant {
+.UNIMPORTANT {
     height: 1em;
     width: 1em;
     background-color: green;

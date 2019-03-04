@@ -4,14 +4,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<link rel="stylesheet" type="text/css" href="<c:url value="/css/view.css"/>" />
 <template:base>
     <jsp:attribute name="title">
         JustDoIt - Dashboard
     </jsp:attribute>
 
     <jsp:attribute name="head">
-        <link rel="stylesheet" href="<c:url value="/css/login.css"/>" />
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/view.css"/>">
     </jsp:attribute>
 
     <jsp:attribute name="menu">

@@ -26,7 +26,7 @@
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-reboot.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap-grid.min.css"/>" >
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap/bootstrap.min.css"/>" >
-        <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>" />
+        <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>">
 
         <jsp:invoke fragment="head"/>
 
