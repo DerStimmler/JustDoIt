@@ -40,7 +40,7 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
     }
 
     public List<ToDo> getDueTasks() {
-        String tomorrow = new SimpleDateFormat("yyyy-MM-dd").format(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
+        String tomorrow = new SimpleDateFormat("dd.MM.yyy").format(new Date(new Date().getTime() + (1000 * 60 * 60 * 24)));
         return em.createQuery("SELECT t FROM ToDo t WHERE t.dueDate = :dueDate").setParameter("dueDate", tomorrow).getResultList();
     }
 

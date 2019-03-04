@@ -18,13 +18,15 @@ import java.text.SimpleDateFormat;
  */
 public class FormatUtils {
 
-    public static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat("yyyy-MM-dd");
-    public static final SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat DATE_PARSE = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat TIME_PARSE = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
+    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
     public static String formatDate(String dateToParse) {
         try {
-            java.util.Date date = DATE_FORMATTER.parse(dateToParse);
-            return DATE_FORMATTER.format(date.getTime());
+            java.util.Date date = DATE_PARSE.parse(dateToParse);
+            return DATE_FORMAT.format(date.getTime());
         } catch (ParseException ex) {
             return null;
         }
@@ -32,8 +34,8 @@ public class FormatUtils {
 
     public static String formatTime(String dateToParse) {
         try {
-            java.util.Date date = TIME_FORMATTER.parse(dateToParse);
-            return TIME_FORMATTER.format(date.getTime());
+            java.util.Date date = TIME_PARSE.parse(dateToParse);
+            return TIME_FORMAT.format(date.getTime());
         } catch (ParseException ex) {
             return null;
         }
