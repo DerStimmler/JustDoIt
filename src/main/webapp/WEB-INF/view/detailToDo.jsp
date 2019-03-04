@@ -20,7 +20,6 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
-        <link rel="stylesheet" type="text/css" href="<c:url value="/css/delete.css"/>">
         <div class="container">
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">
@@ -43,9 +42,10 @@
                     <%-- Ausgabefelder --%>
                     <div  class="form-group">
                         <div class="form-label-group">
-                            <%--   <c:forEach items="${todo_justdoit_user}"> --%>
-                            <output type="titel" name="titel">Bearbeiter: ${todo_justdoit_user.user_username}</output>
-                                <%-- </c:forEach> --%>
+                            <output type="titel" name="titel"> Bearbeiter: </output>
+                                <c:forEach items="${users}" var="user">
+                                <output type="titel" name="titel"> ${user.username},</output>
+                                </c:forEach>
                         </div>
                     </div>
                     <div class="form-group">

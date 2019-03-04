@@ -53,8 +53,12 @@ public class UserBean {
     public void delete(User user) {
         this.em.remove(user);
     }
-    
+
     public List<User> findAll() {
         return this.em.createQuery("SELECT u FROM User u").getResultList();
+    }
+
+    public List<User> getUsers(long id) {
+        return em.createQuery("SELECT u FROM User u JOIN u.todos t WHERE t.id= :id").setParameter("id", id).getResultList();
     }
 }
