@@ -78,11 +78,7 @@ public class SignUpServlet extends HttpServlet {
                 this.userBean.signup(username, password1, email);
                 User usermail = this.userBean.findByUsername(username);
                 RegisterMailContent mailContent = new RegisterMailContent(usermail);
-                try {
-                    this.mailBean.sendMail(mailContent);
-                } catch (MessagingException ex) {
-                    errors.add("Die E-Mail Adresse ist ungültig!");
-                }
+                this.mailBean.sendMail(mailContent);
                 // Keine Fehler: Startseite aufrufen
                 response.sendRedirect(request.getContextPath() + "/index.html");
             } catch (EJBException ex) {
@@ -90,6 +86,8 @@ public class SignUpServlet extends HttpServlet {
                 if (exc instanceof UserAlreadyExistsException) {
                     errors.add(this.userAlreadyExistsExceptionMessage.replace("$username", user.getUsername()));
                 }
+            } catch (MessagingException ex) {
+                errors.add("Die E-Mail Adresse ist ungültig!");
             }
         }
         if (!errors.isEmpty()) {
