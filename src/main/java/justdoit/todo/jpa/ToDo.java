@@ -1,14 +1,13 @@
 package justdoit.todo.jpa;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.sql.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -56,7 +55,7 @@ public class ToDo implements Serializable {
 
     @ManyToMany()
     @NotNull(message = "Die Aufgabe muss mindestens einem Benutzer zugeordnet werden")
-    List<User> user = new ArrayList<>();
+    private List<User> user = new ArrayList<User>();
 
     @OneToMany(mappedBy = "todo")
     List<Comment> comments = new ArrayList<>();
