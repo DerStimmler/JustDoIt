@@ -56,3 +56,37 @@ main {
 .errors {
     color: red;
 }
+
+/* Chat */
+.chat-container {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.chat {
+    border: 2px solid #dedede;
+    background-color: lightblue;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+/* Darker chat container */
+.mine {
+    border-color: pink;
+    background-color: #ddd;
+}
+
+/* Clear floats */
+.chat::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.time {
+    font-size: 0.7rem;
+    color: green;
+    margin-top: 3px;
+    float: right;
+    cursor: default;
+}

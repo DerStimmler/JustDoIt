@@ -59,19 +59,33 @@
                         </div>
                     </div>
                 </div>
+                <%-- Fehlermeldungen --%>
+                <c:if test="${!empty change_form.errors}">
+                    <ul class="errors">
+                        <c:forEach items="${change_form.errors}" var="error">
+                            <li>${error}</li>
+                            </c:forEach>
+                    </ul>
+                </c:if>
             </div>
         </div>
-        <%-- Kommentare Container für jedes Kommentar einen eigenen --%>
-        <div class="container">
 
+        <%-- Kommentare --%>
+        <div class="container chat-container mt-7">
+            <div class="chat">
+                <p>Fremder Kommentar</p>
+                <span class="time"><i class="far fa-clock mr-1"></i>11:00</span>
+            </div>
+
+            <div class="chat mine">
+                <p>Mein Kommentar</p>
+                <span class="time"><i class="far fa-clock mr-1"></i>11:00</span>
+            </div>
         </div>
-        <%-- Fehlermeldungen --%>
-        <c:if test="${!empty change_form.errors}">
-            <ul class="errors">
-                <c:forEach items="${change_form.errors}" var="error">
-                    <li>${error}</li>
-                    </c:forEach>
-            </ul>
-        </c:if>
+
+
+
+
+
     </jsp:attribute>
 </template:base>
