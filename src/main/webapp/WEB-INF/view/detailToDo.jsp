@@ -61,10 +61,39 @@
                 </div>
             </div>
         </div>
+
         <%-- Kommentare Container für jedes Kommentar einen eigenen --%>
         <div class="container">
-
+            <div  class="form-group">
+                <div class="form-label-group">
+                    <output type="titel" name="titel"><h2> Kommentare:</h2> </output>
+                        <c:forEach items="${comments}" var="comment">
+                        <div class="container">
+                            <div class="card card-register mx-auto mt-5">
+                                <div class="card-body">
+                                    <div  class="form-group">
+                                        <div class="form-label-group">
+                                            <output type="titel" name="titel"> ${comment.commentText}</output>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
+                <form method="post" class="stacked">
+                    <div class="side-by-side float-right">
+                        <div class="side-by-side">
+                            <input type="text" name="todo_comment" value="${todo_form.values["todo_comment"][0]}">
+                        </div>
+                        <button type="submit" class="btn btn-labeled btn-dark" name="action" value="comment">
+                            <span class="btn-label"><i class="fas fa-comments"></i></span>  Kommentieren
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
+
         <%-- Fehlermeldungen --%>
         <c:if test="${!empty change_form.errors}">
             <ul class="errors">
