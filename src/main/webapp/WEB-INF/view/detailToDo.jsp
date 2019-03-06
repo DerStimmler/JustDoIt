@@ -8,7 +8,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Detailansicht des ToDo
+        Detailansicht
     </jsp:attribute>
 
     <jsp:attribute name="head">
@@ -72,20 +72,23 @@
 
         <%-- Kommentare --%>
         <div class="container chat-container mt-7">
-            <div class="chat">
-                <p>Fremder Kommentar</p>
-                <span class="time"><i class="far fa-clock mr-1"></i>11:00</span>
-            </div>
-
-            <div class="chat mine">
-                <p>Mein Kommentar</p>
-                <span class="time"><i class="far fa-clock mr-1"></i>11:00</span>
-            </div>
+            <c:forEach items="${comments}" var="comment">
+                <div class="chat ${pageContext.request.userPrincipal.name eq comment.user.username ? 'me' : 'you'}">
+                    <p>${comment.commentText}</p>
+                    <span class="time"><i class="far fa-clock mr-2 ml-3"></i>${comment.commentTimestamp}</span>
+                    <span class="time"><i class="far fa-user mr-2"></i>${comment.user.username}</span>
+                </div>
+            </c:forEach>
+            <form method="post" class="stacked">
+                <div class="side-by-side float-right">
+                    <div class="side-by-side">
+                        <input type="text" name="todo_comment" value="${todo_form.values["todo_comment"][0]}">
+                    </div>
+                    <button type="submit" class="btn btn-labeled btn-dark" name="action" value="comment">
+                        <span class="btn-label"><i class="fas fa-comments"></i></span>  Kommentieren
+                    </button>
+                </div>
+            </form>
         </div>
-
-
-
-
-
     </jsp:attribute>
 </template:base>

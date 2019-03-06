@@ -59,34 +59,57 @@ main {
 
 /* Chat */
 .chat-container {
-    padding-left: 30px;
-    padding-right: 30px;
-}
-.chat {
-    border: 2px solid #dedede;
-    background-color: lightblue;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
-}
-
-/* Darker chat container */
-.mine {
-    border-color: pink;
-    background-color: #ddd;
-}
-
-/* Clear floats */
-.chat::after {
-    content: "";
-    clear: both;
-    display: table;
+    margin-top: 50px;
 }
 
 .time {
     font-size: 0.7rem;
-    color: green;
+    color: #868e96;
     margin-top: 3px;
     float: right;
     cursor: default;
+}
+
+.user {
+    font-size: 0.7rem;
+    color: #868e96;
+    margin-top: 3px;
+    float: right;
+    cursor: default;
+}
+
+.chat {
+    width: 70%;
+    margin: 30px auto;
+    border-radius: 15px;
+    background: #f8f9fa;
+    color: black;
+    padding: 20px;
+    position: relative;
+}
+
+.me:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid #f8f9fa;
+    border-right: 15px solid transparent;
+    border-top: 15px solid #f8f9fa;
+    border-bottom: 15px solid transparent;
+    right: -16px;
+    top: 0px;
+}
+
+.you:before {
+    content: "";
+    width: 0px;
+    height: 0px;
+    position: absolute;
+    border-left: 15px solid transparent;
+    border-right: 15px solid #f8f9fa;
+    border-top: 15px solid #f8f9fa;
+    border-bottom: 15px solid transparent;
+    left: -16px;
+    top: 0px;
 }
