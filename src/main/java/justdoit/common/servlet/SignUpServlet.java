@@ -44,6 +44,8 @@ public class SignUpServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         // Anfrage an dazugerhörige JSP weiterleiten
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/signup.jsp");
         dispatcher.forward(request, response);
@@ -56,6 +58,8 @@ public class SignUpServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
 
         // Formulareingaben auslesen
         String username = request.getParameter("username");

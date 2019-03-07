@@ -18,6 +18,9 @@ public class IndexServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
+        request.setCharacterEncoding("UTF-8");
+
         response.sendRedirect(request.getContextPath() + "/view/dashboard/");
     }
 

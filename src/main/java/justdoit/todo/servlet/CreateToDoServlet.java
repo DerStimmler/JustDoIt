@@ -52,6 +52,9 @@ public class CreateToDoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
 
         List<User> users = this.userBean.findAll();
@@ -80,6 +83,8 @@ public class CreateToDoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
 
         List<User> users = new ArrayList<>();
         List<String> errors = new ArrayList<>();

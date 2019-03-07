@@ -32,6 +32,8 @@ public class DetailToDoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         //Angeforderter ToDo ermitteln
         long id = -1;
         String pathInfo = request.getPathInfo();
@@ -62,6 +64,8 @@ public class DetailToDoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
 
@@ -127,7 +131,7 @@ public class DetailToDoServlet extends HttpServlet {
         ToDo todo = toDoBean.findById(id);
         String text = request.getParameter("todo_comment");
         Comment comment = new Comment(currentUser, todo, text);
-        
+
         this.commentBean.saveNew(comment, id);
         response.sendRedirect(request.getContextPath() + "/view/dashboard/");
     }

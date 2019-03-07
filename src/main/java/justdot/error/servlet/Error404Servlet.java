@@ -14,6 +14,9 @@ public class Error404Servlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
+        request.setCharacterEncoding("UTF-8");
+
         request.getRequestDispatcher("/WEB-INF/error/404.jsp").forward(request, response);
     }
 }

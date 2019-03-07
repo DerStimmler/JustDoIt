@@ -35,6 +35,9 @@ public class ViewServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
+        request.setCharacterEncoding("UTF-8");
+
         //TODO: Ids ändern, damit jedes einzeln eingeklappt werden kann
         HttpSession session = request.getSession();
         User currentUser = this.userBean.getCurrentUser();

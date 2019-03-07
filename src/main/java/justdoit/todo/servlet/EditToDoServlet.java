@@ -46,6 +46,8 @@ public class EditToDoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         //Angeforderter ToDo ermitteln
         long id = -1;
         String pathInfo = request.getPathInfo();
@@ -81,6 +83,8 @@ public class EditToDoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
 

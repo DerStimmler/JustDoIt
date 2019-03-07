@@ -52,6 +52,8 @@ public class CategoriesServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         User currentUser = this.userBean.getCurrentUser();
         List<Category> categories = this.categoryBean.findByUser(currentUser);
 
@@ -76,6 +78,8 @@ public class CategoriesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        request.setCharacterEncoding("UTF-8");
+
         String action = request.getParameter("action");
 
         if (action.equals("create")) {
@@ -88,7 +92,7 @@ public class CategoriesServlet extends HttpServlet {
 
     private void createCategory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         CategoryId categoryId = new CategoryId(this.userBean.getCurrentUser().getUsername(), request.getParameter("category_name"));
         Category category = new Category(request.getParameter("category_name"), this.userBean.getCurrentUser());
         List<String> errors = this.validationBean.validate(category);

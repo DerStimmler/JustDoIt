@@ -15,6 +15,9 @@ public class LogoutServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
+        request.setCharacterEncoding("UTF-8");
+
         request.getSession().invalidate();
         response.sendRedirect(request.getContextPath() + "/");
     }
