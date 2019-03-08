@@ -21,6 +21,7 @@
 
         <title>JustDoIt | ${title}</title>
 
+        <link rel="shortcut icon" href="<c:url value="/favicon.ico"/>" type="image/x-icon" />
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/select2/select2.min.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/select2/select2-bootstrap4.min.css"/>">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/fontawesome/css/all.min.css"/>">
