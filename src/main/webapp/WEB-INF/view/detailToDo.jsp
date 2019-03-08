@@ -80,13 +80,13 @@
                 </div>
             </c:forEach>
             <form method="post" class="stacked">
-                <div class="d-flex justify-content-center mt-6">
+                <div class="d-flex justify-content-center mt-6 mb-5">
                     <div class="col">
                         <div class="row justify-content-center">
                             <textarea class="form-control comment-textarea" type="text" name="todo_comment" value="${todo_form.values["todo_comment"][0]}"></textarea>
                         </div>
                         <div class="row justify-content-center">
-                            <button type="submit" class="btn btn-labeled btn-dark" name="action" value="comment">
+                            <button type="submit" class="btn btn-labeled btn-dark mt-1" name="action" value="comment">
                                 <span class="btn-label"><i class="fas fa-comments"></i></span>  Kommentieren
                             </button>
                         </div>

@@ -43,7 +43,6 @@ footer {
 }
 
 main {
-    background-color: darkgrey;
     padding-left: 10%;
     padding-right: 10%;
     padding-bottom: 5%;
@@ -86,6 +85,12 @@ main {
     color: black;
     padding: 20px;
     position: relative;
+}
+
+.chat > p {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .me:before {

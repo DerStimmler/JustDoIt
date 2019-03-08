@@ -27,7 +27,7 @@
         <jsp:invoke fragment="head"/>
 
     </head>
-    <body>
+    <body class="bg-dark">
         <!-- Menü der Seite -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <span class="navbar-brand mb-0 h1">JustDoIt</span>
@@ -79,7 +79,7 @@
         </nav>
 
         <!-- Hauptinhalt der Seite -->
-        <main class="bg-dark">
+        <main class="mb-5">
             <jsp:invoke fragment="main"/>
         </main>
 

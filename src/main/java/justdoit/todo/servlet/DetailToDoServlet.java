@@ -133,6 +133,6 @@ public class DetailToDoServlet extends HttpServlet {
         Comment comment = new Comment(currentUser, todo, text);
 
         this.commentBean.saveNew(comment, id);
-        response.sendRedirect(request.getContextPath() + "/view/dashboard/");
+        response.sendRedirect(request.getRequestURI());
     }
 }
