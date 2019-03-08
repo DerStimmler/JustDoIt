@@ -113,3 +113,7 @@ main {
     left: -16px;
     top: 0px;
 }
+
+.comment-textarea {
+    width: 70%;
+}
