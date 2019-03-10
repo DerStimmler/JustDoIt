@@ -24,7 +24,7 @@
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-9 float-left"> <output type="titel" name="titel">${todo.name}</div>
+                        <div class="col-md-9 float-left"> <output type="titel" name="titel"><b>${todo.name}</b></div>
                         <form method="post" class="stacked">
                             <div class="side-by-side float-right">
                                 <button type="submit" class="btn btn-labeled btn-dark" name="action" value="edit">
@@ -42,20 +42,21 @@
                     <%-- Ausgabefelder --%>
                     <div  class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel"> Bearbeiter: </output>
-                                <c:forEach items="${users}" var="user">
-                                <output type="titel" name="titel"> ${user.username},</output>
-                                </c:forEach>
+                            <output type="titel" name="titel"> <b>Bearbeiter:</b> </output>
+                                <c:forEach items="${users}" var="user" varStatus="loop">
+                                <output type="titel" name="titel">${user.username}</output>
+                                <c:if test="${!loop.last}">,</c:if>
+                            </c:forEach>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel">Fälligkeitsdatum: ${todo.dueDate}</output>
+                            <output type="titel" name="titel"><b>Fälligkeitsdatum:</b> ${todo.dueDate}</output>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel">Beschreibung: ${todo.description}</output>
+                            <output type="titel" name="titel"><b>Beschreibung:</b> ${todo.description}</output>
                         </div>
                     </div>
                 </div>

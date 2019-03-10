@@ -58,10 +58,10 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<ToDo> todos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Category> categories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     List<Comment> comments = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktor">
