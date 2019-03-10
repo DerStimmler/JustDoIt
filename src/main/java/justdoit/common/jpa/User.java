@@ -47,7 +47,7 @@ public class User implements Serializable {
     @NotNull(message = "Bitte geben Sie eine E-Mail-Adresse ein!")
     private String email = "";
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(
             name = "USER_GROUP",
             joinColumns = @JoinColumn(name = "USERNAME")
