@@ -26,15 +26,17 @@
                 <div class="card-body">
                     <form action="j_security_check" method="post" class="stacked">
                         <%-- Eingabefelder --%>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="text" class="form-control" name="j_username" placeholder="Benutzername" required="required" autofocus="autofocus">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
+                            <input type="text" class="form-control" name="j_username" placeholder="Benutzername" required="required" autofocus="autofocus">
                         </div>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="password" class="form-control" name="j_password" placeholder="Passwort" required="required">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
+                            <input type="password" class="form-control" name="j_password" placeholder="Passwort" required="required">
                         </div>
                         <%-- Button zum Abschicken --%>
                         <input class="btn btn-primary btn-block" type="submit" value="Einloggen">

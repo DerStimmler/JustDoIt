@@ -26,31 +26,29 @@
                 <div class="card-body">
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="text" class="form-control" name="username" value="${signup_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
+                            <input type="text" class="form-control" name="username" value="${signup_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
                         </div>
-                        <div class="form-group">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input type="password" class="form-control" name="password1" value="${signup_form.values["password1"][0]}" placeholder="Passwort" required="required">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input type="password" class="form-control" name="password2" value="${signup_form.values["password2"][0]}" placeholder="Passwort wiederholen" required="required">
-                                    </div>
-                                </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="email" class="form-control" name="email" value="${signup_form.values["email"][0]}" placeholder="E-Mail" required="required">
-                                <small id="emailHelp" class="form-text text-muted">We need your E-Mail-Adress to notify you about your taks.</small>
+                            <input type="password" class="form-control mr-1" name="password1" value="${signup_form.values["password1"][0]}" placeholder="Passwort" required="required">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
+                            <input type="password" class="form-control" name="password2" value="${signup_form.values["password2"][0]}" placeholder="Passwort wiederholen" required="required">
                         </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-at"></i></span>
+                            </div>
+                            <input type="email" class="form-control" name="email" value="${signup_form.values["email"][0]}" placeholder="E-Mail" required="required">
+                        </div>
+                        <small id="emailHelp" class="form-text text-muted">We need your E-Mail-Adress to notify you about your taks.</small>
                         <%-- Button zum Abschicken --%>
                         <input class="btn btn-primary btn-block" type="submit" value="Registrieren">
                     </form>
