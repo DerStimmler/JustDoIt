@@ -20,7 +20,7 @@
     <jsp:attribute name="main">
         <div id="categoryContainer" class="mx-auto categoryContainer">
             <c:forEach items="${categories}" var="category">
-                <div class="card row bg-light mb-5">
+                <div class="card row bg-light mb-5 flex-nowrap pb-1">
                     <div class="card-header bg-light" id="heading${category.categoryName}">
                         <a class="nav-link" data-toggle="collapse" data-target="#collapse${category.categoryName}" aria-expanded="true" aria-controls="collapse${category.categoryName}">
                             ${category.categoryName}
