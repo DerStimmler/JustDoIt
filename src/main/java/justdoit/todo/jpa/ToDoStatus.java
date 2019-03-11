@@ -17,5 +17,4 @@ public enum ToDoStatus {
                 return this.toString();
         }
     }
-
 }

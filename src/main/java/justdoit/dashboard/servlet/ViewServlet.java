@@ -1,6 +1,7 @@
 package justdoit.dashboard.servlet;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,16 +69,30 @@ public class ViewServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        Long backId = Long.parseLong(request.getParameter("back"));
-        Long forwardId = Long.parseLong(request.getParameter("forward"));
+        Long backId = null;
+        Long forwardId = null;
 
-        ToDo todo;
+        if (request.getParameter("back") != null) {
+            backId = Long.parseLong(request.getParameter("back"));
+        }
+        if (request.getParameter("forward") != null) {
+            forwardId = Long.parseLong(request.getParameter("forward"));
+        }
+
+        List<ToDoStatus> status = Arrays.asList(ToDoStatus.values());
+
+        ToDo todo = null;
         if (backId != null) {
             todo = this.todoBean.findById(backId);
+            int index = status.indexOf(todo.getStatus());
+            todo.setStatus(status.get(--index));
         }
         if (forwardId != null) {
             todo = this.todoBean.findById(forwardId);
+            int index = status.indexOf(todo.getStatus());
+            todo.setStatus(status.get(++index));
         }
+        this.todoBean.update(todo);
 
         response.sendRedirect(request.getRequestURI());
     }
