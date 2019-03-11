@@ -23,7 +23,7 @@
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">
                     <div class="card-header bg-light" id="heading${category.categoryName}">
                         <a class="nav-link" data-toggle="collapse" data-target="#collapse${category.categoryName}" aria-expanded="true" aria-controls="collapse${category.categoryName}">
-                            ${category.categoryName}
+                            <i class="fas fa-star mr-2"></i>${category.categoryName}
                         </a>
                     </div>
                     <div id="collapse${category.categoryName}" class="collapse show" aria-labelledby="heading${category.categoryName}" data-parent="#categoryContainer">
@@ -88,8 +88,8 @@
             </c:forEach>
             <!-- Bemerkung anzeigen wenn keine Kategorien vorhanden sind-->
             <c:if test="${empty categories}">
-                <div class="d-flex justify-content-center w-100 mt-7">
-                    <div class="alert alert-info text-center center-block w-75">Keine Kategorien vorhanden!</div>
+                <div class="d-flex justify-content-center w-100 mt-5">
+                    <div class="alert alert-info text-center center-block w-75 mt-5">Keine Kategorien vorhanden!</div>
                 </div>
             </c:if>
         </div>
