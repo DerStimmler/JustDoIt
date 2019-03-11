@@ -19,11 +19,11 @@
 
     <jsp:attribute name="main">
         <div class="container">
-            <div class="card card-register mx-auto mt-5">
-                <div class="card-header">Kategorien</div>
-                <div class="card-body">
-                    <form method="post" class="stacked">
-                        <%-- Eingabefelder --%>
+            <form method="post" class="stacked">
+                <%-- Eingabefelder --%>
+                <div class="card card-register mx-auto mt-5">
+                    <div class="card-header">Kategorie erstellen</div>
+                    <div class="card-body">
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -35,11 +35,16 @@
 
                         <%-- Button zum Abschicken --%>
                         <div class="side-by-side">
-                            <button class="btn btn-primary btn-block mb-4" name="action" value="create" type="submit">
+                            <button class="btn btn-primary btn-block mb-2" name="action" value="create" type="submit">
                                 Kategorie erstellen
                             </button>
                         </div>
-                        <div class="text-center mb-4">
+                    </div>
+                </div>
+                <div class="card card-register mx-auto mt-2">
+                    <div class="card-header">Existierende Kategorien</div>
+                    <div class="card-body">
+                        <div class="text-center mb-1">
                             <%-- Vorhandene Kategorien --%>
                             <c:choose>
                                 <c:when test="${empty categories}">
@@ -49,10 +54,10 @@
                                     <div class="col">
                                         <c:forEach items="${categories}" var="category">
                                             <c:if test="${category.categoryName != 'Ohne Kategorie'}">
-                                                <div class="row d-flex justify-content-center">
-                                                    <div class="form-check">
-                                                        <input type="checkbox" class="form-check-input" name="category" value="${category.categoryName}" id="${'category'.concat(category.id)}">
-                                                        <label class="form-check-label" for="${'category'.concat(category.id)}">${category.categoryName}</label>
+                                                <div class="row">
+                                                    <div class="custom-control custom-checkbox offset-md-5">
+                                                        <input type="checkbox" class="custom-control-input" name="category" value="${category.categoryName}" id="${'category'.concat(category.id)}">
+                                                        <label class="custom-control-label" for="${'category'.concat(category.id)}">${category.categoryName}</label>
                                                     </div>
                                                 </div>
                                             </c:if>
@@ -75,9 +80,9 @@
                                 </ul>
                             </c:if>
                         </div>
-                    </form>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </jsp:attribute>
 </template:base>
