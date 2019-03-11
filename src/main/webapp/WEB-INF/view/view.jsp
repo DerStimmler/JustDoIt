@@ -20,14 +20,12 @@
     <jsp:attribute name="main">
         <div id="categoryContainer" class="mx-auto categoryContainer">
             <c:forEach items="${categories}" var="category">
-
                 <div class="card row bg-light mb-5">
                     <div class="card-header bg-light" id="heading${category.categoryName}">
                         <a class="nav-link" data-toggle="collapse" data-target="#collapse${category.categoryName}" aria-expanded="true" aria-controls="collapse${category.categoryName}">
                             ${category.categoryName}
                         </a>
                     </div>
-
                     <div id="collapse${category.categoryName}" class="collapse show" aria-labelledby="heading${category.categoryName}" data-parent="#categoryContainer">
                         <div class="row p-0 m-0">
                             <c:forEach items="${statuses}" var="status" varStatus="statusloop">
@@ -39,9 +37,9 @@
                                                 <div class="row mr-0">
                                                     <div class="col-md-1 centered my-auto">
                                                         <c:if test="${not statusloop.first}">
-                                                            <form method="post" id="backForm">
+                                                            <form method="post" id="backForm${todo.id}">
                                                                 <input type="text" name="back" value="${todo.id}" class="d-none">
-                                                                <a href="#" onclick="document.getElementById('backForm').submit();"><i class="fas fa-arrow-left"></i></a>
+                                                                <a href="#" onclick="document.getElementById('backForm${todo.id}').submit();"><i class="fas fa-arrow-left"></i></a>
                                                             </form>
                                                         </c:if>
                                                     </div>
@@ -60,9 +58,9 @@
                                                     </div>
                                                     <div class="col-md-1 centered my-auto">
                                                         <c:if test="${not statusloop.last}">
-                                                            <form method="post" id="forwardForm">
+                                                            <form method="post" id="forwardForm${todo.id}">
                                                                 <input type="text" name="forward" value="${todo.id}" class="d-none">
-                                                                <a href="#" onclick="document.getElementById('forwardForm').submit();"><i class="fas fa-arrow-right"></i></a>
+                                                                <a href="#" onclick="document.getElementById('forwardForm${todo.id}').submit();"><i class="fas fa-arrow-right"></i></a>
                                                             </form>
                                                         </c:if>
                                                     </div>
