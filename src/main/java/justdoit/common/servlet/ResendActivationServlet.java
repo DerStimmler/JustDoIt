@@ -59,9 +59,9 @@ public class ResendActivationServlet extends HttpServlet {
         User activationUser = this.userBean.findByUsername(username);
 
         if (activationUser == null) {
-            errors.add(this.userDoesNotExistExceptionMessage);
+            errors.add(this.userDoesNotExistExceptionMessage.replace("$username", username));
         } else if (!activationUser.getGroups().contains("justdoit-user-inactive")) {
-            errors.add(this.userAlreadyActivatedExceptionMessage);
+            errors.add(this.userAlreadyActivatedExceptionMessage.replace("$username", username));
         } else {
             try {
 

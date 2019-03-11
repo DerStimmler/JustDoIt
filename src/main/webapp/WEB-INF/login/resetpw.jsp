@@ -29,7 +29,6 @@
                         <p>Gib deinen Benutzernamen ein und wir schicken dir eine E-Mail mit einem neuen Passwort.</p>
                     </div>
                     <form method="post" class="stacked">
-                        <%-- Eingabefelder --%>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>

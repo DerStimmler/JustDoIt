@@ -53,14 +53,14 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
         CriteriaBuilder criteriaBuilder = this.em.getCriteriaBuilder();
         CriteriaQuery<ToDo> criteriaQuery = criteriaBuilder.createQuery(ToDo.class);
 
+        Metamodel m = em.getMetamodel();
+        EntityType<ToDo> ToDo_ = m.entity(ToDo.class);
         Root<ToDo> toDo = criteriaQuery.from(ToDo.class);
         criteriaQuery.select(toDo);
 
         Predicate predicate = criteriaBuilder.conjunction();
 
         if (username != null && !username.trim().isEmpty()) {
-            Metamodel m = em.getMetamodel();
-            EntityType<ToDo> ToDo_ = m.entity(ToDo.class);
             Join<ToDo, User> u = toDo.join(ToDo_.getList("user", User.class));
             predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(u.get("username"), username));
             criteriaQuery.where(predicate);
@@ -71,8 +71,10 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
             criteriaQuery.where(predicate);
         }
 
-        if (category != null) {
-            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(toDo.get("category").get("categoryName"), category.getCategoryName()));
+        if (category != null && username != null && !username.trim().isEmpty()) {
+            Join<ToDo, Category> c = toDo.join(ToDo_.getList("categories", Category.class));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(c.get("categoryName"), category.getCategoryName()));
+            predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(c.get("username"), username));
             criteriaQuery.where(predicate);
         }
 

@@ -5,11 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -22,7 +23,7 @@ public class Category implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @GeneratedValue()
-    private Long id;
+    private Long uniqueNumber;
 
     @Id
     @NotNull(message = "Der Kategorie muss ein Name gegeben werden")
@@ -34,7 +35,7 @@ public class Category implements Serializable {
     @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
     private String username;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn(name = "USERNAME_PK", referencedColumnName = "USERNAME")
     @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
     private User user;
@@ -42,7 +43,7 @@ public class Category implements Serializable {
 //    @Id
 //    @NotNull
 //    private String categoryUsername;
-    @OneToMany(mappedBy = "category")
+    @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
     List<ToDo> toDos = new ArrayList<>();
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">
@@ -87,12 +88,32 @@ public class Category implements Serializable {
         this.toDos = toDos;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUniqueNumber() {
+        return uniqueNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUniqueNumber(Long uniqueNumber) {
+        this.uniqueNumber = uniqueNumber;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public CategoryId getId() {
+        return new CategoryId(username, categoryName);
     }
     //</editor-fold>
 }
