@@ -56,7 +56,7 @@ public class ViewServlet extends HttpServlet {
             dashboardContent.put(category.getCategoryName(), status);
         });
 
-        List<ToDo> todos = todoBean.findAll();
+        List<ToDo> todos = todoBean.findByUsername(currentUser.getUsername());
 
         ToDoStatus[] status = ToDoStatus.values();
         session.setAttribute("todos", todos);
