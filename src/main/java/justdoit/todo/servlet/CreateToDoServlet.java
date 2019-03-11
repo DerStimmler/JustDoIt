@@ -88,6 +88,7 @@ public class CreateToDoServlet extends HttpServlet {
 
         List<User> users = new ArrayList<>();
         List<String> errors = new ArrayList<>();
+        List<Category> todoCategories = new ArrayList<>();
         ToDo todo;
         Category todoCategory = null;
         HttpSession session = request.getSession();
@@ -118,14 +119,15 @@ public class CreateToDoServlet extends HttpServlet {
                         }
                     }
                 }
-            };
+            }
+            todoCategories.add(todoCategory);
         }
         String dueDate = FormatUtils.formatDate(request.getParameter("todo_due_date"));
         String dueTime = FormatUtils.formatTime(request.getParameter("todo_due_time"));
 
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         todo = new ToDo(request.getParameter("todo_title"),
-                todoCategory, //request.getParameter("todo_category"),
+                todoCategories,
                 request.getParameter("todo_description"),
                 ToDoStatus.OPEN,
                 priority,

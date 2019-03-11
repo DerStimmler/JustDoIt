@@ -31,9 +31,9 @@ public class ToDo implements Serializable {
     @NotNull(message = "Der Aufgabe muss ein Name gegeben werden")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @NotNull(message = "Die Aufgabe muss einer Kategorie zugeordnet werden")
-    private Category category;
+    private List<Category> categories;
 
     @Lob
     private String description;
@@ -61,9 +61,9 @@ public class ToDo implements Serializable {
     List<Comment> comments = new ArrayList<>();
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
-    public ToDo(String name, Category category, String description, ToDoStatus status, ToDoPriority priority, String dueDate, String dueTime, List<User> user) {
+    public ToDo(String name, List<Category> categories, String description, ToDoStatus status, ToDoPriority priority, String dueDate, String dueTime, List<User> user) {
         this.name = name;
-        this.category = category;
+        this.categories = categories;
         this.description = description;
         this.status = status;
         this.priority = priority;
@@ -105,8 +105,8 @@ public class ToDo implements Serializable {
         return name;
     }
 
-    public Category getCategory() {
-        return category;
+    public List<Category> getCategories() {
+        return categories;
     }
 
     public String getDescription() {
@@ -129,8 +129,12 @@ public class ToDo implements Serializable {
         this.name = name;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public void addCategory(Category category) {
+        this.categories.add(category);
     }
 
     public void setDescription(String description) {
@@ -151,6 +155,12 @@ public class ToDo implements Serializable {
 
     public void setUser(List<User> user) {
         this.user = user;
+    }
+
+    public void removeCategory(Category category) {
+        if (this.categories.contains(category)) {
+            this.categories.remove(category);
+        }
     }
     //</editor-fold>
 

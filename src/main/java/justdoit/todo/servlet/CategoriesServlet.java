@@ -127,6 +127,17 @@ public class CategoriesServlet extends HttpServlet {
         User currentUser = this.userBean.getCurrentUser();
         String[] selectedCategoryNames = request.getParameterValues("category");
         Category category;
+        Category withoutCategory = this.categoryBean.findById(new CategoryId(currentUser.getUsername(), "Ohne Kategorie"));
+
+        if (withoutCategory == null) {
+            withoutCategory = new Category("Ohne Kategorie", currentUser);
+            try {
+
+                this.categoryBean.saveNew(withoutCategory, withoutCategory.getId());
+            } catch (EJBException ejbex) {
+
+            }
+        }
 
         for (String categoryName : selectedCategoryNames) {
             CategoryId categoryId = new CategoryId(currentUser.getUsername(), categoryName);
@@ -136,10 +147,12 @@ public class CategoriesServlet extends HttpServlet {
             }
             List<ToDo> toDos = category.getToDos();
             if (toDos != null) {
-                toDos.forEach((ToDo toDo) -> {
-                    toDo.setCategory(null);
-                    this.toDoBean.update(toDo);
-                });
+                for (int i = 0; i < toDos.size(); i++) {
+                    ToDo todo = toDos.get(i);
+                    todo.removeCategory(category);
+                    todo.addCategory(withoutCategory);
+                    this.toDoBean.update(todo);
+                }
             }
             this.categoryBean.delete(category);
         }

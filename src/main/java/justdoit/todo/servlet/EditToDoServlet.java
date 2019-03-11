@@ -149,7 +149,7 @@ public class EditToDoServlet extends HttpServlet {
 
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         todo.setName(request.getParameter("todo_title"));
-        todo.setCategory(todoCategory);
+        //todo.setCategory(todoCategory);
         todo.setDescription(request.getParameter("todo_description"));
         todo.setStatus(ToDoStatus.OPEN);
         todo.setPriority(priority);
