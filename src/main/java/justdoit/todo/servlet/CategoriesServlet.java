@@ -131,19 +131,15 @@ public class CategoriesServlet extends HttpServlet {
         User currentUser = this.userBean.getCurrentUser();
         String[] selectedCategoryNames = request.getParameterValues("category");
         Category category;
-        Category withoutCategory = this.categoryBean.findById(new CategoryId(currentUser.getUsername(), "Ohne Kategorie"));
 
         if (selectedCategoryNames == null) {
             return;
         }
+
+        Category withoutCategory = this.categoryBean.findById(new CategoryId(currentUser.getUsername(), "Ohne Kategorie"));
         if (withoutCategory == null) {
             withoutCategory = new Category("Ohne Kategorie", currentUser);
-            try {
-
-                this.categoryBean.saveNew(withoutCategory, withoutCategory.getId());
-            } catch (EJBException ejbex) {
-
-            }
+            this.categoryBean.saveNew(withoutCategory, withoutCategory.getId());
         }
 
         for (String categoryName : selectedCategoryNames) {
