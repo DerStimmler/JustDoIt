@@ -80,6 +80,7 @@
                     <span class="time"><i class="far fa-user mr-2"></i>${comment.user.username}</span>
                 </div>
             </c:forEach>
+            <hr class="bg-light">
             <form method="post" class="stacked">
                 <div class="d-flex justify-content-center mt-6 mb-5">
                     <div class="col">
