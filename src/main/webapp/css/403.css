@@ -5,7 +5,7 @@
     --font-sans-serif: 'IBM Plex Mono';
     --box-shadow: 0px 21px 34px 0px rgba(0, 0, 0, 0.89);
     --color-bg: linear-gradient(to bottom, rgba(35,37,38,1) 0%,rgba(32,38,40,1) 100%);
-    --scene-width: 400px;
+    --scene-width: 600px;
     --scene-height: 400px;
     --delay-base: 500ms;
     --delay-added: 100ms;
@@ -51,7 +51,7 @@ body{
 .text{
     transition: transform 600ms var(--acc-back), opacity 100ms ease-in;
     height: inherit;
-    width: 100%; 
+    width: 100%;
     height: 100%;
     z-index: 7;
     position: relative;
@@ -69,7 +69,7 @@ body{
         opacity: 0;
     }
     100%{
-        opacity: 1;    
+        opacity: 1;
     }
 }
 
@@ -89,7 +89,7 @@ body{
     }
     100%{
 
-        opacity: 1;    
+        opacity: 1;
     }
 }
 
@@ -126,7 +126,7 @@ body{
 .support{
     bottom: -50px; right: -21px;
     font-size: 21px;
-    animation-delay: calc(var(--delay-base) + 4 * var(--delay-added)); 
+    animation-delay: calc(var(--delay-base) + 4 * var(--delay-added));
     display: block;
     margin-top: 89px;
     color: #686a6b;
