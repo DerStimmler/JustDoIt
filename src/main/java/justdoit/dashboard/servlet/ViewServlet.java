@@ -62,4 +62,24 @@ public class ViewServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/view/view.jsp").forward(request, response);
     }
 
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        Long backId = Long.parseLong(request.getParameter("back"));
+        Long forwardId = Long.parseLong(request.getParameter("forward"));
+
+        ToDo todo;
+        if (backId != null) {
+            todo = this.todoBean.findById(backId);
+        }
+        if (forwardId != null) {
+            todo = this.todoBean.findById(forwardId);
+        }
+
+        response.sendRedirect(request.getRequestURI());
+    }
+
 }

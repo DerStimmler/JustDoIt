@@ -33,6 +33,10 @@ public class ToDoBean extends EntityBean<ToDo, Long> {
         super(ToDo.class);
     }
 
+    public ToDo findById(Long id) {
+        return em.find(ToDo.class, id);
+    }
+
     public List<ToDo> findByUsername(String username) {
         return em.createQuery("SELECT t FROM ToDo t  JOIN t.user u WHERE u.username = :username ORDER BY t.dueDate, t.dueTime")
                 .setParameter("username", username)

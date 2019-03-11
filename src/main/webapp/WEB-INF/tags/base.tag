@@ -79,7 +79,7 @@
         </nav>
 
         <!-- Hauptinhalt der Seite -->
-        <main class="mb-5">
+        <main>
             <jsp:invoke fragment="main"/>
         </main>
 
