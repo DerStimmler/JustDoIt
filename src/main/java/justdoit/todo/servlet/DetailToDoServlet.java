@@ -58,7 +58,7 @@ public class DetailToDoServlet extends HttpServlet {
         }
         //Wenn der aktuelle User nicht in den Benutzer des ToDos vorkommt, hat er keine Anzeigerechte
         if (!usernames.contains(currentUser.getUsername())) {
-            response.sendRedirect(request.getContextPath() + "/403");
+            response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
 
