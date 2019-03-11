@@ -21,8 +21,12 @@
                 <span class="hero-text"></span>
                 <span class="msg">can't let <span>you</span> in.</span>
                 <span class="support">
-                    <span>No permission to access.</span>
-                    <a href="<c:url value="/"/>">Go to Homepage</a>
+                    <span>Sie haben leider keine ausreichenden Rechte. </span>
+                    <span></span>
+                    <span>Dies könnte auch daran liegen, dass Ihr Benutzer noch nicht aktiviert worden ist.</span>
+                    <span>Sie haben nach der Registrierung eine E-Mail mit Aktivierungslink erhalten. Falls Sie diese nicht erhalten haben, können Sie diese auch erneut anfordern!</span>
+                    <span></span>
+                    <a href="<c:url value="/logout/"/>">Zurück zum Login</a>
                 </span>
             </div>
             <div class="lock"></div>

@@ -40,7 +40,6 @@ public class UserBean {
         //Hash the password
         password = this.hashGenerator.getHashText(password);
         User user = new User(username, password, email);
-        //TODO: User zur Gruppe "justdoit-user-inactive" hinzufügen und erst wenn Account aktiviert wurde Gruppe zu "justdoit-user" ändern
         user.addToGroup("justdoit-user-inactive");
         em.persist(user);
     }

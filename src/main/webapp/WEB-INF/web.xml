@@ -26,9 +26,6 @@
     </security-constraint>
     <!--
         Übersicht über alle von dieser Webanwendung genutzten Benutzerollen
-        für den Admin. Die Vergabe der Rollen erfolgt durch Hinzufügen der
-        Benutzer zu bestimmten Benutzergruppen. In der Datei glassfish-web.xml
-        ist dabei das Mapping zwischen Benutzergruppen und Rollen definiert.
     -->
     <security-role>
         <description>
@@ -58,7 +55,7 @@
         <ejb-ref-type>Session</ejb-ref-type>
         <ejb-link>#HashGenerator</ejb-link>
     </ejb-local-ref>
-    
+
     <error-page>
         <error-code>404</error-code>
         <location>/404</location>
