@@ -111,10 +111,12 @@
         </script>
         <!-- Preselect Users in EditToDo -->
         <script>
+            var arr = [];
             <c:forEach items="${userstodo}" var="user">
-            $('#usernameSelectEditToDo').val('${user.username}');
-            $('#usernameSelectEditToDo').trigger('change');
+            arr.push("${user.username}");
             </c:forEach>
+            $('#usernameSelectEditToDo').val(arr);
+            $('#usernameSelectEditToDo').trigger('change');
         </script>
     </body>
 </html>
