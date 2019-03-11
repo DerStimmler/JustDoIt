@@ -26,15 +26,17 @@
                 <div class="card-body">
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="password" class="form-control" name="password0" value="${changeMail_form.values["password0"][0]}" placeholder="aktuelles Passwort" required="required" autofocus="autofocus">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
+                            <input type="password" class="form-control" name="password0" value="${changeMail_form.values["password0"][0]}" placeholder="aktuelles Passwort" required="required" autofocus="autofocus">
                         </div>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="email" class="form-control" name="email" value="${changeMail_form.values["email"][0]}" placeholder="E-Mail-Adresse" required="required">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-at"></i></span>
                             </div>
+                            <input type="email" class="form-control" name="email" value="${changeMail_form.values["email"][0]}" placeholder="E-Mail-Adresse" required="required">
                         </div>
                         <%-- Button zum Abschicken --%>
                         <input class="btn btn-primary btn-block" type="submit" value="Ändern">

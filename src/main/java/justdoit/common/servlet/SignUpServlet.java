@@ -81,7 +81,10 @@ public class SignUpServlet extends HttpServlet {
             try {
                 this.userBean.signup(username, password1, email);
                 User usermail = this.userBean.findByUsername(username);
-                RegisterMailContent mailContent = new RegisterMailContent(usermail);
+
+                String activationUrl = "/activate/" + Long.toBinaryString(usermail.getId());
+
+                RegisterMailContent mailContent = new RegisterMailContent(usermail, activationUrl);
                 this.mailBean.sendMail(mailContent);
                 // Keine Fehler: Startseite aufrufen
                 response.sendRedirect(request.getContextPath() + "/index.html");

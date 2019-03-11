@@ -31,7 +31,7 @@ public class ToDo implements Serializable {
     @NotNull(message = "Der Aufgabe muss ein Name gegeben werden")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @NotNull(message = "Die Aufgabe muss einer Kategorie zugeordnet werden")
     private Category category;
 
@@ -53,11 +53,11 @@ public class ToDo implements Serializable {
     @NotNull(message = "Bitte geben Sie eine Uhrzeit in der Form HH:MM an")
     private String dueTime;
 
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @NotNull(message = "Die Aufgabe muss mindestens einem Benutzer zugeordnet werden")
     private List<User> user = new ArrayList<User>();
 
-    @OneToMany(mappedBy = "todo")
+    @OneToMany(mappedBy = "todo", fetch = FetchType.EAGER)
     List<Comment> comments = new ArrayList<>();
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">

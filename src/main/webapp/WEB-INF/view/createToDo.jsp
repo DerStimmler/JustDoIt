@@ -6,7 +6,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        Kategorien
+        Erstellen
     </jsp:attribute>
 
     <jsp:attribute name="head">

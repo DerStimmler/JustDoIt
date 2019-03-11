@@ -30,10 +30,11 @@
                     </div>
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
-                        <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="text" class="form-control" name="username" value="${resetpw_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
+                            <input type="text" class="form-control" name="username" value="${resetpw_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
                         </div>
                         <%-- Button zum Abschicken --%>
                         <input class="btn btn-primary btn-block" type="submit" value="Passwort zurücksetzen">
