@@ -27,6 +27,7 @@ public class CategoriesServlet extends HttpServlet {
 
     public final String categoryAlreadyExistsExceptionMessage = "Die Kategorie $category exisitert bereits! Bitte wählen Sie einen anderen Namen!";
     public final String unexpectedExceptionMessage = "Es ist ein unterwarteter Fehler auftereten! Bitte versuchen Sie es erneut!";
+    public final String invalidCategoryName = "Der Name $categoryname ist nicht erlaubt!";
 
     @EJB
     CategoryBean categoryBean;
@@ -56,7 +57,6 @@ public class CategoriesServlet extends HttpServlet {
 
         User currentUser = this.userBean.getCurrentUser();
         List<Category> categories = this.categoryBean.findByUser(currentUser);
-
         request.setAttribute("categories", categories);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/categories.jsp");
@@ -97,6 +97,10 @@ public class CategoriesServlet extends HttpServlet {
         Category category = new Category(request.getParameter("category_name"), this.userBean.getCurrentUser());
         List<String> errors = this.validationBean.validate(category);
 
+        if (category.getCategoryName().equals("Ohne Kategorie")) {
+            errors.add(this.invalidCategoryName.replace("$categoryname", category.getCategoryName()));
+        }
+
         if (errors.isEmpty()) {
             try {
                 this.categoryBean.saveNew(category, categoryId);
@@ -129,6 +133,9 @@ public class CategoriesServlet extends HttpServlet {
         Category category;
         Category withoutCategory = this.categoryBean.findById(new CategoryId(currentUser.getUsername(), "Ohne Kategorie"));
 
+        if (selectedCategoryNames == null) {
+            return;
+        }
         if (withoutCategory == null) {
             withoutCategory = new Category("Ohne Kategorie", currentUser);
             try {
