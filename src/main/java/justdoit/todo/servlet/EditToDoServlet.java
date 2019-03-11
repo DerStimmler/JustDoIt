@@ -45,8 +45,9 @@ public class EditToDoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+        User currentUser = this.userBean.getCurrentUser();
+        HttpSession session = request.getSession();
 
-        //Angeforderter ToDo ermitteln
         long id = -1;
         String pathInfo = request.getPathInfo();
 
@@ -57,22 +58,26 @@ public class EditToDoServlet extends HttpServlet {
                 // URL enthält keine gültige Long-Zahl
             }
         }
-        HttpSession session = request.getSession();
+
         List<User> users = this.userBean.findAll();
-        session.setAttribute("users", users);
         List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
-        session.setAttribute("categories", categories);
         ToDoPriority[] priorities = ToDoPriority.values();
-        session.setAttribute("priorities", priorities);
         ToDo todo = toDoBean.findById(id);
         List<User> userstodo = userBean.getUsers(id);
-        /* Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
-         if (todo == null) {
-            response.sendRedirect(request.getContextPath() + HIERÜBERSICHTSERVLET.URL);
+
+        // Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
+        if (todo == null) {
+            response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
-         */
-
+        //Wenn der aktuelle User nicht in den Benutzer des ToDos vorkommt, hat er keine Anzeigerechte
+        if (!userstodo.contains(currentUser)) {
+            response.sendRedirect(request.getContextPath() + "/403");
+            return;
+        }
+        session.setAttribute("categories", categories);
+        session.setAttribute("priorities", priorities);
+        session.setAttribute("users", users);
         request.setAttribute("todo", todo);
         request.setAttribute("userstodo", userstodo);
         request.getRequestDispatcher("/WEB-INF/view/editToDo.jsp").forward(request, response);

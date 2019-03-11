@@ -33,6 +33,7 @@ public class DetailToDoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+        User currentUser = this.userBean.getCurrentUser();
 
         //Angeforderter ToDo ermitteln
         long id = -1;
@@ -48,12 +49,16 @@ public class DetailToDoServlet extends HttpServlet {
         ToDo todo = toDoBean.findById(id);
         List<User> users = userBean.getUsers(id);
         List<Comment> comments = commentBean.findByToDoId(id);
-        /* Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
-         if (todo == null) {
-            response.sendRedirect(request.getContextPath() + HIERÜBERSICHTSERVLET.URL);
+        // Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
+        if (todo == null) {
+            response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
-         */
+        //Wenn der aktuelle User nicht in den Benutzer des ToDos vorkommt, hat er keine Anzeigerechte
+        if (!users.contains(currentUser)) {
+            response.sendRedirect(request.getContextPath() + "/403");
+            return;
+        }
 
         request.setAttribute("todo", todo);
         request.setAttribute("users", users);
