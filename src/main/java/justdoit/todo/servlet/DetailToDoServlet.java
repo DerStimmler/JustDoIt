@@ -46,7 +46,7 @@ public class DetailToDoServlet extends HttpServlet {
             }
         }
         ToDo todo = toDoBean.findById(id);
-        List<User> users = userBean.getUsers(id);
+        List<User> users = todo.getUser();
         List<Comment> comments = commentBean.findByToDoId(id);
         /* Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
          if (todo == null) {

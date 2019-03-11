@@ -112,7 +112,7 @@
         <!-- Preselect Users in EditToDo -->
         <script>
             <c:forEach items="${userstodo}" var="user">
-            $('#usernameSelectEditToDo').val('${user}');
+            $('#usernameSelectEditToDo').val('${user.username}');
             $('#usernameSelectEditToDo').trigger('change');
             </c:forEach>
         </script>

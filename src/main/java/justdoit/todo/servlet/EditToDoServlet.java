@@ -65,7 +65,7 @@ public class EditToDoServlet extends HttpServlet {
         ToDoPriority[] priorities = ToDoPriority.values();
         session.setAttribute("priorities", priorities);
         ToDo todo = toDoBean.findById(id);
-        List<User> userstodo = userBean.getUsers(id);
+        List<User> userstodo = todo.getUser();
         /* Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
          if (todo == null) {
             response.sendRedirect(request.getContextPath() + HIERÜBERSICHTSERVLET.URL);
