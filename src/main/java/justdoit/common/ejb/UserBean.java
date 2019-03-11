@@ -57,11 +57,6 @@ public class UserBean {
         return this.em.createQuery("SELECT u FROM User u").getResultList();
     }
 
-    //TODO: Sollte diese Methode nicht in der TODO Bean sein?
-    public List<User> getUsers(long id) {
-        return em.createQuery("SELECT u FROM User u JOIN u.todos t WHERE t.id= :id").setParameter("id", id).getResultList();
-    }
-
     public User findById(long id) {
         return (User) em.createQuery("Select u FROM User u WHERE u.id = :id").setParameter("id", id).getSingleResult();
     }

@@ -3,6 +3,7 @@ package justdoit.todo.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.servlet.ServletException;
@@ -63,16 +64,16 @@ public class EditToDoServlet extends HttpServlet {
         List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
         ToDoPriority[] priorities = ToDoPriority.values();
         ToDo todo = toDoBean.findById(id);
-        List<User> userstodo = userBean.getUsers(id);
-
+        List<User> userstodo = todo.getUser();
+        List<String> usernames = userstodo.stream().map(User::getUsername).collect(Collectors.toList());
         // Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
         if (todo == null) {
             response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
         //Wenn der aktuelle User nicht in den Benutzer des ToDos vorkommt, hat er keine Anzeigerechte
-        if (!userstodo.contains(currentUser)) {
-            response.sendRedirect(request.getContextPath() + "/403");
+        if (!usernames.contains(currentUser.getUsername())) {
+            response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
         session.setAttribute("categories", categories);

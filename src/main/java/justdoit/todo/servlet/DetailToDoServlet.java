@@ -3,6 +3,7 @@ package justdoit.todo.servlet;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -47,7 +48,8 @@ public class DetailToDoServlet extends HttpServlet {
             }
         }
         ToDo todo = toDoBean.findById(id);
-        List<User> users = userBean.getUsers(id);
+        List<User> users = todo.getUser();
+        List<String> usernames = users.stream().map(User::getUsername).collect(Collectors.toList());
         List<Comment> comments = commentBean.findByToDoId(id);
         // Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
         if (todo == null) {
@@ -55,8 +57,8 @@ public class DetailToDoServlet extends HttpServlet {
             return;
         }
         //Wenn der aktuelle User nicht in den Benutzer des ToDos vorkommt, hat er keine Anzeigerechte
-        if (!users.contains(currentUser)) {
-            response.sendRedirect(request.getContextPath() + "/403");
+        if (!usernames.contains(currentUser.getUsername())) {
+            response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
 
