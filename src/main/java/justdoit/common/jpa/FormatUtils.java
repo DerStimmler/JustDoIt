@@ -40,6 +40,9 @@ public class FormatUtils {
     }
 
     public static Time parseTime(String time) {
+        if (time.length() < 8) {
+            time = time + ":00";
+        }
         return Time.valueOf(time);
     }
 
