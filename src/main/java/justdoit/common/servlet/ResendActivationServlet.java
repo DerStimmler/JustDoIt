@@ -55,8 +55,8 @@ public class ResendActivationServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String username = request.getParameter("username");
-        List<String> errors = new ArrayList<String>();
-        User activationUser = this.userBean.findByUsername(username);
+        List<String> errors = new ArrayList<>();
+        User activationUser = this.userBean.findById(username);
 
         if (activationUser == null) {
             errors.add(this.userDoesNotExistExceptionMessage.replace("$username", username));
@@ -65,7 +65,7 @@ public class ResendActivationServlet extends HttpServlet {
         } else {
             try {
 
-                String activationUrl = "/activate/" + Long.toBinaryString(activationUser.getId());
+                String activationUrl = "/activate/" + Long.toBinaryString(activationUser.getUniqueNumber());
                 RegisterMailContent mailContent = new RegisterMailContent(activationUser, activationUrl);
                 this.mailBean.sendMail(mailContent);
 

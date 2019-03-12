@@ -98,7 +98,7 @@ public class CreateToDoServlet extends HttpServlet {
         User currentUser = this.userBean.getCurrentUser();
         String[] todo_user = request.getParameterValues("todo_user");
         for (String user : todo_user) {
-            User todoUser = this.userBean.findByUsername(user);
+            User todoUser = this.userBean.findById(user);
             users.add(todoUser);
         }
 
@@ -106,7 +106,7 @@ public class CreateToDoServlet extends HttpServlet {
             CategoryId id = new CategoryId(user, request.getParameter("todo_category"));
             todoCategory = this.categoryBean.findById(id);
 
-            User todoUser = this.userBean.findByUsername(user);
+            User todoUser = this.userBean.findById(user);
 
             if (todoUser != currentUser) {
                 if (todoCategory == null) {

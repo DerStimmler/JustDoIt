@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -29,8 +28,8 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "ID")
-    private Long id;
+    @Column(name = "uniqueNumber")
+    private Long uniqueNumber;
 
     @Id
     @Column(name = "USERNAME", length = 64)
@@ -72,7 +71,7 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         this.email = email;
-        this.id = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + (10000 + new Random().nextInt(90000))); //aktuelles Datum + Zeit + 5 stellige Random Zahl
+        this.uniqueNumber = Long.parseLong(new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime()) + (10000 + new Random().nextInt(90000))); //aktuelles Datum + Zeit + 5 stellige Random Zahl
     }
     //</editor-fold>
 
@@ -93,12 +92,12 @@ public class User implements Serializable {
         return this.password;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUniqueNumber() {
+        return uniqueNumber;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUniqueNumber(Long uniqueNumber) {
+        this.uniqueNumber = uniqueNumber;
     }
 
     public String getEmail() {
@@ -146,7 +145,9 @@ public class User implements Serializable {
     }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Weitere Methoden">
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
+    //</editor-fold>
 }

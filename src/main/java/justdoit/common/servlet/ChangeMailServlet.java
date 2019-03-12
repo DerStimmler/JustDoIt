@@ -53,16 +53,13 @@ public class ChangeMailServlet extends HttpServlet {
 
         // username automatisch auslesen & Formulareingaben auslesen
         User user = userBean.getCurrentUser();
-        //String username = request.getParameter("username");
-        String username = user.getUsername();
-        long id = user.getId();
         String passwordakt = user.getPassword();
         String password0 = request.getParameter("password0");
         String email = request.getParameter("email");
-        List<String> errors = new ArrayList<String>();
+        List<String> errors = new ArrayList<>();
         Form form = new Form();
         form.setValues(request.getParameterMap());
-//ALTES PASSWORT ÜBERPRÜFEN
+        //ALTES PASSWORT ÜBERPRÜFEN
         password0 = this.hashGenerator.getHashText(password0);
         if (!passwordakt.equals(password0)) {
             errors.add("Aktuelles Passwort ist nicht korrekt.");
