@@ -3,6 +3,7 @@ package justdoit.todo.jpa;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -116,4 +117,48 @@ public class Category implements Serializable {
         return new CategoryId(username, categoryName);
     }
     //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Equals and hashCode">
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.uniqueNumber);
+        hash = 47 * hash + Objects.hashCode(this.categoryName);
+        hash = 47 * hash + Objects.hashCode(this.username);
+        hash = 47 * hash + Objects.hashCode(this.user);
+        hash = 47 * hash + Objects.hashCode(this.toDos);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Category other = (Category) obj;
+        if (!Objects.equals(this.categoryName, other.categoryName)) {
+            return false;
+        }
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.uniqueNumber, other.uniqueNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(this.toDos, other.toDos)) {
+            return false;
+        }
+        return true;
+    }
+//</editor-fold>
+
 }

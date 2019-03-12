@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
+import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +15,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import justdoit.comment.jpa.Comment;
@@ -62,7 +61,7 @@ public class ToDo implements Serializable {
     @OneToMany(mappedBy = "todo", fetch = FetchType.EAGER)
     List<Comment> comments = new ArrayList<>();
 
-//<editor-fold defaultstate="collapsed" desc="Konstruktor">
+    //<editor-fold defaultstate="collapsed" desc="Konstruktor">
     public ToDo(String name, List<Category> categories, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, List<User> user) {
         this.name = name;
         this.categories = categories;
@@ -76,9 +75,9 @@ public class ToDo implements Serializable {
 
     public ToDo() {
     }
-//</editor-fold>
+    //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc="Getter&Setter">
+    //<editor-fold defaultstate="collapsed" desc="Getter&Setter">
     public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
@@ -166,9 +165,67 @@ public class ToDo implements Serializable {
     }
     //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc="Equals and hashCode">
     @Override
-    public String toString() {
-        return "justdoit.task.ToDo[ id=" + id + " ]";
+    public int hashCode() {
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.id);
+        hash = 97 * hash + Objects.hashCode(this.name);
+        hash = 97 * hash + Objects.hashCode(this.categories);
+        hash = 97 * hash + Objects.hashCode(this.description);
+        hash = 97 * hash + Objects.hashCode(this.status);
+        hash = 97 * hash + Objects.hashCode(this.priority);
+        hash = 97 * hash + Objects.hashCode(this.dueDate);
+        hash = 97 * hash + Objects.hashCode(this.dueTime);
+        hash = 97 * hash + Objects.hashCode(this.user);
+        hash = 97 * hash + Objects.hashCode(this.comments);
+        return hash;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ToDo other = (ToDo) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.description, other.description)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.categories, other.categories)) {
+            return false;
+        }
+        if (this.status != other.status) {
+            return false;
+        }
+        if (this.priority != other.priority) {
+            return false;
+        }
+        if (!Objects.equals(this.dueDate, other.dueDate)) {
+            return false;
+        }
+        if (!Objects.equals(this.dueTime, other.dueTime)) {
+            return false;
+        }
+        if (!Objects.equals(this.user, other.user)) {
+            return false;
+        }
+        if (!Objects.equals(this.comments, other.comments)) {
+            return false;
+        }
+        return true;
+    }
+//</editor-fold>
 
 }
