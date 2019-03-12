@@ -61,8 +61,16 @@ public class EditToDoServlet extends HttpServlet {
         }
 
         List<User> users = this.userBean.findAll();
+        Category oldCategory = null;
         List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
         ToDoPriority[] priorities = ToDoPriority.values();
+        for (Category cate : categories) {
+            String user = cate.getUsername();
+            if (user.equals(currentUser.getUsername())) {
+                oldCategory = cate;
+                break;
+            }
+        }
         ToDo todo = toDoBean.findById(id);
         List<User> userstodo = todo.getUser();
         List<String> usernames = userstodo.stream().map(User::getUsername).collect(Collectors.toList());
@@ -79,6 +87,7 @@ public class EditToDoServlet extends HttpServlet {
         session.setAttribute("categories", categories);
         session.setAttribute("priorities", priorities);
         session.setAttribute("users", users);
+        session.setAttribute("oldCategory", oldCategory);
         request.setAttribute("todo", todo);
         request.setAttribute("userstodo", userstodo);
         request.getRequestDispatcher("/WEB-INF/view/editToDo.jsp").forward(request, response);
@@ -88,6 +97,7 @@ public class EditToDoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        HttpSession session = request.getSession();
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
@@ -114,6 +124,7 @@ public class EditToDoServlet extends HttpServlet {
         List<User> users = new ArrayList<>();
         List<String> errors = new ArrayList<>();
         ToDo todo = toDoBean.findById(id);
+        List<Category> todoCategories = new ArrayList<>();
         Category todoCategory = null;
         HttpSession session = request.getSession();
 
@@ -127,7 +138,6 @@ public class EditToDoServlet extends HttpServlet {
         for (String user : todo_user) {
             CategoryId idc = new CategoryId(user, request.getParameter("todo_category"));
             todoCategory = this.categoryBean.findById(idc);
-
             User todoUser = this.userBean.findByUsername(user);
 
             if (todoUser != currentUser) {
@@ -143,14 +153,39 @@ public class EditToDoServlet extends HttpServlet {
                         }
                     }
                 }
-            };
+            }
+            todoCategories.add(todoCategory);
         }
         String dueDate = FormatUtils.formatDate(request.getParameter("todo_due_date"));
         String dueTime = FormatUtils.formatTime(request.getParameter("todo_due_time"));
 
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         todo.setName(request.getParameter("todo_title"));
-        //todo.setCategory(todoCategory);
+
+        for (String user : todo_user) {
+            Category idco = (Category) session.getAttribute("oldCategory");
+            CategoryId idc = new CategoryId(user, request.getParameter("todo_category"));
+            todoCategory = this.categoryBean.findById(idc);
+            User todoUser = this.userBean.findByUsername(user);
+            if (!todoUser.getUsername().equals(currentUser.getUsername())) {
+                List<ToDo> alleToDos = todoUser.getTodos();
+                if (!alleToDos.isEmpty()) {
+                    for (ToDo todos : alleToDos) {
+                        if (todos.getId() == id) {
+                            break;
+                        } else {
+                            todo.addCategory(todoCategory);
+                        }
+                    }
+                } else {
+                    todo.addCategory(todoCategory);
+                }
+            } else {
+                todo.removeCategory(idco);
+                todo.addCategory(todoCategory);
+            }
+        }
+        //todo.setCategories(todoCategories);
         todo.setDescription(request.getParameter("todo_description"));
         todo.setStatus(ToDoStatus.OPEN);
         todo.setPriority(priority);

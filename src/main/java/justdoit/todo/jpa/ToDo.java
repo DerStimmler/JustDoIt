@@ -158,9 +158,7 @@ public class ToDo implements Serializable {
     }
 
     public void removeCategory(Category category) {
-        if (this.categories.contains(category)) {
-            this.categories.remove(category);
-        }
+        this.categories.remove(category);
     }
     //</editor-fold>
 
