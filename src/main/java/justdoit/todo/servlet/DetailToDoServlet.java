@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import justdoit.comment.ejb.CommentBean;
 import justdoit.comment.jpa.Comment;
 import justdoit.common.ejb.UserBean;
+import justdoit.common.jpa.FormatUtils;
 import justdoit.common.jpa.User;
 import justdoit.todo.ejb.ToDoBean;
 import justdoit.todo.jpa.ToDo;
@@ -63,6 +64,7 @@ public class DetailToDoServlet extends HttpServlet {
         }
 
         request.setAttribute("todo", todo);
+        request.setAttribute("dueDate", FormatUtils.formatDate(todo.getDueDate()));
         request.setAttribute("users", users);
         request.setAttribute("comments", comments);
         request.getRequestDispatcher("/WEB-INF/view/detailToDo.jsp").forward(request, response);

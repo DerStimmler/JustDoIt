@@ -9,35 +9,38 @@
  */
 package justdoit.common.jpa;
 
-import java.text.ParseException;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
-/**
- *
- * @author Lichter, Ansgar
- */
 public class FormatUtils {
 
     public static final SimpleDateFormat DATE_PARSE = new SimpleDateFormat("yyyy-MM-dd");
-    public static final SimpleDateFormat TIME_PARSE = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat TIME_PARSE = new SimpleDateFormat("HH:mm:ss");
+    public static final SimpleDateFormat TIMESTAMP_PARSE = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd.MM.yyyy");
     public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("HH:mm");
+    public static final SimpleDateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
-    public static String formatDate(String dateToParse) {
-        try {
-            java.util.Date date = DATE_PARSE.parse(dateToParse);
-            return DATE_FORMAT.format(date.getTime());
-        } catch (ParseException ex) {
-            return null;
-        }
+    public static String formatDate(Date date) {
+        return DATE_FORMAT.format(date);
     }
 
-    public static String formatTime(String dateToParse) {
-        try {
-            java.util.Date date = TIME_PARSE.parse(dateToParse);
-            return TIME_FORMAT.format(date.getTime());
-        } catch (ParseException ex) {
-            return null;
-        }
+    public static String formatTime(Time time) {
+        return TIME_FORMAT.format(time);
     }
+
+    public static String formatTimestamp(Timestamp timestamp) {
+        return TIMESTAMP_FORMAT.format(timestamp);
+    }
+
+    public static Date parseDate(String date) {
+        return Date.valueOf(date);
+    }
+
+    public static Time parseTime(String time) {
+        return Time.valueOf(time + ":00");
+    }
+
 }

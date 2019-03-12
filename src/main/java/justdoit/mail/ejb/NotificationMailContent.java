@@ -1,6 +1,9 @@
 package justdoit.mail.ejb;
 
+import java.sql.Date;
+import java.sql.Time;
 import javax.ejb.Stateless;
+import justdoit.common.jpa.FormatUtils;
 import justdoit.common.jpa.User;
 
 @Stateless
@@ -11,11 +14,11 @@ public class NotificationMailContent extends MailContent {
     private String dueTime;
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
-    public NotificationMailContent(User user, String taskName, String dueDate, String dueTime) {
+    public NotificationMailContent(User user, String taskName, Date dueDate, Time dueTime) {
         super(user, "Ein Aufgabe ist morgen fällig! | " + user.getUsername() + " | JustDoIt");
         this.taskName = taskName;
-        this.dueDate = dueDate;
-        this.dueTime = dueTime;
+        this.dueDate = FormatUtils.formatDate(dueDate);
+        this.dueTime = FormatUtils.formatTime(dueTime);
         this.setContent();
     }
 
