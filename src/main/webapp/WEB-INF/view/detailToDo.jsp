@@ -60,6 +60,16 @@
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
+                            <output type="titel" name="titel"><b>Status:</b>${todo.status}"</output>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <output type="titel" name="titel"><b>Priorität:</b>${todo.priority}"</output>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
                             <output type="titel" name="titel"><b>Beschreibung:</b> ${todo.description}</output>
                         </div>
                     </div>
@@ -89,7 +99,7 @@
                 <div class="d-flex justify-content-center mt-6 mb-5">
                     <div class="col">
                         <div class="row justify-content-center">
-                            <textarea class="form-control comment-textarea" type="text" name="todo_comment" value="${todo_form.values["todo_comment"][0]}"></textarea>
+                            <textarea class="form-control comment-textarea" type="text" name="todo_comment" value="${todo_form.values["todo_comment"][0]}" required="required"></textarea>
                         </div>
                         <div class="row justify-content-center">
                             <button type="submit" class="btn btn-labeled btn-dark mt-1" name="action" value="comment">

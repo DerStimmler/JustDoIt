@@ -40,7 +40,7 @@ public class FormatUtils {
     }
 
     public static Time parseTime(String time) {
-        return Time.valueOf(time + ":00");
+        return Time.valueOf(time);
     }
 
 }

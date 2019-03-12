@@ -34,11 +34,11 @@
             <c:forEach items="${categories}" var="category">
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">
                     <div class="card-header bg-light" id="heading${category.uniqueNumber}">
-                        <a class="nav-link" data-toggle="collapse" data-target="#collapse${category.uniqueNumber}" aria-expanded="true" aria-controls="collapse${category.uniqueNumber}">
+                        <a class="nav-link" data-toggle="collapse" data-target="#collapse${category.uniqueNumber}" aria-expanded="false" aria-controls="collapse${category.uniqueNumber}">
                             <i class="fas fa-star mr-2"></i>${category.categoryName}
                         </a>
                     </div>
-                    <div id="collapse${category.uniqueNumber}" class="collapse show" aria-labelledby="heading${category.uniqueNumber}">
+                    <div id="collapse${category.uniqueNumber}" class="collapse" aria-labelledby="heading${category.uniqueNumber}">
                         <div class="row p-0 m-0">
                             <!-- Prüfen ob keine ToDos gespeichert sind-->
                             <c:choose>
