@@ -22,11 +22,10 @@
                 <span class="msg">can't let <span>you</span> in.</span>
                 <span class="support">
                     <span>Sie haben leider keine ausreichenden Rechte. </span>
-                    <span></span>
                     <span>Dies könnte auch daran liegen, dass Ihr Benutzer noch nicht aktiviert worden ist.</span>
                     <span>Sie haben nach der Registrierung eine E-Mail mit Aktivierungslink erhalten. Falls Sie diese nicht erhalten haben, können Sie diese auch erneut anfordern!</span>
-                    <span></span>
-                    <a href="<c:url value="/logout/"/>">Zurück zum Login</a>
+                    <a href="<c:url value="/activation/resend/"/>">Aktivierungsmail erneut anfordern</a>
+                    <a href="<c:url value="/index.html"/>">Zurück zum Dashboard</a>
                 </span>
             </div>
             <div class="lock"></div>

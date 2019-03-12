@@ -18,55 +18,70 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
-        <div>
+        <div class="container">
             <form method="post" class="stacked">
-                <div class="column">
-
-                    <%-- Eingabefelder --%>
-                    <label for="category_name">
-                        Kategorie:
-                        <span class="required">*</span>
-                    </label>
-                    <div class="side-by-side">
-                        <input type="text" name="category_name" value="${category_form.values["category_name"][0]}" autofocus="autofocus">
-                    </div>
-
-                    <%-- Button zum Abschicken --%>
-                    <div class="side-by-side">
-                        <button class="icon-pencil" name="action" value="create" type="submit">
-                            Kategorie erstellen
-                        </button>
-                    </div>
-                </div>
-
-                <%-- Fehlermeldungen --%>
-                <c:if test="${!empty category_form.errors}">
-                    <ul class="errors">
-                        <c:forEach items="${category_form.errors}" var="error">
-                            <li>${error}</li>
-                            </c:forEach>
-                    </ul>
-                </c:if>
-
-                <%-- Vorhandene Kategorien --%>
-                <c:choose>
-                    <c:when test="${empty categories}">
-                        Es sind noch keine Kategorien vorhanden.
-                    </c:when>
-                    <c:otherwise>
-                        <c:forEach items="${categories}" var="category">
-                            <div class="row">
-                                <input type="checkbox" name="category" value="${category.categoryName}" id="${'category'.concat(category.id)}">
-                                <label for="${'category'.concat(category.id)}">${category.categoryName}</label>
+                <%-- Eingabefelder --%>
+                <div class="card card-register mx-auto mt-5">
+                    <div class="card-header">Kategorie erstellen</div>
+                    <div class="card-body">
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-star"></i>
+                                </span>
                             </div>
-                        </c:forEach>
+                            <input type="text" class="form-control" name="category_name" value="${category_form.values["category_name"][0]}" autofocus="autofocus" placeholder="Kategorie">
+                        </div>
+
+                        <%-- Button zum Abschicken --%>
                         <div class="side-by-side">
-                            <button class="icon-pencil" name="action" value="delete" type="submit">
-                                Ausgewählte Kategorien löschen
+                            <button class="btn btn-primary btn-block mb-2" name="action" value="create" type="submit">
+                                Kategorie erstellen
                             </button>
                         </div>
-                    </c:otherwise>
-                </c:choose>
+                    </div>
+                </div>
+                <div class="card card-register mx-auto mt-2">
+                    <div class="card-header">Existierende Kategorien</div>
+                    <div class="card-body">
+                        <div class="text-center mb-1">
+                            <%-- Vorhandene Kategorien --%>
+                            <c:choose>
+                                <c:when test="${empty categories}">
+                                    Es sind noch keine Kategorien vorhanden.
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="col">
+                                        <c:forEach items="${categories}" var="category">
+                                            <c:if test="${category.categoryName != 'Ohne Kategorie'}">
+                                                <div class="row">
+                                                    <div class="custom-control custom-checkbox offset-md-5">
+                                                        <input type="checkbox" class="custom-control-input" name="category" value="${category.categoryName}" id="${'category'.concat(category.id)}">
+                                                        <label class="custom-control-label" for="${'category'.concat(category.id)}">${category.categoryName}</label>
+                                                    </div>
+                                                </div>
+                                            </c:if>
+                                        </c:forEach>
+                                    </div>
+                                    <div class="side-by-side">
+                                        <button class="btn btn-primary btn-block mt-4" name="action" value="delete" type="submit">
+                                            Ausgewählte Kategorien löschen
+                                        </button>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
+
+                            <%-- Fehlermeldungen --%>
+                            <c:if test="${!empty category_form.errors}">
+                                <ul class="errors">
+                                    <c:forEach items="${category_form.errors}" var="error">
+                                        <li>${error}</li>
+                                        </c:forEach>
+                                </ul>
+                            </c:if>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     </jsp:attribute>

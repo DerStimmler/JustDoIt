@@ -96,6 +96,7 @@
 
         <!-- Skript für Select2 -->
         <script type="text/javascript" src="<c:url value="/js/select2/select2.min.js"/>"></script>
+        <script type="text/javascript" src="<c:url value="/js/select2/select2_single.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/js/select2/select2_multiple.js"/>"></script>
         <!-- Skript für Bootstrap Theme for Select2 -->
         <script>

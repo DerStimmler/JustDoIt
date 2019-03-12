@@ -1,4 +1,4 @@
-package justdot.error.servlet;
+package justdoit.error.servlet;
 
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;

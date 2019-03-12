@@ -4,8 +4,6 @@ import justdoit.common.jpa.Form;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.mail.MessagingException;
@@ -67,7 +65,7 @@ public class SignUpServlet extends HttpServlet {
         String password2 = request.getParameter("password2");
         String email = request.getParameter("email");
         User user = new User(username, password1, email);
-        List<String> errors = new ArrayList<String>();
+        List<String> errors = new ArrayList<>();
 
         // Passwort länge nicht in ValidationBean geprüft da dort der hash (immer 64 Zeichen) getestet wird
         if (password1.length() < 5 || password1.length() > 50) {
@@ -80,9 +78,9 @@ public class SignUpServlet extends HttpServlet {
         if (errors.isEmpty()) {
             try {
                 this.userBean.signup(username, password1, email);
-                User usermail = this.userBean.findByUsername(username);
+                User usermail = this.userBean.findById(username);
 
-                String activationUrl = "/activate/" + Long.toBinaryString(usermail.getId());
+                String activationUrl = "/activate/" + Long.toBinaryString(usermail.getUniqueNumber());
 
                 RegisterMailContent mailContent = new RegisterMailContent(usermail, activationUrl);
                 this.mailBean.sendMail(mailContent);

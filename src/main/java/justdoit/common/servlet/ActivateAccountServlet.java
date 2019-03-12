@@ -41,7 +41,7 @@ public class ActivateAccountServlet extends HttpServlet {
         }
 
         //User auf aktiv setzen
-        User activateUser = this.userBean.findById(id);
+        User activateUser = this.userBean.findByUniqueNumber(id);
         activateUser.removeFromGroup("justdoit-user-inactive");
         activateUser.addToGroup("justdoit-user");
         //User speichern

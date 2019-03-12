@@ -1,0 +1,80 @@
+=======================
+Hinweise zum Deployment
+=======================
+
+
+Der TomEE-Applikationsserver empfiehlt sich
+-------------------------------------------
+
+Während der Entwicklung haben wir einen speziell konfiguriertern TomEE-Server
+genutzt. Als Datenbank haben wir die Derby-Datenbank benutzt. In unsere Dateien,
+die wir Ihnen bei der Projektabgabe hochgeladen haben, haben wir Ihnen beide zur
+Verfügung gestellt.
+
+
+Konfiguration der Benutzerauthentifizierung
+-------------------------------------------
+
+In den Klassen ....jpa.User.java sowie ….ejb.UserBean haben wir unsere
+Benutzerverwaltung realisiert.
+Die Anwendung verwaltet hierfür eine eigene Tabelle, in der die Benutzer,
+Passwörter und zugeordneten Benutzergruppen (Steuerung der Berechtigungen)
+gespeichert werden.
+
+Die Authentifizierung und Autorisierung werden allerdings vom
+Applikationsserver vorgenommen, der hierfür entsprechend konfiguriert
+werden muss. Das heißt, der Applikationsserver muss wissen, in welchen Tabellen
+die Benutzer gespeichert sind. Dies erfolgt anhand den Einstellungen in der
+Datei /Web Pages/WEB-INF/web.xml.
+
+Dort befinden sich die anwendungsspezifischen Einstellungen, welche Aktionen
+welche Berechtigungen erfordern. Am Ende wird dabei mit folgender Zeile
+
+    <realm-name>justdoit</realm-name>
+
+das Realm zugewiesen. Realm ist dabei nur ein schöner Begriff für eine
+beliebige Datenbank mit Benutzern und ihren Passwörtern und Berechtigungen.
+
+Im TomEE geschieht dies durch folgende Zeilen in der Konfigurationsdatei
+conf/server.xml:
+Die Definition des Realms geschieht durch folgende Zeilen in der Datei
+/Web Pages/META-INF/context.xml:
+
+    <Realm
+            className      = "org.apache.catalina.realm.DataSourceRealm"
+
+            dataSourceName = "Default-Database-Unmanaged"
+            userTable      = "justdoit.justdoit_user"
+            userNameCol    = "username"
+            userCredCol    = "password_hash"
+
+            userRoleTable  = "justdoit.user_group"
+            roleNameCol    = "groupname"
+        >
+            <CredentialHandler
+                className = "org.apache.catalina.realm.MessageDigestCredentialHandler"
+                algorithm = "SHA-256"
+            />
+    </Realm>
+
+Die unter „dataSourceName“ genannte Datenbankverbindung muss dabei in der Datei
+conf/tomee.xml wie folgt definiert werden:
+
+    <Resource id="Derby-Sample-Managed" type="javax.sql.DataSource">
+        JdbcDriver = org.apache.derby.jdbc.ClientDriver
+        JdbcUrl    = jdbc:derby://localhost:1527/sample
+        UserName   = app
+        Password   = app
+        JtaManaged = true
+    </Resource>
+
+    <Resource id="Derby-Sample-Unmanaged" type="javax.sql.DataSource">
+        JdbcDriver = org.apache.derby.jdbc.ClientDriver
+        JdbcUrl    = jdbc:derby://localhost:1527/sample
+        UserName   = app
+        Password   = app
+        JtaManaged = false
+    </Resource>
+
+Das Beispiel geht dabei von der Derby-Beispieldatenbank aus, die Bestandteil
+von Netbeans ist.

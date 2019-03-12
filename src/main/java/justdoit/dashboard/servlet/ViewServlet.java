@@ -56,7 +56,10 @@ public class ViewServlet extends HttpServlet {
             dashboardContent.put(category.getCategoryName(), status);
         });
 
+        List<ToDo> todos = todoBean.findByUsername(currentUser.getUsername());
+
         ToDoStatus[] status = ToDoStatus.values();
+        session.setAttribute("todos", todos);
         session.setAttribute("statuses", status);
         session.setAttribute("categories", categories);
         session.setAttribute("dashboard", dashboardContent);
@@ -71,6 +74,7 @@ public class ViewServlet extends HttpServlet {
 
         Long backId = null;
         Long forwardId = null;
+        Long searchId = null;
 
         if (request.getParameter("back") != null) {
             backId = Long.parseLong(request.getParameter("back"));
@@ -78,7 +82,17 @@ public class ViewServlet extends HttpServlet {
         if (request.getParameter("forward") != null) {
             forwardId = Long.parseLong(request.getParameter("forward"));
         }
+        if (request.getParameter("searchToDo") != null && request.getParameter("searchToDo") != "") {
+            searchId = Long.parseLong(request.getParameter("searchToDo"));
+        }
 
+        // Detailseite des gesuchten Todos aufrufen
+        if (searchId != null) {
+            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId);
+            return;
+        }
+
+        // move ToDo to another Status Column
         List<ToDoStatus> status = Arrays.asList(ToDoStatus.values());
 
         ToDo todo = null;

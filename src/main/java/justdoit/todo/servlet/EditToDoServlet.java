@@ -1,6 +1,8 @@
 package justdoit.todo.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,14 +133,15 @@ public class EditToDoServlet extends HttpServlet {
         User currentUser = this.userBean.getCurrentUser();
         String[] todo_user = request.getParameterValues("todo_user");
         for (String user : todo_user) {
-            User todoUser = this.userBean.findByUsername(user);
+            User todoUser = this.userBean.findById(user);
             users.add(todoUser);
         }
 
         for (String user : todo_user) {
             CategoryId idc = new CategoryId(user, request.getParameter("todo_category"));
             todoCategory = this.categoryBean.findById(idc);
-            User todoUser = this.userBean.findByUsername(user);
+
+            User todoUser = this.userBean.findById(user);
 
             if (todoUser != currentUser) {
                 if (todoCategory == null) {
@@ -156,8 +159,8 @@ public class EditToDoServlet extends HttpServlet {
             }
             todoCategories.add(todoCategory);
         }
-        String dueDate = FormatUtils.formatDate(request.getParameter("todo_due_date"));
-        String dueTime = FormatUtils.formatTime(request.getParameter("todo_due_time"));
+        Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
+        Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
 
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         todo.setName(request.getParameter("todo_title"));
@@ -166,7 +169,7 @@ public class EditToDoServlet extends HttpServlet {
             Category idco = (Category) session.getAttribute("oldCategory");
             CategoryId idc = new CategoryId(user, request.getParameter("todo_category"));
             todoCategory = this.categoryBean.findById(idc);
-            User todoUser = this.userBean.findByUsername(user);
+            User todoUser = this.userBean.findById(user);
             if (!todoUser.getUsername().equals(currentUser.getUsername())) {
                 List<ToDo> alleToDos = todoUser.getTodos();
                 if (!alleToDos.isEmpty()) {
