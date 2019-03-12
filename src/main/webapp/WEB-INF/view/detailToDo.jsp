@@ -3,8 +3,7 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="template"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-
+<%@taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt"%>
 
 <template:base>
     <jsp:attribute name="title">
@@ -51,7 +50,12 @@
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Fälligkeitsdatum:</b> ${todo.dueDate}</output>
+                            <output type="titel" name="titel"><b>Fälligkeitsdatum:</b><fmt:formatDate pattern = "dd.MM.yyyy" value = "${todo.dueDate}"/></output>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-label-group">
+                            <output type="titel" name="titel"><b>Fälligkeitszeit:</b><fmt:formatDate pattern = "HH:mm" value = "${todo.dueTime}"/></output>
                         </div>
                     </div>
                     <div class="form-group">
@@ -76,7 +80,7 @@
             <c:forEach items="${comments}" var="comment">
                 <div class="chat ${pageContext.request.userPrincipal.name eq comment.user.username ? 'me' : 'you'}">
                     <p>${comment.commentText}</p>
-                    <span class="time"><i class="far fa-clock mr-2 ml-3"></i>${comment.commentTimestamp}</span>
+                    <span class="time"><i class="far fa-clock mr-2 ml-3"></i><fmt:formatDate pattern = "dd.MM.yyyy HH:mm" value = "${comment.commentTimestamp}"/></span>
                     <span class="time"><i class="far fa-user mr-2"></i>${comment.user.username}</span>
                 </div>
             </c:forEach>

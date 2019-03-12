@@ -3,6 +3,7 @@
 <%@taglib tagdir="/WEB-INF/tags" prefix="template"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt"%>
 
 <template:base>
     <jsp:attribute name="title">
@@ -73,7 +74,7 @@
                                                                         <span class="${todo.priority}"></span>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <span class="time"><i class="fas fa-calendar-alt mr-2"></i>${todo.dueDate}</span>
+                                                                        <span class="time"><i class="fas fa-calendar-alt mr-2"></i><fmt:formatDate pattern = "dd.MM.yyyy" value = "${todo.dueDate}"/></span>
                                                                     </div>
                                                                 </div>
                                                             </div>

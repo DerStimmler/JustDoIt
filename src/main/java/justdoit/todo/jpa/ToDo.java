@@ -1,6 +1,8 @@
 package justdoit.todo.jpa;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -48,10 +50,10 @@ public class ToDo implements Serializable {
     private ToDoPriority priority;
 
     @NotNull(message = "Bitte geben Sie ein Fälligkeitsdatum in der Form DD.MM.YYYY an")
-    private String dueDate;
+    private Date dueDate;
 
     @NotNull(message = "Bitte geben Sie eine Uhrzeit in der Form HH:MM an")
-    private String dueTime;
+    private Time dueTime;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @NotNull(message = "Die Aufgabe muss mindestens einem Benutzer zugeordnet werden")
@@ -61,7 +63,7 @@ public class ToDo implements Serializable {
     List<Comment> comments = new ArrayList<>();
 
 //<editor-fold defaultstate="collapsed" desc="Konstruktor">
-    public ToDo(String name, List<Category> categories, String description, ToDoStatus status, ToDoPriority priority, String dueDate, String dueTime, List<User> user) {
+    public ToDo(String name, List<Category> categories, String description, ToDoStatus status, ToDoPriority priority, Date dueDate, Time dueTime, List<User> user) {
         this.name = name;
         this.categories = categories;
         this.description = description;
@@ -77,19 +79,19 @@ public class ToDo implements Serializable {
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="Getter&Setter">
-    public void setDueDate(String dueDate) {
+    public void setDueDate(Date dueDate) {
         this.dueDate = dueDate;
     }
 
-    public void setDueTime(String dueTime) {
+    public void setDueTime(Time dueTime) {
         this.dueTime = dueTime;
     }
 
-    public String getDueDate() {
+    public Date getDueDate() {
         return dueDate;
     }
 
-    public String getDueTime() {
+    public Time getDueTime() {
         return dueTime;
     }
 

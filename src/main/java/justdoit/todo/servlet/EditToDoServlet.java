@@ -1,6 +1,8 @@
 package justdoit.todo.servlet;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -145,8 +147,8 @@ public class EditToDoServlet extends HttpServlet {
                 }
             };
         }
-        String dueDate = FormatUtils.formatDate(request.getParameter("todo_due_date"));
-        String dueTime = FormatUtils.formatTime(request.getParameter("todo_due_time"));
+        Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
+        Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
 
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
         todo.setName(request.getParameter("todo_title"));
