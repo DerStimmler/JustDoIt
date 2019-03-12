@@ -202,6 +202,62 @@ public class User implements Serializable {
 //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Weitere Methoden">
 
+    //<editor-fold defaultstate="collapsed" desc="Equals and hashCode">
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 71 * hash + Objects.hashCode(this.uniqueNumber);
+        hash = 71 * hash + Objects.hashCode(this.username);
+        hash = 71 * hash + Objects.hashCode(this.password);
+        hash = 71 * hash + Objects.hashCode(this.email);
+        hash = 71 * hash + Objects.hashCode(this.groups);
+        hash = 71 * hash + Objects.hashCode(this.todos);
+        hash = 71 * hash + Objects.hashCode(this.categories);
+        hash = 71 * hash + Objects.hashCode(this.comments);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.username, other.username)) {
+            return false;
+        }
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.uniqueNumber, other.uniqueNumber)) {
+            return false;
+        }
+        if (!Objects.equals(this.groups, other.groups)) {
+            return false;
+        }
+        if (!Objects.equals(this.todos, other.todos)) {
+            return false;
+        }
+        if (!Objects.equals(this.categories, other.categories)) {
+            return false;
+        }
+        if (!Objects.equals(this.comments, other.comments)) {
+            return false;
+        }
+        return true;
+    }
+//</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc="Weitere Methoden">
     public boolean checkPassword(String password) {
         return this.password.equals(password);
     }
