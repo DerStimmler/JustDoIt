@@ -154,10 +154,6 @@ public class User implements Serializable {
         hash = 71 * hash + Objects.hashCode(this.username);
         hash = 71 * hash + Objects.hashCode(this.password);
         hash = 71 * hash + Objects.hashCode(this.email);
-        hash = 71 * hash + Objects.hashCode(this.groups);
-        hash = 71 * hash + Objects.hashCode(this.todos);
-        hash = 71 * hash + Objects.hashCode(this.categories);
-        hash = 71 * hash + Objects.hashCode(this.comments);
         return hash;
     }
 
@@ -183,18 +179,6 @@ public class User implements Serializable {
             return false;
         }
         if (!Objects.equals(this.uniqueNumber, other.uniqueNumber)) {
-            return false;
-        }
-        if (!Objects.equals(this.groups, other.groups)) {
-            return false;
-        }
-        if (!Objects.equals(this.todos, other.todos)) {
-            return false;
-        }
-        if (!Objects.equals(this.categories, other.categories)) {
-            return false;
-        }
-        if (!Objects.equals(this.comments, other.comments)) {
             return false;
         }
         return true;

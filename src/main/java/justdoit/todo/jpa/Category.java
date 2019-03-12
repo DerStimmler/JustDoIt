@@ -138,7 +138,8 @@ public class Category implements Serializable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+
+        if (!(obj instanceof Category)) {
             return false;
         }
         final Category other = (Category) obj;
@@ -149,12 +150,6 @@ public class Category implements Serializable {
             return false;
         }
         if (!Objects.equals(this.uniqueNumber, other.uniqueNumber)) {
-            return false;
-        }
-        if (!Objects.equals(this.user, other.user)) {
-            return false;
-        }
-        if (!Objects.equals(this.toDos, other.toDos)) {
             return false;
         }
         return true;

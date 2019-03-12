@@ -169,14 +169,11 @@ public class ToDo implements Serializable {
         int hash = 7;
         hash = 97 * hash + Objects.hashCode(this.id);
         hash = 97 * hash + Objects.hashCode(this.name);
-        hash = 97 * hash + Objects.hashCode(this.categories);
         hash = 97 * hash + Objects.hashCode(this.description);
         hash = 97 * hash + Objects.hashCode(this.status);
         hash = 97 * hash + Objects.hashCode(this.priority);
         hash = 97 * hash + Objects.hashCode(this.dueDate);
         hash = 97 * hash + Objects.hashCode(this.dueTime);
-        hash = 97 * hash + Objects.hashCode(this.user);
-        hash = 97 * hash + Objects.hashCode(this.comments);
         return hash;
     }
 
@@ -201,9 +198,6 @@ public class ToDo implements Serializable {
         if (!Objects.equals(this.id, other.id)) {
             return false;
         }
-        if (!Objects.equals(this.categories, other.categories)) {
-            return false;
-        }
         if (this.status != other.status) {
             return false;
         }
@@ -217,9 +211,6 @@ public class ToDo implements Serializable {
             return false;
         }
         if (!Objects.equals(this.user, other.user)) {
-            return false;
-        }
-        if (!Objects.equals(this.comments, other.comments)) {
             return false;
         }
         return true;
