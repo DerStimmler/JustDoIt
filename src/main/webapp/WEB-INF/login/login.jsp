@@ -44,7 +44,6 @@
                     <div class="text-center">
                         <a class="d-block small mt-3" href="<c:url value="/signup/"/>">Registrieren</a>
                         <a class="d-block small" href="<c:url value="/resetpw/"/>">Passwort vergessen?</a>
-                        <a class="d-block small" href="<c:url value="/activation/resend/"/>">Aktivierungsmail erneut anfordern</a>
                     </div>
                 </div>
             </div>
