@@ -56,7 +56,7 @@ public class ResendActivationServlet extends HttpServlet {
 
         String username = request.getParameter("username");
         List<String> errors = new ArrayList<String>();
-        User activationUser = this.userBean.findByUsername(username);
+        User activationUser = this.userBean.findById(username);
 
         if (activationUser == null) {
             errors.add(this.userDoesNotExistExceptionMessage.replace("$username", username));

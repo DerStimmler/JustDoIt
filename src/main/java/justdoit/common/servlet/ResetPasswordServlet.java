@@ -63,7 +63,7 @@ public class ResetPasswordServlet extends HttpServlet {
 
         List<String> errors = this.validationBean.validate(username);
 
-        User user = this.userBean.findByUsername(username);
+        User user = this.userBean.findById(username);
 
         if (user == null) {
             errors.add("Der Benutzer existiert nicht!");

@@ -80,7 +80,7 @@ public class SignUpServlet extends HttpServlet {
         if (errors.isEmpty()) {
             try {
                 this.userBean.signup(username, password1, email);
-                User usermail = this.userBean.findByUsername(username);
+                User usermail = this.userBean.findById(username);
 
                 String activationUrl = "/activate/" + Long.toBinaryString(usermail.getId());
 

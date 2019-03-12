@@ -120,7 +120,7 @@ public class EditToDoServlet extends HttpServlet {
         User currentUser = this.userBean.getCurrentUser();
         String[] todo_user = request.getParameterValues("todo_user");
         for (String user : todo_user) {
-            User todoUser = this.userBean.findByUsername(user);
+            User todoUser = this.userBean.findById(user);
             users.add(todoUser);
         }
 
@@ -128,7 +128,7 @@ public class EditToDoServlet extends HttpServlet {
             CategoryId idc = new CategoryId(user, request.getParameter("todo_category"));
             todoCategory = this.categoryBean.findById(idc);
 
-            User todoUser = this.userBean.findByUsername(user);
+            User todoUser = this.userBean.findById(user);
 
             if (todoUser != currentUser) {
                 if (todoCategory == null) {
