@@ -53,13 +53,11 @@ public class ChangePasswordServlet extends HttpServlet {
 
         // username automatisch auslesen & Formulareingaben auslesen
         User user = userBean.getCurrentUser();
-        String username = user.getUsername();
-        long id = user.getId();
         String passwordakt = user.getPassword();
         String password0 = request.getParameter("password0");
         String password1 = request.getParameter("password1");
         String password2 = request.getParameter("password2");
-        List<String> errors = new ArrayList<String>();
+        List<String> errors = new ArrayList<>();
         Form form = new Form();
         form.setValues(request.getParameterMap());
 
