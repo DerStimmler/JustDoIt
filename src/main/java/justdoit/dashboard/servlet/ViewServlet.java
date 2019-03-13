@@ -57,12 +57,13 @@ public class ViewServlet extends HttpServlet {
         });
 
         List<ToDo> todos = todoBean.findByUsername(currentUser.getUsername());
-
+        String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
         ToDoStatus[] status = ToDoStatus.values();
         session.setAttribute("todos", todos);
         session.setAttribute("statuses", status);
         session.setAttribute("categories", categories);
         session.setAttribute("dashboard", dashboardContent);
+        session.setAttribute("statusColors", statusColors);
         request.getRequestDispatcher("/WEB-INF/view/view.jsp").forward(request, response);
     }
 
