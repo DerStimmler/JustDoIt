@@ -41,9 +41,17 @@
                                 <c:forEach items="${statuses}" var="status">
                                     <c:set var="total" value="${total + fn:length(dashboard[category.categoryName][status.label])}"></c:set>
                                 </c:forEach>
-                                <c:forEach items="${statuses}" var="status" varStatus="statusloop">
-                                    <div class="progress-bar ${statusColors[statusloop.index]}" role="progressbar" style="width: ${100/total*fn:length(dashboard[category.categoryName][status.label])}%" aria-valuenow="${fn:length(dashboard[category.categoryName][status.label])}" aria-valuemin="0" aria-valuemax="${total}">${fn:length(dashboard[category.categoryName][status.label])}</div>
-                                </c:forEach>
+                                <c:choose>
+                                    <c:when test="${total eq 0}">
+                                        <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <c:forEach items="${statuses}" var="status" varStatus="statusloop">
+                                            <div class="progress-bar ${statusColors[statusloop.index]}" role="progressbar" style="width: ${100/total*fn:length(dashboard[category.categoryName][status.label])}%" aria-valuenow="${fn:length(dashboard[category.categoryName][status.label])}" aria-valuemin="0" aria-valuemax="${total}">${fn:length(dashboard[category.categoryName][status.label])}</div>
+                                        </c:forEach>
+                                    </c:otherwise>
+                                </c:choose>
+
                             </div>
                         </a>
                     </div>
