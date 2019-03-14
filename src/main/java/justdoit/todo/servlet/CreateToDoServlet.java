@@ -60,8 +60,8 @@ public class CreateToDoServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
 
-        List<User> users = this.userBean.findAll();
-        session.setAttribute("users", users);
+        List<User> existingUsers = this.userBean.findAll();
+        session.setAttribute("users", existingUsers);
 
         session.setAttribute("categories", this.getAllCategoryNames());
 
