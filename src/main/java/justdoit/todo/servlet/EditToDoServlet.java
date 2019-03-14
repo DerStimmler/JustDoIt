@@ -61,23 +61,28 @@ public class EditToDoServlet extends HttpServlet {
                 // URL enthält keine gültige Long-Zahl
             }
         }
-
-        List<User> users = this.userBean.findAll();
-        Category currentCategory = null;
-        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
-        ToDoPriority[] priorities = ToDoPriority.values();
-        for (Category cate : categories) {
-            String user = cate.getUsername();
-            if (user.equals(currentUser.getUsername())) {
-                currentCategory = cate;
-                break;
-            }
-        }
         ToDo todo = toDoBean.findById(id);
         // Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
         if (todo == null) {
             response.sendRedirect(request.getContextPath() + "/index.html");
             return;
+        }
+        List<User> users = this.userBean.findAll();
+        Category currentCategory = null;
+        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
+        ToDoPriority[] priorities = ToDoPriority.values();
+        for (Category cate : categories) {
+
+            List<ToDo> todos = cate.getToDos();
+            for (ToDo soloToDo : todos) {
+                if (soloToDo.getId().equals(todo.getId())) {
+                    String user = cate.getUsername();
+                    if (user.equals(currentUser.getUsername())) {
+                        currentCategory = cate;
+                        break;
+                    }
+                }
+            }
         }
         List<User> userstodo = todo.getUser();
         List<String> usernames = userstodo.stream().map(User::getUsername).collect(Collectors.toList());
@@ -90,6 +95,7 @@ public class EditToDoServlet extends HttpServlet {
         session.setAttribute("priorities", priorities);
         session.setAttribute("users", users);
         session.setAttribute("currentCategory", currentCategory);
+
         request.setAttribute("todo", todo);
         request.setAttribute("userstodo", userstodo);
         request.getRequestDispatcher("/WEB-INF/view/editToDo.jsp").forward(request, response);
