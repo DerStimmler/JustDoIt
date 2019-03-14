@@ -42,22 +42,19 @@
                             </div>
                             <input type="password" class="form-control" name="password2" value="${change_form.values['password2'][0]}" placeholder="neues Passwort wiederholen" required="required">
                         </div>
+                        <%-- Button zum Abschicken --%>
+                        <input class="btn btn-primary btn-block" type="submit" value="Ändern">
+                    </form>
                 </div>
+                <%-- Fehlermeldungen --%>
+                <c:if test="${!empty change_form.errors}">
+                    <ul class="errors">
+                        <c:forEach items="${change_form.errors}" var="error">
+                            <li>${error}</li>
+                            </c:forEach>
+                    </ul>
+                </c:if>
             </div>
-            <%-- Button zum Abschicken --%>
-            <input class="btn btn-primary btn-block" type="submit" value="Ändern">
-            </form>
         </div>
-        <%-- Fehlermeldungen --%>
-        <c:if test="${!empty change_form.errors}">
-            <ul class="errors">
-                <c:forEach items="${change_form.errors}" var="error">
-                    <li>${error}</li>
-                    </c:forEach>
-            </ul>
-        </c:if>
-    </div>
-</div>
-
-</jsp:attribute>
+    </jsp:attribute>
 </template:base>

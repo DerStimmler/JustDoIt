@@ -31,15 +31,15 @@
             </div>
         </form>
         <div id="categoryContainer" class="mx-auto categoryContainer">
-            <c:forEach items="${categories}" var="category">
+            <c:forEach items="${categories}" var="category" varStatus="categoryLoop">
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">
-                    <div class="card-header bg-light" id="heading${category.uniqueNumber}">
-                        <a class="nav-link" data-toggle="collapse" data-target="#collapse${category.uniqueNumber}" aria-expanded="false" aria-controls="collapse${category.uniqueNumber}">
-                            <i class="fas fa-star mr-2"></i>${category.categoryName}
+                    <div class="card-header bg-light" id="heading${categoryLoop.index}">
+                        <a class="nav-link" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="false" aria-controls="collapse${categoryLoop.index}">
+                            <i class="fas fa-star mr-2"></i>${category}
                             <div class="progress">
                                 <c:set var="total" value="${0}"></c:set>
                                 <c:forEach items="${statuses}" var="status">
-                                    <c:set var="total" value="${total + fn:length(dashboard[category.categoryName][status.label])}"></c:set>
+                                    <c:set var="total" value="${total + fn:length(dashboard[category][status.label])}"></c:set>
                                 </c:forEach>
                                 <c:choose>
                                     <c:when test="${total eq 0}">
@@ -47,18 +47,18 @@
                                     </c:when>
                                     <c:otherwise>
                                         <c:forEach items="${statuses}" var="status" varStatus="statusloop">
-                                            <div class="progress-bar ${statusColors[statusloop.index]}" role="progressbar" style="width: ${100/total*fn:length(dashboard[category.categoryName][status.label])}%" aria-valuenow="${fn:length(dashboard[category.categoryName][status.label])}" aria-valuemin="0" aria-valuemax="${total}">${fn:length(dashboard[category.categoryName][status.label])}</div>
+                                            <div class="progress-bar ${statusColors[statusloop.index]}" role="progressbar" style="width: ${100/total*fn:length(dashboard[category][status.label])}%" aria-valuenow="${fn:length(dashboard[category][status.label])}" aria-valuemin="0" aria-valuemax="${total}">${fn:length(dashboard[category][status.label])}</div>
                                         </c:forEach>
                                     </c:otherwise>
                                 </c:choose>
                             </div>
                         </a>
                     </div>
-                    <div id="collapse${category.uniqueNumber}" class="collapse" aria-labelledby="heading${category.uniqueNumber}">
+                    <div id="collapse${categoryLoop.index}" class="collapse" aria-labelledby="heading${categoryLoop.index}">
                         <div class="row p-0 m-0">
                             <!-- Prüfen ob keine ToDos gespeichert sind-->
                             <c:choose>
-                                <c:when test="${empty dashboard[category.categoryName]}">
+                                <c:when test="${empty dashboard[category]}">
                                     <div class="d-flex justify-content-center w-100">
                                         <div class="alert alert-info m-1 text-center w-50">
                                             Keine ToDo's vorhanden!
@@ -69,8 +69,8 @@
                                     <c:forEach items="${statuses}" var="status" varStatus="statusloop">
                                         <div class="card col bg-secondary ml-1 mr-1">
                                             <div class="card-body pl-0 pr-0">
-                                                <h5 class="card-title text-light">${status.label}<span class="float-right">${fn:length(dashboard[category.categoryName][status.label])}</span></h5>
-                                                    <c:forEach items="${dashboard[category.categoryName][status.label]}" var="todo" varStatus="itemloop">
+                                                <h5 class="card-title text-light">${status.label}<span class="float-right">${fn:length(dashboard[category][status.label])}</span></h5>
+                                                    <c:forEach items="${dashboard[category][status.label]}" var="todo" varStatus="itemloop">
                                                     <div class="card bg-light mt-1 mb-1">
                                                         <div class="row mr-0">
                                                             <div class="col-md-1 centered my-auto">

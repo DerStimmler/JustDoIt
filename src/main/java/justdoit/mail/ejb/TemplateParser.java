@@ -27,7 +27,7 @@ public class TemplateParser {
             InputStream in = getClass().getResourceAsStream(path);
             content = IOUtils.toString(in, StandardCharsets.UTF_8.name());
 
-            Field[] fields = obj.getClass().getSuperclass().getDeclaredFields();        //unschön: hier nur geerbte Felder
+            Field[] fields = obj.getClass().getSuperclass().getDeclaredFields();        //geerbte Felder
             for (Field field : fields) {
                 field.setAccessible(true);
                 if (field.get(obj) != null) {
@@ -35,7 +35,7 @@ public class TemplateParser {
                 }
             }
 
-            fields = obj.getClass().getDeclaredFields();            //unschön: hier nur eigene Felder
+            fields = obj.getClass().getDeclaredFields();            //eigene Felder
             for (Field field : fields) {
                 field.setAccessible(true);
                 if (field.get(obj) != null) {
@@ -43,11 +43,7 @@ public class TemplateParser {
                 }
             }
 
-        } catch (IllegalArgumentException ex) {
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
+        } catch (IllegalArgumentException | IllegalAccessException | IOException ex) {
             ex.printStackTrace();
         }
 

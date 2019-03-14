@@ -31,6 +31,8 @@ import justdoit.common.ejb.UserBean;
 @WebServlet(name = "EditToDoServlet", urlPatterns = {"/view/todo/edit/*"})
 public class EditToDoServlet extends HttpServlet {
 
+    private final String noCategory = "Keine Kategorie";
+
     @EJB
     CategoryBean categoryBean;
 
@@ -91,7 +93,12 @@ public class EditToDoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
-        session.setAttribute("categories", categories);
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        session.setAttribute("categories", categoryNames);
         session.setAttribute("priorities", priorities);
         session.setAttribute("users", users);
         session.setAttribute("currentCategory", currentCategory);

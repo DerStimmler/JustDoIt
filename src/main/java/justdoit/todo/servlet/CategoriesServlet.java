@@ -97,7 +97,7 @@ public class CategoriesServlet extends HttpServlet {
         Category category = new Category(request.getParameter("category_name"), this.userBean.getCurrentUser());
         List<String> errors = this.validationBean.validate(category);
 
-        if (category.getCategoryName().equals("Ohne Kategorie")) {
+        if (category.getCategoryName().equals("Keine Kategorie")) {
             errors.add(this.invalidCategoryName.replace("$categoryname", category.getCategoryName()));
         }
 
@@ -136,12 +136,6 @@ public class CategoriesServlet extends HttpServlet {
             return;
         }
 
-        Category withoutCategory = this.categoryBean.findById(new CategoryId(currentUser.getUsername(), "Ohne Kategorie"));
-        if (withoutCategory == null) {
-            withoutCategory = new Category("Ohne Kategorie", currentUser);
-            this.categoryBean.saveNew(withoutCategory, withoutCategory.getId());
-        }
-
         for (String categoryName : selectedCategoryNames) {
             CategoryId categoryId = new CategoryId(currentUser.getUsername(), categoryName);
             category = this.categoryBean.findById(categoryId);
@@ -153,7 +147,6 @@ public class CategoriesServlet extends HttpServlet {
                 for (int i = 0; i < toDos.size(); i++) {
                     ToDo todo = toDos.get(i);
                     todo.removeCategory(category);
-                    todo.addCategory(withoutCategory);
                     this.toDoBean.update(todo);
                 }
             }
