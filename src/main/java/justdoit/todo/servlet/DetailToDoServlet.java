@@ -76,21 +76,6 @@ public class DetailToDoServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        String action = request.getParameter("action");
-
-        if (action.equals("edit")) {
-            this.editToDo(request, response);
-        } else if (action.equals("delete")) {
-            this.deleteToDo(request, response);
-        } else if (action.equals("comment")) {
-            this.addComment(request, response);
-        }
-        //response.sendRedirect(request.getContextPath() + "/view/dashboard/");
-    }
-
-    private void deleteToDo(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
         long id = -1;
         String pathInfo = request.getPathInfo();
 
@@ -101,47 +86,43 @@ public class DetailToDoServlet extends HttpServlet {
                 // URL enthält keine gültige Long-Zahl
             }
         }
+
+        String action = request.getParameter("action");
+        if (action.equals("edit")) {
+            this.editToDo(request, response, id);
+        } else if (action.equals("delete")) {
+            this.deleteToDo(request, response, id);
+        } else if (action.equals("comment")) {
+            this.addComment(request, response, id);
+        }
+        //response.sendRedirect(request.getContextPath() + "/view/dashboard/");
+    }
+
+    private void deleteToDo(HttpServletRequest request, HttpServletResponse response, Long id)
+            throws ServletException, IOException {
 
         ToDo todo = toDoBean.findById(id);
         this.toDoBean.delete(todo);
         response.sendRedirect(request.getContextPath() + "/view/dashboard/");
     }
 
-    private void editToDo(HttpServletRequest request, HttpServletResponse response)
+    private void editToDo(HttpServletRequest request, HttpServletResponse response, Long id)
             throws ServletException, IOException {
 
-        long id = -1;
-        String pathInfo = request.getPathInfo();
-
-        if (pathInfo != null && pathInfo.length() > 2) {
-            try {
-                id = Long.parseLong(pathInfo.split("/")[1]);
-            } catch (NumberFormatException ex) {
-                // URL enthält keine gültige Long-Zahl
-            }
-        }
         response.sendRedirect(request.getContextPath() + "/view/todo/edit/" + id);
     }
 
-    private void addComment(HttpServletRequest request, HttpServletResponse response)
+    private void addComment(HttpServletRequest request, HttpServletResponse response, Long id)
             throws ServletException, IOException {
 
-        long id = -1;
-        String pathInfo = request.getPathInfo();
-
-        if (pathInfo != null && pathInfo.length() > 2) {
-            try {
-                id = Long.parseLong(pathInfo.split("/")[1]);
-            } catch (NumberFormatException ex) {
-                // URL enthält keine gültige Long-Zahl
-            }
-        }
         User currentUser = this.userBean.getCurrentUser();
         ToDo todo = toDoBean.findById(id);
         String text = request.getParameter("todo_comment");
-        Comment comment = new Comment(currentUser, todo, text);
+        if (text.trim().length() != 0) { //check if comment only consists of spaces
+            Comment comment = new Comment(currentUser, todo, text);
+            this.commentBean.saveNew(comment, id);
+        }
 
-        this.commentBean.saveNew(comment, id);
         response.sendRedirect(request.getRequestURI());
     }
 }
