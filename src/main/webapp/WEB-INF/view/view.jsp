@@ -34,7 +34,7 @@
             <c:forEach items="${categories}" var="category" varStatus="categoryLoop">
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">
                     <div class="card-header bg-light" id="heading${categoryLoop.index}">
-                        <a class="nav-link" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="false" aria-controls="collapse${categoryLoop.index}">
+                        <a class="nav-link font-weight-bold" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="false" aria-controls="collapse${categoryLoop.index}">
                             <i class="fas fa-star mr-2"></i>${category}
                             <div class="progress">
                                 <c:set var="total" value="${0}"></c:set>
@@ -69,7 +69,7 @@
                                     <c:forEach items="${statuses}" var="status" varStatus="statusloop">
                                         <div class="card col bg-secondary ml-1 mr-1">
                                             <div class="card-body pl-0 pr-0">
-                                                <h5 class="card-title text-light">${status.label}<span class="float-right">${fn:length(dashboard[category][status.label])}</span></h5>
+                                                <h5 class="card-title text-light">${status.label}<span class="float-right badge badge-light">${fn:length(dashboard[category][status.label])}</span></h5>
                                                     <c:forEach items="${dashboard[category][status.label]}" var="todo" varStatus="itemloop">
                                                     <div class="card bg-light mt-1 mb-1">
                                                         <div class="row mr-0">
