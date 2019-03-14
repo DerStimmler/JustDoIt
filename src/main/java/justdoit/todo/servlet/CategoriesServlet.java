@@ -136,12 +136,6 @@ public class CategoriesServlet extends HttpServlet {
             return;
         }
 
-        Category withoutCategory = this.categoryBean.findById(new CategoryId(currentUser.getUsername(), "Keine Kategorie"));
-        if (withoutCategory == null) {
-            withoutCategory = new Category("Keine Kategorie", currentUser);
-            this.categoryBean.saveNew(withoutCategory, withoutCategory.getId());
-        }
-
         for (String categoryName : selectedCategoryNames) {
             CategoryId categoryId = new CategoryId(currentUser.getUsername(), categoryName);
             category = this.categoryBean.findById(categoryId);
@@ -153,7 +147,6 @@ public class CategoriesServlet extends HttpServlet {
                 for (int i = 0; i < toDos.size(); i++) {
                     ToDo todo = toDos.get(i);
                     todo.removeCategory(category);
-                    todo.addCategory(withoutCategory);
                     this.toDoBean.update(todo);
                 }
             }

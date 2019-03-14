@@ -31,6 +31,8 @@ import justdoit.common.ejb.UserBean;
 @WebServlet(name = "EditToDoServlet", urlPatterns = {"/view/todo/edit/*"})
 public class EditToDoServlet extends HttpServlet {
 
+    private final String noCategory = "Keine Kategorie";
+
     @EJB
     CategoryBean categoryBean;
 
@@ -74,19 +76,24 @@ public class EditToDoServlet extends HttpServlet {
             }
         }
         ToDo todo = toDoBean.findById(id);
-        List<User> userstodo = todo.getUser();
-        List<String> usernames = userstodo.stream().map(User::getUsername).collect(Collectors.toList());
         // Zurück auf ToDo Übersicht seite wenn es keinen ToDo dieser ID gibt
         if (todo == null) {
             response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
+        List<User> userstodo = todo.getUser();
+        List<String> usernames = userstodo.stream().map(User::getUsername).collect(Collectors.toList());
         //Wenn der aktuelle User nicht in den Benutzer des ToDos vorkommt, hat er keine Anzeigerechte
         if (!usernames.contains(currentUser.getUsername())) {
             response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
-        session.setAttribute("categories", categories);
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        session.setAttribute("categories", categoryNames);
         session.setAttribute("priorities", priorities);
         session.setAttribute("users", users);
         session.setAttribute("oldCategory", oldCategory);

@@ -112,7 +112,6 @@ public class CreateToDoServlet extends HttpServlet {
             //Kategorie für jeden User hinzufügen
             String categoryName = request.getParameter("todo_category");
             if (categoryName.equals(this.noCategory)) {
-                //TODO Kategorie soll null bleiben
                 continue;
             }
             //Eine Kategorie ist ausgewählt, daher soll sie auch dem ToDo hinzugefügt werden
