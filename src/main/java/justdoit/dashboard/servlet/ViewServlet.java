@@ -59,16 +59,6 @@ public class ViewServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-//        Long searchId = null;
-
-//        if (request.getParameter("searchToDo") != null && !request.getParameter("searchToDo").equals("")) {
-//            searchId = Long.parseLong(request.getParameter("searchToDo"));
-//        }
-//
-//        if (searchId != null) {
-//            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId);
-//            return;
-//        }
         this.changeStatus(request, response);
         this.doSearch(request, response);
     }
