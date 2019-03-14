@@ -57,8 +57,9 @@ public class ViewServlet extends HttpServlet {
         });
 
         List<ToDo> todos = todoBean.findByUsername(currentUser.getUsername());
-        String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
+        String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"}; //Background Colors for Progress Bar of each Status
         ToDoStatus[] status = ToDoStatus.values();
+
         session.setAttribute("todos", todos);
         session.setAttribute("statuses", status);
         session.setAttribute("categories", categories);
@@ -73,40 +74,29 @@ public class ViewServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        Long backId = null;
-        Long forwardId = null;
-        Long searchId = null;
-
-        if (request.getParameter("back") != null) {
-            backId = Long.parseLong(request.getParameter("back"));
-        }
-        if (request.getParameter("forward") != null) {
-            forwardId = Long.parseLong(request.getParameter("forward"));
-        }
+        //search ToDo
         if (request.getParameter("searchToDo") != null && request.getParameter("searchToDo") != "") {
-            searchId = Long.parseLong(request.getParameter("searchToDo"));
-        }
-
-        // Detailseite des gesuchten Todos aufrufen
-        if (searchId != null) {
-            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId);
-            return;
+            Long searchId = Long.parseLong(request.getParameter("searchToDo"));
+            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId);         // Detailseite des gesuchten Todos aufrufen
         }
 
         // move ToDo to another Status Column
         List<ToDoStatus> status = Arrays.asList(ToDoStatus.values());
-
         ToDo todo = null;
-        if (backId != null) {
+
+        if (request.getParameter("back") != null) {
+            Long backId = Long.parseLong(request.getParameter("back"));
             todo = this.todoBean.findById(backId);
             int index = status.indexOf(todo.getStatus());
             todo.setStatus(status.get(--index));
         }
-        if (forwardId != null) {
+        if (request.getParameter("forward") != null) {
+            Long forwardId = Long.parseLong(request.getParameter("forward"));
             todo = this.todoBean.findById(forwardId);
             int index = status.indexOf(todo.getStatus());
             todo.setStatus(status.get(++index));
         }
+
         this.todoBean.update(todo);
 
         response.sendRedirect(request.getRequestURI());

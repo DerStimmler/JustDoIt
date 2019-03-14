@@ -26,6 +26,12 @@ public class MailBean {
 
     private MailConfig mailConfig = readConfigFromFile();
 
+    /**
+     * Sends an E-Mail
+     *
+     * @param mailContent
+     * @throws MessagingException
+     */
     public void sendMail(MailContent mailContent) throws MessagingException {
         MailAuthenticator auth = new MailAuthenticator(mailConfig.username, mailConfig.password);
 
@@ -49,6 +55,11 @@ public class MailBean {
         Transport.send(msg);
     }
 
+    /**
+     * Read properties which are important to send a mail from a JSON File.
+     *
+     * @return MailConfig
+     */
     private MailConfig readConfigFromFile() {
 
         String from = "";
@@ -68,9 +79,7 @@ public class MailBean {
             username = (String) jsonObject.get("username");
             password = (String) jsonObject.get("password");
 
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ParseException ex) {
+        } catch (IOException | ParseException ex) {
             ex.printStackTrace();
         }
 
