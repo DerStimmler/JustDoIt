@@ -98,7 +98,7 @@ public class EditToDoServlet extends HttpServlet {
             categoryNames.add(category.getCategoryName());
         });
         categoryNames.add(this.noCategory);
-        session.setAttribute("categories", categoryNames);
+        session.setAttribute("categories", categories);
         session.setAttribute("priorities", priorities);
         session.setAttribute("users", users);
         session.setAttribute("currentCategory", currentCategory);
