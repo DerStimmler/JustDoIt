@@ -60,12 +60,12 @@
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Status:</b>${todo.status.label}"</output>
+                            <output type="titel" name="titel"><b>Status:</b>${todo.status.label}</output>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Priorität:</b>${todo.priority.label}"</output>
+                            <output type="titel" name="titel"><b>Priorität:</b>${todo.priority.label}</output>
                         </div>
                     </div>
                     <div class="form-group">
