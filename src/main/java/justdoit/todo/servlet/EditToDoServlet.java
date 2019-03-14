@@ -93,12 +93,8 @@ public class EditToDoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/index.html");
             return;
         }
-        List<String> categoryNames = new ArrayList<>();
-        categories.forEach((category) -> {
-            categoryNames.add(category.getCategoryName());
-        });
-        categoryNames.add(this.noCategory);
-        session.setAttribute("categories", categories);
+
+        session.setAttribute("categories", this.getAllCategoryNames());
         session.setAttribute("priorities", priorities);
         session.setAttribute("users", users);
         session.setAttribute("currentCategory", currentCategory);
@@ -151,6 +147,9 @@ public class EditToDoServlet extends HttpServlet {
         }
 
         for (String user : todo_user) {
+            if (request.getParameter("todo_category").equals(this.noCategory)) {
+                break;
+            }
             CategoryId idc = new CategoryId(user, request.getParameter("todo_category"));
             todoCategory = this.categoryBean.findById(idc);
 
@@ -221,5 +220,15 @@ public class EditToDoServlet extends HttpServlet {
             this.toDoBean.update(todo);
             response.sendRedirect(request.getContextPath() + "/view/dashboard/");
         }
+    }
+
+    private Object getAllCategoryNames() {
+        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        return categoryNames;
     }
 }
