@@ -58,19 +58,12 @@ public class CreateToDoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
         HttpSession session = request.getSession();
 
         List<User> users = this.userBean.findAll();
         session.setAttribute("users", users);
 
-        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
-        List<String> categoryNames = new ArrayList<>();
-        categories.forEach((category) -> {
-            categoryNames.add(category.getCategoryName());
-        });
-        categoryNames.add(this.noCategory);
-        session.setAttribute("categories", categoryNames);
+        session.setAttribute("categories", this.getAllCategoryNames());
 
         ToDoPriority[] priorities = ToDoPriority.values();
         session.setAttribute("priorities", priorities);
@@ -94,22 +87,45 @@ public class CreateToDoServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
-        List<User> users = new ArrayList<>();
         List<String> errors = new ArrayList<>();
-        List<Category> todoCategories = new ArrayList<>();
-        ToDo todo;
-        Category todoCategory = null;
         HttpSession session = request.getSession();
 
         User currentUser = this.userBean.getCurrentUser();
-        String[] todo_user = request.getParameterValues("todo_user");
+        String[] todoUsers = request.getParameterValues("todo_user");
+        ToDo todo = this.createToDo(request, currentUser, todoUsers);
+        errors = this.validationBean.validate(todo, errors);
 
-        for (String user : todo_user) {
-            //Alle User dem der Aufgabe hinzufügen
+        if (!errors.isEmpty()) {
+            Form form = new Form();
+            form.setValues(request.getParameterMap());
+            form.setErrors(errors);
+            session.setAttribute("todo_form", form);
+
+            response.sendRedirect(request.getRequestURI());
+        } else {
+            this.toDoBean.saveNew(todo, todo.getId());
+            response.sendRedirect(request.getContextPath() + "/view/dashboard/");
+        }
+    }
+
+    private Object getAllCategoryNames() {
+        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        return categoryNames;
+    }
+
+    private ToDo createToDo(HttpServletRequest request, User currentUser, String[] todoUsernames) {
+        List<User> todoUsers = new ArrayList<>();
+        List<Category> todoCategories = new ArrayList<>();
+        Category todoCategory;
+
+        for (String user : todoUsernames) {
             User todoUser = this.userBean.findById(user);
-            users.add(todoUser);
-            //Kategorie für jeden User hinzufügen
+            todoUsers.add(todoUser);
             String categoryName = request.getParameter("todo_category");
             if (categoryName.equals(this.noCategory)) {
                 continue;
@@ -125,9 +141,7 @@ public class CreateToDoServlet extends HttpServlet {
                         this.categoryBean.saveNew(todoCategory, id);
                     } catch (EJBException ex) {
                         if (ex.getCausedByException() instanceof EntityAlreadyExistsException) {
-                            errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
-                                    .replace("$user", todoUser.getUsername())
-                                    .replace("$category", categoryName));
+                            continue;
                         }
                     }
                 }
@@ -139,26 +153,13 @@ public class CreateToDoServlet extends HttpServlet {
         Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
 
         ToDoPriority priority = ToDoPriority.valueOf(request.getParameter("todo_priority"));
-        todo = new ToDo(request.getParameter("todo_title"),
+        return new ToDo(request.getParameter("todo_title"),
                 todoCategories,
                 request.getParameter("todo_description"),
                 ToDoStatus.OPEN,
                 priority,
                 dueDate,
                 dueTime,
-                users);
-        errors = this.validationBean.validate(todo, errors);
-
-        if (!errors.isEmpty()) {
-            Form form = new Form();
-            form.setValues(request.getParameterMap());
-            form.setErrors(errors);
-            session.setAttribute("todo_form", form);
-
-            response.sendRedirect(request.getRequestURI());
-        } else {
-            this.toDoBean.saveNew(todo, todo.getId());
-            response.sendRedirect(request.getContextPath() + "/view/dashboard/");
-        }
+                todoUsers);
     }
 }
