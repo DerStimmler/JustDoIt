@@ -60,8 +60,8 @@
                         <div class="form-group">
                             <div class="form-label-group">
                                 <select class="form-control" name="todo_category" required="required" placeholder="Kategorie">
-                                    <c:forEach items="${categories}" var="category">
-                                        <option value="${category.categoryName}">${category.categoryName}</option>
+                                    <c:forEach items="${categories}" var="categoryName">
+                                        <option value="${categoryName}">${categoryName}</option>
                                     </c:forEach>
                                 </select>
                             </div>

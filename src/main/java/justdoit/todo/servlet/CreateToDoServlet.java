@@ -31,6 +31,8 @@ import justdoit.common.ejb.UserBean;
 @WebServlet(name = "CreateToDoServlet", urlPatterns = {"/view/todo/create/"})
 public class CreateToDoServlet extends HttpServlet {
 
+    private final String noCategory = "Keine Kategorie";
+
     @EJB
     CategoryBean categoryBean;
 
@@ -63,8 +65,13 @@ public class CreateToDoServlet extends HttpServlet {
         session.setAttribute("users", users);
 
         List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
-        session.setAttribute("categories", categories);
-        //TODO: In deutscher Sprache anzeigen
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        session.setAttribute("categories", categoryNames);
+
         ToDoPriority[] priorities = ToDoPriority.values();
         session.setAttribute("priorities", priorities);
 
@@ -97,33 +104,38 @@ public class CreateToDoServlet extends HttpServlet {
 
         User currentUser = this.userBean.getCurrentUser();
         String[] todo_user = request.getParameterValues("todo_user");
+
         for (String user : todo_user) {
+            //Alle User dem der Aufgabe hinzufügen
             User todoUser = this.userBean.findById(user);
             users.add(todoUser);
-        }
-
-        for (String user : todo_user) {
-            CategoryId id = new CategoryId(user, request.getParameter("todo_category"));
+            //Kategorie für jeden User hinzufügen
+            String categoryName = request.getParameter("todo_category");
+            if (categoryName.equals(this.noCategory)) {
+                //TODO Kategorie soll null bleiben
+                continue;
+            }
+            //Eine Kategorie ist ausgewählt, daher soll sie auch dem ToDo hinzugefügt werden
+            CategoryId id = new CategoryId(user, categoryName);
             todoCategory = this.categoryBean.findById(id);
-
-            User todoUser = this.userBean.findById(user);
 
             if (todoUser != currentUser) {
                 if (todoCategory == null) {
                     try {
-                        todoCategory = new Category(request.getParameter("todo_category"), todoUser);
+                        todoCategory = new Category(categoryName, todoUser);
                         this.categoryBean.saveNew(todoCategory, id);
                     } catch (EJBException ex) {
                         if (ex.getCausedByException() instanceof EntityAlreadyExistsException) {
                             errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
                                     .replace("$user", todoUser.getUsername())
-                                    .replace("$category", request.getParameter("todo_category")));
+                                    .replace("$category", categoryName));
                         }
                     }
                 }
             }
             todoCategories.add(todoCategory);
         }
+
         Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
         Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
 

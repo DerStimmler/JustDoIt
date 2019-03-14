@@ -1,6 +1,7 @@
 package justdoit.dashboard.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,8 @@ import org.apache.commons.collections.map.MultiValueMap;
 @WebServlet(urlPatterns = {"/view/dashboard/"})
 public class ViewServlet extends HttpServlet {
 
+    private final String noCategory = "Keine Kategorie";
+
     @EJB
     UserBean userBean;
 
@@ -44,24 +47,54 @@ public class ViewServlet extends HttpServlet {
         User currentUser = this.userBean.getCurrentUser();
         Map<String, MultiValueMap> dashboardContent = new HashMap<>();
 
-        //Alle Kategorien auslesen
-        List<Category> categories = this.categoryBean.findByUser(currentUser);
-        //Pro Kategorie die ToDos auslesen und in die Map packen
-        categories.forEach((Category category) -> {
-            List<ToDo> todos = this.todoBean.searchToDo("", category, null, null, currentUser.getUsername());
-            MultiValueMap status = new MultiValueMap();
-            todos.forEach((ToDo todo) -> {
-                status.put(todo.getStatus().getLabel(), todo);
-            });
-            dashboardContent.put(category.getCategoryName(), status);
-        });
+        //Alle TODOs des aktuellen Benutzers holen
+        List<ToDo> userTasks = this.todoBean.findByUsername(currentUser.getUsername());
+        for (ToDo todo : userTasks) {
+            MultiValueMap status;
+            String categoryName = this.noCategory;
+            List<Category> categories = todo.getCategories();
+            //Check if category of current User is in this list
+            for (Category category : categories) {
+                if (category.getUsername().equals(currentUser.getUsername())) {
+                    categoryName = category.getCategoryName();
+                }
+            }
+            //Prüfen, ob bereits Eintrag für aktuelle Kategorie in Map
+            if (dashboardContent.containsKey(categoryName)) {
+                status = dashboardContent.get(categoryName);
+            } else {
+                status = new MultiValueMap();
+            }
 
-        List<ToDo> todos = todoBean.findByUsername(currentUser.getUsername());
+            //Eintrag für die aktuelle Aufgabe hinzufügen
+            status.put(todo.getStatus().getLabel(), todo);
+
+            //Status Map wieder in dashboardConent
+            dashboardContent.put(categoryName, status);
+        }
+//        //Alle Kategorien auslesen
+//        List<Category> categories = this.categoryBean.findByUser(currentUser);
+//        //Pro Kategorie die ToDos auslesen und in die Map packen
+//        categories.forEach((Category category) -> {
+//            List<ToDo> todos = this.todoBean.searchToDo("", category, null, null, currentUser.getUsername());
+//            MultiValueMap status = new MultiValueMap();
+//            todos.forEach((ToDo todo) -> {
+//                status.put(todo.getStatus().getLabel(), todo);
+//            });
+//            dashboardContent.put(category.getCategoryName(), status);
+//        });
+//
         String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
         ToDoStatus[] status = ToDoStatus.values();
-        session.setAttribute("todos", todos);
+        session.setAttribute("todos", userTasks);
         session.setAttribute("statuses", status);
-        session.setAttribute("categories", categories);
+        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        session.setAttribute("categories", categoryNames);
         session.setAttribute("dashboard", dashboardContent);
         session.setAttribute("statusColors", statusColors);
         request.getRequestDispatcher("/WEB-INF/view/view.jsp").forward(request, response);
@@ -83,7 +116,7 @@ public class ViewServlet extends HttpServlet {
         if (request.getParameter("forward") != null) {
             forwardId = Long.parseLong(request.getParameter("forward"));
         }
-        if (request.getParameter("searchToDo") != null && request.getParameter("searchToDo") != "") {
+        if (request.getParameter("searchToDo") != null && !request.getParameter("searchToDo").equals("")) {
             searchId = Long.parseLong(request.getParameter("searchToDo"));
         }
 
