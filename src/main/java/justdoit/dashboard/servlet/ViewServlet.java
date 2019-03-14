@@ -39,63 +39,18 @@ public class ViewServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-
         request.setCharacterEncoding("UTF-8");
-
-        //TODO: Ids ändern, damit jedes einzeln eingeklappt werden kann
         HttpSession session = request.getSession();
         User currentUser = this.userBean.getCurrentUser();
-        Map<String, MultiValueMap> dashboardContent = new HashMap<>();
-
-        //Alle TODOs des aktuellen Benutzers holen
-        List<ToDo> userTasks = this.todoBean.findByUsername(currentUser.getUsername());
-        for (ToDo todo : userTasks) {
-            MultiValueMap status;
-            String categoryName = this.noCategory;
-            List<Category> categories = todo.getCategories();
-            //Check if category of current User is in this list
-            for (Category category : categories) {
-                if (category.getUsername().equals(currentUser.getUsername())) {
-                    categoryName = category.getCategoryName();
-                }
-            }
-            //Prüfen, ob bereits Eintrag für aktuelle Kategorie in Map
-            if (dashboardContent.containsKey(categoryName)) {
-                status = dashboardContent.get(categoryName);
-            } else {
-                status = new MultiValueMap();
-            }
-
-            //Eintrag für die aktuelle Aufgabe hinzufügen
-            status.put(todo.getStatus().getLabel(), todo);
-
-            //Status Map wieder in dashboardConent
-            dashboardContent.put(categoryName, status);
-        }
-//        //Alle Kategorien auslesen
-//        List<Category> categories = this.categoryBean.findByUser(currentUser);
-//        //Pro Kategorie die ToDos auslesen und in die Map packen
-//        categories.forEach((Category category) -> {
-//            List<ToDo> todos = this.todoBean.searchToDo("", category, null, null, currentUser.getUsername());
-//            MultiValueMap status = new MultiValueMap();
-//            todos.forEach((ToDo todo) -> {
-//                status.put(todo.getStatus().getLabel(), todo);
-//            });
-//            dashboardContent.put(category.getCategoryName(), status);
-//        });
-//
+        Map<String, MultiValueMap> dashboardContent = this.getDashboardContent(currentUser);
         String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
-        ToDoStatus[] status = ToDoStatus.values();
-        session.setAttribute("statuses", status);
-        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
-        List<String> categoryNames = new ArrayList<>();
-        categories.forEach((category) -> {
-            categoryNames.add(category.getCategoryName());
-        });
-        categoryNames.add(this.noCategory);
-        session.setAttribute("categories", categoryNames);
+
+        session.setAttribute("statuses", ToDoStatus.values());
+        session.setAttribute("categories", this.getAllCategoryNames(currentUser));
+        session.setAttribute("todos", this.todoBean.findByUsername(currentUser.getUsername()));
         session.setAttribute("dashboard", dashboardContent);
         session.setAttribute("statusColors", statusColors);
+
         request.getRequestDispatcher("/WEB-INF/view/view.jsp").forward(request, response);
     }
 
@@ -104,51 +59,89 @@ public class ViewServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+//        Long searchId = null;
 
-        Long backId = null;
-        Long forwardId = null;
-        Long searchId = null;
+//        if (request.getParameter("searchToDo") != null && !request.getParameter("searchToDo").equals("")) {
+//            searchId = Long.parseLong(request.getParameter("searchToDo"));
+//        }
+//
+//        if (searchId != null) {
+//            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId);
+//            return;
+//        }
+        this.changeStatus(request, response);
+        this.doSearch(request, response);
+    }
 
-        if (request.getParameter("back") != null) {
-            backId = Long.parseLong(request.getParameter("back"));
-        }
-        if (request.getParameter("forward") != null) {
-            forwardId = Long.parseLong(request.getParameter("forward"));
-        }
-        if (request.getParameter("searchToDo") != null && !request.getParameter("searchToDo").equals("")) {
-            searchId = Long.parseLong(request.getParameter("searchToDo"));
-        }
+    private List<String> getAllCategoryNames(User categoryUser) {
+        List<Category> categories = this.categoryBean.findByUser(categoryUser);
+        List<String> categoryNames = new ArrayList<>();
 
-        // Detailseite des gesuchten Todos aufrufen
-        if (searchId != null) {
-            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId);
-            return;
-        }
-        if (request.getParameter("searchToDo") != null && request.getParameter("searchToDo").equals("")) {
-            searchId = Long.parseLong(request.getParameter("searchToDo"));
-            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId); // Detailseite des gesuchten Todos aufrufen
-        }
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(noCategory);
 
-        // move ToDo to another Status Column
+        return categoryNames;
+    }
+
+    private Map<String, MultiValueMap> getDashboardContent(User currentUser) {
+        Map<String, MultiValueMap> dashboardContent = new HashMap<>();
+
+        List<ToDo> userTasks = this.todoBean.findByUsername(currentUser.getUsername());
+        for (ToDo todo : userTasks) {
+            MultiValueMap status;
+            String categoryName = this.noCategory;
+            List<Category> categories = todo.getCategories();
+
+            for (Category category : categories) {
+                if (category.getUsername().equals(currentUser.getUsername())) {
+                    categoryName = category.getCategoryName();
+                }
+            }
+
+            if (dashboardContent.containsKey(categoryName)) {
+                status = dashboardContent.get(categoryName);
+            } else {
+                status = new MultiValueMap();
+            }
+            status.put(todo.getStatus().getLabel(), todo);
+            dashboardContent.put(categoryName, status);
+        }
+        return dashboardContent;
+    }
+
+    private void changeStatus(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+
         List<ToDoStatus> status = Arrays.asList(ToDoStatus.values());
         ToDo todo = null;
 
         if (request.getParameter("back") != null) {
-            backId = Long.parseLong(request.getParameter("back"));
+            Long backId = Long.parseLong(request.getParameter("back"));
             todo = this.todoBean.findById(backId);
             int index = status.indexOf(todo.getStatus());
             todo.setStatus(status.get(--index));
         }
         if (request.getParameter("forward") != null) {
-            forwardId = Long.parseLong(request.getParameter("forward"));
+            Long forwardId = Long.parseLong(request.getParameter("forward"));
             todo = this.todoBean.findById(forwardId);
             int index = status.indexOf(todo.getStatus());
             todo.setStatus(status.get(++index));
         }
+        if (todo != null) {
+            this.todoBean.update(todo);
+            response.sendRedirect(request.getRequestURI());
+        }
+    }
 
-        this.todoBean.update(todo);
+    private void doSearch(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
 
-        response.sendRedirect(request.getRequestURI());
+        if (request.getParameter("searchToDo") != null && !request.getParameter("searchToDo").equals("")) {
+            Long searchId = Long.parseLong(request.getParameter("searchToDo"));
+            response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId); // Detailseite des gesuchten Todos aufrufen
+        }
     }
 
 }
