@@ -33,7 +33,6 @@ public class ToDo implements Serializable {
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @NotNull(message = "Die Aufgabe muss einer Kategorie zugeordnet werden")
     private List<Category> categories;
 
     @Lob
