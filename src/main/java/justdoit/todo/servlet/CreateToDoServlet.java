@@ -114,7 +114,7 @@ public class CreateToDoServlet extends HttpServlet {
             if (categoryName.equals(this.noCategory)) {
                 continue;
             }
-            //Eine Kategorie ist ausgewählt, daher soll sie auch dem ToDo hinzugefügt werden
+
             CategoryId id = new CategoryId(user, categoryName);
             todoCategory = this.categoryBean.findById(id);
 
