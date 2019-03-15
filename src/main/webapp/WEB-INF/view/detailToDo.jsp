@@ -23,59 +23,83 @@
             <div class="card card-register mx-auto mt-5">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-md-9 float-left"> <output type="titel" name="titel"><b>${todo.name}</b></div>
-                        <form method="post" class="stacked">
-                            <div class="side-by-side float-right">
-                                <button type="submit" class="btn btn-labeled btn-dark" name="action" value="edit">
-                                    <span class="btn-label"><i class="fas fa-edit"></i></span>  Edit
-                                </button>
-                                <button type="submit" class="btn btn-labeled btn-danger" name="action" value="delete">
-                                    <span class="btn-label"><i class="fas fa-trash-alt"></i></span>  Delete
-                                </button>
-                            </div>
-                        </form>
+                        <div class="col-lg-9 float-left">
+                            <h3 class="font-weight-bold">${todo.name}</h3>
+                        </div>
+                        <div class="col">
+                            <form method="post" class="stacked">
+                                <div class="side-by-side float-right">
+                                    <button type="submit" class="btn btn-labeled btn-dark" name="action" value="edit">
+                                        <span class="btn-label"><i class="fas fa-edit"></i></span>  Edit
+                                    </button>
+                                    <button type="submit" class="btn btn-labeled btn-danger" name="action" value="delete">
+                                        <span class="btn-label"><i class="fas fa-trash-alt"></i></span>  Delete
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <%-- Inhalt ToDo --%>
                 <div class="card-body">
                     <%-- Ausgabefelder --%>
-                    <div  class="form-group">
-                        <div class="form-label-group">
-                            <output type="titel" name="titel"> <b>Bearbeiter:</b> </output>
-                                <c:forEach items="${users}" var="user" varStatus="loop">
-                                <output type="titel" name="titel">${user.username}</output>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <b>Bearbeiter:</b>
+                        </div>
+                        <div class="col">
+                            <c:forEach items="${users}" var="user" varStatus="loop">
+                                ${user.username}
                                 <c:if test="${!loop.last}">,</c:if>
                             </c:forEach>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Fälligkeitsdatum:</b><fmt:formatDate pattern = "dd.MM.yyyy" value = "${todo.dueDate}"/></output>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <b>Fälligkeitsdatum:</b>
+                        </div>
+                        <div class="col">
+                            <fmt:formatDate pattern = "dd.MM.yyyy" value = "${todo.dueDate}"/>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Fälligkeitszeit:</b><fmt:formatDate pattern = "HH:mm" value = "${todo.dueTime}"/></output>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <b>Fälligkeitszeit:</b>
+                        </div>
+                        <div class="col">
+                            <fmt:formatDate pattern = "HH:mm" value = "${todo.dueTime}"/> Uhr
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Status:</b>${todo.status.label}</output>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <b>Status:</b>
+                        </div>
+                        <div class="col">
+                            ${todo.status.label}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Priorität:</b>${todo.priority.label}</output>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <b>Priorität:</b>
+                        </div>
+                        <div class="col">
+                            ${todo.priority.label}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Beschreibung:</b> ${todo.description}</output>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <b>Beschreibung:</b>
+                        </div>
+                        <div class="col">
+                            ${todo.description}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <output type="titel" name="titel"><b>Kategorie:</b> ${categoryName}</output>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <b>Kategorie:</b>
+                        </div>
+                        <div class="col">
+                            ${categoryName}
                         </div>
                     </div>
                 </div>
