@@ -68,7 +68,7 @@
                                 <div class="side-by-side">
                                     <select class="form-control" name="todo_category" required="required" placeholder="Kategorie">
                                         <c:forEach items="${categories}" var="category">
-                                            <option value="${category}" ${category eq currentCategory ? ' selected' : ''}>${category}</option>
+                                            <option value="${category}" ${category eq currentCategory.categoryName ? ' selected' : ''}>${category}</option>
                                         </c:forEach>
                                     </select>
                                 </div>

@@ -156,20 +156,45 @@ public class EditToDoServlet extends HttpServlet {
             User todoUser = this.userBean.findById(user);
 
             if (todoUser != currentUser) {
-                if (todoCategory == null) {
-                    try {
-                        todoCategory = new Category(request.getParameter("todo_category"), todoUser);
-                        this.categoryBean.saveNew(todoCategory, idc);
-                    } catch (EJBException ex) {
-                        if (ex.getCausedByException() instanceof EntityAlreadyExistsException) {
-                            errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
-                                    .replace("$user", todoUser.getUsername())
-                                    .replace("$category", request.getParameter("todo_category")));
+                if (!todoUser.getUsername().equals(currentUser.getUsername())) {
+                    List<ToDo> alleToDos = todoUser.getTodos();
+                    if (!alleToDos.isEmpty()) {
+                        for (ToDo todos : alleToDos) {
+                            if (todos.getId() == id) {
+                                break;
+                            } else {
+                                if (todoCategory == null) {
+                                    try {
+                                        todoCategory = new Category(request.getParameter("todo_category"), todoUser);
+                                        this.categoryBean.saveNew(todoCategory, idc);
+                                    } catch (EJBException ex) {
+                                        if (ex.getCausedByException() instanceof EntityAlreadyExistsException) {
+                                            errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
+                                                    .replace("$user", todoUser.getUsername())
+                                                    .replace("$category", request.getParameter("todo_category")));
+                                        }
+                                    }
+                                }
+                            }
+                            todoCategories.add(todoCategory);
+                        }
+                    } else {
+                        if (todoCategory == null) {
+                            try {
+                                todoCategory = new Category(request.getParameter("todo_category"), todoUser);
+                                this.categoryBean.saveNew(todoCategory, idc);
+                            } catch (EJBException ex) {
+                                if (ex.getCausedByException() instanceof EntityAlreadyExistsException) {
+                                    errors.add("Das ToDo kann dem Benutzer $user nicht unter der Kategorie $category zugewiesen werden"
+                                            .replace("$user", todoUser.getUsername())
+                                            .replace("$category", request.getParameter("todo_category")));
+                                }
+                            }
                         }
                     }
+                    todoCategories.add(todoCategory);
                 }
             }
-            todoCategories.add(todoCategory);
         }
         Date dueDate = FormatUtils.parseDate(request.getParameter("todo_due_date"));
         Time dueTime = FormatUtils.parseTime(request.getParameter("todo_due_time"));
