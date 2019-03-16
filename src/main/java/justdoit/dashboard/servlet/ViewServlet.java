@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +47,7 @@ public class ViewServlet extends HttpServlet {
         String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
 
         session.setAttribute("statuses", ToDoStatus.values());
-        session.setAttribute("categories", this.getAllCategoryNames(currentUser));
+        session.setAttribute("categories", dashboardContent.keySet());
         session.setAttribute("todos", this.todoBean.findByUsername(currentUser.getUsername()));
         session.setAttribute("dashboard", dashboardContent);
         session.setAttribute("statusColors", statusColors);
@@ -61,18 +62,6 @@ public class ViewServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         this.changeStatus(request, response);
         this.doSearch(request, response);
-    }
-
-    private List<String> getAllCategoryNames(User categoryUser) {
-        List<Category> categories = this.categoryBean.findByUser(categoryUser);
-        List<String> categoryNames = new ArrayList<>();
-
-        categories.forEach((category) -> {
-            categoryNames.add(category.getCategoryName());
-        });
-        categoryNames.add(noCategory);
-
-        return categoryNames;
     }
 
     private Map<String, MultiValueMap> getDashboardContent(User currentUser) {
