@@ -68,7 +68,14 @@
                                 <div class="side-by-side">
                                     <select class="form-control" name="todo_category" required="required" placeholder="Kategorie">
                                         <c:forEach items="${categories}" var="category">
-                                            <option value="${category}" ${category eq currentCategory.categoryName ? ' selected' : ''}>${category}</option>
+                                            <c:choose>
+                                                <c:when test="${(currentCategory eq null) && (category eq 'Keine Kategorie')}">
+                                                    <option value="${category}" selected>${category}</option>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value="${category}" ${category eq currentCategory.categoryName ? ' selected' : ''}>${category}</option>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:forEach>
                                     </select>
                                 </div>

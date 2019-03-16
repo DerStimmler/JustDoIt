@@ -73,14 +73,14 @@ public class EditToDoServlet extends HttpServlet {
         Category currentCategory = null;
         List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
         ToDoPriority[] priorities = ToDoPriority.values();
-        for (Category cate : categories) {
+        for (Category category : categories) {
 
-            List<ToDo> todos = cate.getToDos();
+            List<ToDo> todos = category.getToDos();
             for (ToDo soloToDo : todos) {
                 if (soloToDo.getId().equals(todo.getId())) {
-                    String user = cate.getUsername();
+                    String user = category.getUsername();
                     if (user.equals(currentUser.getUsername())) {
-                        currentCategory = cate;
+                        currentCategory = category;
                         break;
                     }
                 }
