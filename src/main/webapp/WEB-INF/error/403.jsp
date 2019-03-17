@@ -24,8 +24,9 @@
                     <span>Sie haben leider keine ausreichenden Rechte. </span>
                     <span>Dies könnte auch daran liegen, dass Ihr Benutzer noch nicht aktiviert worden ist.</span>
                     <span>Sie haben nach der Registrierung eine E-Mail mit Aktivierungslink erhalten. Falls Sie diese nicht erhalten haben, können Sie diese auch erneut anfordern!</span>
-                    <a href="<c:url value="/activation/resend/"/>">Aktivierungsmail erneut anfordern</a>
-                    <a href="<c:url value="/index.html"/>">Zurück zum Dashboard</a>
+                    <a href="<c:url value="/activation/resend/"/>">Aktivierungsmail erneut anfordern</a><br>
+                    <a href="<c:url value="/index.html"/>">Zurück zum Dashboard</a><br>
+                    <a href="<c:url value="/logout/"/>">Ausloggen</a>
                 </span>
             </div>
             <div class="lock"></div>

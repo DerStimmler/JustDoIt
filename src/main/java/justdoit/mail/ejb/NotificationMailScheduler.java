@@ -21,7 +21,7 @@ public class NotificationMailScheduler {
     @EJB
     ToDoBean todoBean;
 
-    @Schedule(dayOfWeek = "*", hour = "12", minute = "0", second = "0", persistent = false)
+    @Schedule(dayOfWeek = "*", hour = "23", minute = "35", second = "0", persistent = false)
     public void sendNotificationMails() {
         List<ToDo> todoList = this.todoBean.getDueTasks();
         List<NotificationMailContent> notificationMailContentList = new ArrayList<NotificationMailContent>();

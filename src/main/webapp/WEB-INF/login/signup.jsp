@@ -48,9 +48,10 @@
                             </div>
                             <input type="email" class="form-control" name="email" value="${signup_form.values["email"][0]}" placeholder="E-Mail" required="required">
                         </div>
-                        <small id="emailHelp" class="form-text text-muted">We need your E-Mail-Adress to notify you about your taks.</small>
+                        <small id="emailHelp" class="form-text text-muted">Wir brauchen deine E-Mail-Adresse um dich über fällige Aufgaben zu informieren oder dein Passwort zurück zu setzen.</small>
                         <%-- Button zum Abschicken --%>
                         <input class="btn btn-primary btn-block" type="submit" value="Registrieren">
+                        <small id="activationHelp" class="form-text text-muted">Nach der Registrierung erhälst du eine E-Mail mit welcher du deinen Account aktivieren kannst.</small>
                     </form>
                 </div>
 
