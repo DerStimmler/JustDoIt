@@ -68,24 +68,31 @@ public class ViewServlet extends HttpServlet {
         Map<String, MultiValueMap> dashboardContent = new HashMap<>();
 
         List<ToDo> userTasks = this.todoBean.findByUsername(currentUser.getUsername());
-        for (ToDo todo : userTasks) {
-            MultiValueMap status;
-            String categoryName = this.noCategory;
-            List<Category> categories = todo.getCategories();
+        if (!userTasks.isEmpty()) {
+            for (ToDo todo : userTasks) {
+                MultiValueMap status;
+                String categoryName = this.noCategory;
+                List<Category> categories = todo.getCategories();
 
-            for (Category category : categories) {
-                if (category.getUsername().equals(currentUser.getUsername())) {
-                    categoryName = category.getCategoryName();
+                for (Category category : categories) {
+                    if (category.getUsername().equals(currentUser.getUsername())) {
+                        categoryName = category.getCategoryName();
+                    }
                 }
-            }
 
-            if (dashboardContent.containsKey(categoryName)) {
-                status = dashboardContent.get(categoryName);
-            } else {
-                status = new MultiValueMap();
+                if (dashboardContent.containsKey(categoryName)) {
+                    status = dashboardContent.get(categoryName);
+                } else {
+                    status = new MultiValueMap();
+                }
+                status.put(todo.getStatus().getLabel(), todo);
+                dashboardContent.put(categoryName, status);
             }
-            status.put(todo.getStatus().getLabel(), todo);
-            dashboardContent.put(categoryName, status);
+        } else {
+            List<Category> categories = this.categoryBean.findByUser(currentUser);
+            for (Category category : categories) {
+                dashboardContent.put(category.getCategoryName(), null);
+            }
         }
         return dashboardContent;
     }
