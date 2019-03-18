@@ -40,7 +40,7 @@ public class UserBean extends EntityBean<User, String> {
     }
 
     public User findByUniqueNumber(long uniqueNumber) {
-        return (User) em.createQuery("Select u FROM User u WHERE u.id = :id").setParameter("id", uniqueNumber).getSingleResult();
+        return (User) em.createQuery("Select u FROM User u WHERE u.uniqueNumber = :uniqueNumber").setParameter("uniqueNumber", uniqueNumber).getSingleResult();
     }
     //</editor-fold>
 }

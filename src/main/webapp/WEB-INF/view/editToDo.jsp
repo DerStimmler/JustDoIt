@@ -86,7 +86,7 @@
                                 <div class="side-by-side">
                                     <select class="form-control" name="todo_priority" required="required" placeholder="Priorität">
                                         <c:forEach items="${priorities}" var="priority">
-                                            <option value="${priority}">${priority.label}</option>
+                                            <option value="${priority}" ${priority eq todo.priority ? ' selected' : ''}>${priority.label}</option>
                                         </c:forEach>
                                     </select>
                                 </div>
