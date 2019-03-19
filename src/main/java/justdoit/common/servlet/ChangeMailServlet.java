@@ -37,8 +37,7 @@ public class ChangeMailServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/user/changemail.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/user/changemail.jsp").forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();

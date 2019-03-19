@@ -59,11 +59,10 @@ public class CategoriesServlet extends HttpServlet {
         List<Category> categories = this.categoryBean.findByUser(currentUser);
         request.setAttribute("categories", categories);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/view/categories.jsp");
-        dispatcher.forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/categories.jsp").forward(request, response);
 
         HttpSession session = request.getSession();
-        session.removeAttribute("categories_form");
+        session.removeAttribute("category_form");
     }
 
     /**
