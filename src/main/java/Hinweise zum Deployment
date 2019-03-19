@@ -78,3 +78,25 @@ conf/tomee.xml wie folgt definiert werden:
 
 Das Beispiel geht dabei von der Derby-Beispieldatenbank aus, die Bestandteil
 von Netbeans ist.
+
+===========================
+Hinweise zum E-Mail-Versand
+===========================
+
+Der E-Mail-Versand wird mit der JavaMail API umgesetzt.
+Ein Teil der benötigten Einstellungen wird in einer JSON Datei gespeichert (src/main/resources/mailConfig.json).
+
+{
+    "from": "",
+    "host": "",
+    "port": "",
+    "username": "",
+    "password": ""
+}
+
+from: Adresse die als Absenderadresse angezeigt werden soll.
+host: Adresse des Postausgangssevers (SMTP-Server)
+port: Port des Postausgangsservers (SMTP-Server)
+username: Benutzername des Kontos beim Mail-Provider
+password: Passwort des Kontos beim Mail-Provider
+
