@@ -25,11 +25,13 @@ public class NotificationMailScheduler {
     public void sendNotificationMails() {
         List<ToDo> todoList = this.todoBean.getDueTasks();
         List<NotificationMailContent> notificationMailContentList = new ArrayList<NotificationMailContent>();
+        //alle Mails erstellen
         for (ToDo todo : todoList) {
             for (User user : todo.getUser()) {
                 notificationMailContentList.add(new NotificationMailContent(user, todo.getName(), todo.getDueDate(), todo.getDueTime()));
             }
         }
+        //alle Mails versenden
         for (NotificationMailContent notificationMailContent : notificationMailContentList) {
             try {
                 this.mailBean.sendMail(notificationMailContent);

@@ -19,6 +19,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
+        <!-- ToDo Suchfeld -->
         <form method="post" id="searchToDo">
             <div class="row mx-auto categoryContainer justify-content-end mb-3">
                 <select class="js-example-basic-single form-control w-25" name="searchToDo" id="searchToDoSelect">
@@ -30,6 +31,7 @@
                 <a href="#" onclick="document.getElementById('searchToDo').submit();"><i class="fas fa-search fa-2x ml-2"></i></a>
             </div>
         </form>
+
         <div id="categoryContainer" class="mx-auto categoryContainer">
             <c:forEach items="${categories}" var="category" varStatus="categoryLoop">
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">

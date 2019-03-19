@@ -25,71 +25,57 @@
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <div class="side-by-side">
-                                    <select class="js-example-basic-multiple col-md-10 form-control" name="todo_user" multiple="multiple" id="usernameSelectEditToDo" required="required">
-                                        <c:forEach items="${users}" var="user">
-                                            <option value="${user.getUsername()}">${user.getUsername()}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
+                            <div class="side-by-side">
+                                <select class="js-example-basic-multiple col-md-10 form-control" name="todo_user" multiple="multiple" id="usernameSelectEditToDo" required="required">
+                                    <c:forEach items="${users}" var="user">
+                                        <option value="${user.getUsername()}">${user.getUsername()}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <div class="side-by-side">
-                                    <input class="form-control" type="text" name="todo_title" value="${todo.name}" autofocus="autofocus" required="required" placeholder="Titel">
-                                </div>
+                            <div class="side-by-side">
+                                <input class="form-control" type="text" name="todo_title" value="${todo.name}" autofocus="autofocus" required="required" placeholder="Titel">
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <div class="side-by-side">
-                                    <input class="form-control" type="text" name="todo_description" value="${todo.description}" autofocus="autofocus" required="required" placeholder="Beschreibung">
-                                </div>
+                            <div class="side-by-side">
+                                <input class="form-control" type="text" name="todo_description" value="${todo.description}" autofocus="autofocus" required="required" placeholder="Beschreibung">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input class="form-control" type="date" name="todo_due_date" value="${todo.dueDate}" autofocus="autofocus" required="required" placeholder="Fällligkeitsdatum">
-                                    </div>
+                                    <input class="form-control" type="date" name="todo_due_date" value="${todo.dueDate}" autofocus="autofocus" required="required" placeholder="Fällligkeitsdatum">
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input class="form-control" type="time" name="todo_due_time" value="${todo.dueTime}" autofocus="autofocus" required="required" placeholder="Fälligkeitszeit">
-                                    </div>
+                                    <input class="form-control" type="time" name="todo_due_time" value="${todo.dueTime}" autofocus="autofocus" required="required" placeholder="Fälligkeitszeit">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <div class="side-by-side">
-                                    <select class="form-control" name="todo_category" required="required" placeholder="Kategorie">
-                                        <c:forEach items="${categories}" var="category">
-                                            <c:choose>
-                                                <c:when test="${(currentCategory eq null) && (category eq 'Keine Kategorie')}">
-                                                    <option value="${category}" selected>${category}</option>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <option value="${category}" ${category eq currentCategory.categoryName ? ' selected' : ''}>${category}</option>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </c:forEach>
-                                    </select>
-                                </div>
+                            <div class="side-by-side">
+                                <select class="form-control" name="todo_category" required="required" placeholder="Kategorie">
+                                    <c:forEach items="${categories}" var="category">
+                                        <c:choose>
+                                            <c:when test="${(currentCategory eq null) && (category eq 'Keine Kategorie')}">
+                                                <option value="${category}" selected>${category}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value="${category}" ${category eq currentCategory.categoryName ? ' selected' : ''}>${category}</option>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <div class="side-by-side">
-                                    <select class="form-control" name="todo_priority" required="required" placeholder="Priorität">
-                                        <c:forEach items="${priorities}" var="priority">
-                                            <option value="${priority}" ${priority eq todo.priority ? ' selected' : ''}>${priority.label}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
+                            <div class="side-by-side">
+                                <select class="form-control" name="todo_priority" required="required" placeholder="Priorität">
+                                    <c:forEach items="${priorities}" var="priority">
+                                        <option value="${priority}" ${priority eq todo.priority ? ' selected' : ''}>${priority.label}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                         </div>
                         <%-- Button zum Abschicken --%>
