@@ -85,7 +85,7 @@
                                                             </div>
                                                             <div class="col">
                                                                 <div class="row">
-                                                                    <a href="${pageContext.request.contextPath}/view/todo/detail/${todo.id}" class="col col-md-7 href">${todo.name}</a>
+                                                                    <a href="${pageContext.request.contextPath}/view/todo/detail/${todo.id}" class="col href">${todo.name}</a>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col">
