@@ -49,7 +49,7 @@ public class ViewServlet extends HttpServlet {
         String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
 
         session.setAttribute("statuses", ToDoStatus.values());
-        session.setAttribute("categories", dashboardContent.keySet());
+        session.setAttribute("categories", this.getAllCategoryNames());
         session.setAttribute("todos", this.todoBean.findByUsername(currentUser.getUsername()));
         session.setAttribute("dashboard", dashboardContent);
         session.setAttribute("statusColors", statusColors);
@@ -71,24 +71,31 @@ public class ViewServlet extends HttpServlet {
         Map<String, MultiValueMap> dashboardContent = new HashMap<>();
 
         List<ToDo> userTasks = this.todoBean.findByUsername(currentUser.getUsername());
-        for (ToDo todo : userTasks) {
-            MultiValueMap status;
-            String categoryName = this.noCategory;
-            List<Category> categories = todo.getCategories();
+        if (!userTasks.isEmpty()) {
+            for (ToDo todo : userTasks) {
+                MultiValueMap status;
+                String categoryName = this.noCategory;
+                List<Category> categories = todo.getCategories();
 
-            for (Category category : categories) {
-                if (category.getUsername().equals(currentUser.getUsername())) {
-                    categoryName = category.getCategoryName();
+                for (Category category : categories) {
+                    if (category.getUsername().equals(currentUser.getUsername())) {
+                        categoryName = category.getCategoryName();
+                    }
                 }
-            }
 
-            if (dashboardContent.containsKey(categoryName)) {
-                status = dashboardContent.get(categoryName);
-            } else {
-                status = new MultiValueMap();
+                if (dashboardContent.containsKey(categoryName)) {
+                    status = dashboardContent.get(categoryName);
+                } else {
+                    status = new MultiValueMap();
+                }
+                status.put(todo.getStatus().getLabel(), todo);
+                dashboardContent.put(categoryName, status);
             }
-            status.put(todo.getStatus().getLabel(), todo);
-            dashboardContent.put(categoryName, status);
+        } else {
+            List<Category> categories = this.categoryBean.findByUser(currentUser);
+            for (Category category : categories) {
+                dashboardContent.put(category.getCategoryName(), null);
+            }
         }
         return dashboardContent;
     }
@@ -126,6 +133,16 @@ public class ViewServlet extends HttpServlet {
             Long searchId = Long.parseLong(searchToDo);
             response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId); // Detailseite des gesuchten Todos aufrufen
         }
+    }
+
+    private Object getAllCategoryNames() {
+        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        return categoryNames;
     }
 
 }
