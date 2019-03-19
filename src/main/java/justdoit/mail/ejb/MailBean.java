@@ -24,7 +24,7 @@ public class MailBean {
 
     }
 
-    private MailConfig mailConfig = readConfigFromFile();
+    private MailConfig mailConfig = readConfigFromFile("/mailConfig.json");
 
     /**
      * Sends an E-Mail
@@ -40,9 +40,6 @@ public class MailBean {
         properties.setProperty("mail.smtp.auth", "true");
         properties.setProperty("mail.smtp.port", mailConfig.port);
         properties.setProperty("mail.smtp.starttls.enable", "true");
-        // properties.setProperty("mail.smtp.socketFactory.class",
-        // "javax.net.ssl.SSLSocketFactory");
-        // properties.setProperty("mail.smtp.socketFactory.fallback", "false");
 
         Session session = Session.getDefaultInstance(properties, auth);
 
@@ -60,7 +57,7 @@ public class MailBean {
      *
      * @return MailConfig
      */
-    private MailConfig readConfigFromFile() {
+    private MailConfig readConfigFromFile(String path) {
 
         String from = "";
         String host = "";
@@ -70,7 +67,7 @@ public class MailBean {
 
         try {
             JSONParser parser = new JSONParser();
-            Object obj = parser.parse(new InputStreamReader(getClass().getResourceAsStream("/mailConfig.json")));
+            Object obj = parser.parse(new InputStreamReader(getClass().getResourceAsStream(path)));
             JSONObject jsonObject = (JSONObject) obj;
 
             from = (String) jsonObject.get("from");
@@ -83,9 +80,7 @@ public class MailBean {
             ex.printStackTrace();
         }
 
-        MailConfig mailConfig = new MailConfig(from, host, port, username, password);
-
-        return mailConfig;
+        return new MailConfig(from, host, port, username, password);
     }
 
     class MailAuthenticator extends Authenticator {

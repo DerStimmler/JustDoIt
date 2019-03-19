@@ -102,7 +102,6 @@ public class DetailToDoServlet extends HttpServlet {
         } else if (action.equals("comment")) {
             this.addComment(request, response, id);
         }
-        //response.sendRedirect(request.getContextPath() + "/view/dashboard/");
     }
 
     private void deleteToDo(HttpServletRequest request, HttpServletResponse response, Long id)
