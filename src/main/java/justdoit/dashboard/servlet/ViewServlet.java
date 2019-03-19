@@ -40,7 +40,9 @@ public class ViewServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
         request.setCharacterEncoding("UTF-8");
+
         HttpSession session = request.getSession();
         User currentUser = this.userBean.getCurrentUser();
         Map<String, MultiValueMap> dashboardContent = this.getDashboardContent(currentUser);
@@ -60,6 +62,7 @@ public class ViewServlet extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
+
         this.changeStatus(request, response);
         this.doSearch(request, response);
     }
@@ -124,8 +127,10 @@ public class ViewServlet extends HttpServlet {
     private void doSearch(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        if (request.getParameter("searchToDo") != null && !request.getParameter("searchToDo").equals("")) {
-            Long searchId = Long.parseLong(request.getParameter("searchToDo"));
+        String searchToDo = request.getParameter("searchToDo");
+
+        if (searchToDo != null && !searchToDo.equals("")) {
+            Long searchId = Long.parseLong(searchToDo);
             response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId); // Detailseite des gesuchten Todos aufrufen
         }
     }

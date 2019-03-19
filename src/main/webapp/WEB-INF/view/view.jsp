@@ -19,6 +19,7 @@
     </jsp:attribute>
 
     <jsp:attribute name="main">
+        <!-- ToDo Suchfeld -->
         <form method="post" id="searchToDo">
             <div class="row mx-auto categoryContainer justify-content-end mb-3">
                 <select class="js-example-basic-single form-control w-25" name="searchToDo" id="searchToDoSelect">
@@ -30,11 +31,12 @@
                 <a href="#" onclick="document.getElementById('searchToDo').submit();"><i class="fas fa-search fa-2x ml-2"></i></a>
             </div>
         </form>
+
         <div id="categoryContainer" class="mx-auto categoryContainer">
             <c:forEach items="${categories}" var="category" varStatus="categoryLoop">
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">
                     <div class="card-header bg-light" id="heading${categoryLoop.index}">
-                        <a class="nav-link font-weight-bold" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="false" aria-controls="collapse${categoryLoop.index}">
+                        <a class="nav-link font-weight-bold" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="true" aria-controls="collapse${categoryLoop.index}">
                             <i class="fas fa-star mr-2"></i>${category}
                             <div class="progress">
                                 <c:set var="total" value="${0}"></c:set>
@@ -54,7 +56,7 @@
                             </div>
                         </a>
                     </div>
-                    <div id="collapse${categoryLoop.index}" class="collapse" aria-labelledby="heading${categoryLoop.index}">
+                    <div id="collapse${categoryLoop.index}" class="collapse show" aria-labelledby="heading${categoryLoop.index}">
                         <div class="row p-0 m-0">
                             <!-- Prüfen ob keine ToDos gespeichert sind-->
                             <c:choose>
@@ -83,7 +85,7 @@
                                                             </div>
                                                             <div class="col">
                                                                 <div class="row">
-                                                                    <a href="${pageContext.request.contextPath}/view/todo/detail/${todo.id}" class="col col-md-7 href">${todo.name}</a>
+                                                                    <a href="${pageContext.request.contextPath}/view/todo/detail/${todo.id}" class="col href">${todo.name}</a>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col">

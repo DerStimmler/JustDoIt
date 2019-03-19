@@ -25,55 +25,41 @@
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <select class="js-example-basic-multiple col-md-10 form-control" name="todo_user" multiple="multiple" id="usernameSelectCreateToDo" required="required" placeholder="Benutzer">
-                                    <c:forEach items="${users}" var="user">
-                                        <option value="${user.getUsername()}">${user.getUsername()}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                            <select class="js-example-basic-multiple col-md-10 form-control" name="todo_user" multiple="multiple" id="usernameSelectCreateToDo" required="required" placeholder="Benutzer">
+                                <c:forEach items="${users}" var="user">
+                                    <option value="${user.getUsername()}">${user.getUsername()}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="text" class="form-control" name="todo_title" value="${todo_form.values["todo_title"][0]}" autofocus="autofocus" required="required" placeholder="Titel">
-                            </div>
+                            <input type="text" class="form-control" name="todo_title" value="${todo_form.values["todo_title"][0]}" autofocus="autofocus" required="required" placeholder="Titel">
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <input type="text" class="form-control" name="todo_description" value="${todo_form.values["todo_description"][0]}" required="required" placeholder="Beschreibung">
-                            </div>
+                            <input type="text" class="form-control" name="todo_description" value="${todo_form.values["todo_description"][0]}" required="required" placeholder="Beschreibung">
                         </div>
                         <div class="form-group">
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input type="date" class="form-control" name="todo_due_date" value="${todo_form.values["todo_due_date"][0]}" required="required" placeholder="Fällligkeitsdatum">
-                                    </div>
+                                    <input type="date" class="form-control" name="todo_due_date" value="${todo_form.values["todo_due_date"][0]}" required="required" placeholder="Fällligkeitsdatum">
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-label-group">
-                                        <input type="time" class="form-control" name="todo_due_time" value="${todo_form.values["todo_due_time"][0]}" required="required" placeholder="Fälligkeitszeit">
-                                    </div>
+                                    <input type="time" class="form-control" name="todo_due_time" value="${todo_form.values["todo_due_time"][0]}" required="required" placeholder="Fälligkeitszeit">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <select class="form-control" name="todo_category" required="required" placeholder="Kategorie">
-                                    <c:forEach items="${categories}" var="categoryName">
-                                        <option value="${categoryName}">${categoryName}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                            <select class="form-control" name="todo_category" required="required" placeholder="Kategorie">
+                                <c:forEach items="${categories}" var="categoryName">
+                                    <option value="${categoryName}">${categoryName}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <div class="form-group">
-                            <div class="form-label-group">
-                                <select class="form-control" name="todo_priority" required="required" placeholder="Priorität">
-                                    <c:forEach items="${priorities}" var="priority">
-                                        <option value="${priority}">${priority.label}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
+                            <select class="form-control" name="todo_priority" required="required" placeholder="Priorität">
+                                <c:forEach items="${priorities}" var="priority">
+                                    <option value="${priority}">${priority.label}</option>
+                                </c:forEach>
+                            </select>
                         </div>
                         <%-- Button zum Abschicken --%>
                         <button class="btn btn-primary btn-block" name="action" value="create" type="submit">
