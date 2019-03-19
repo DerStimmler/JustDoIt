@@ -47,7 +47,7 @@ public class ViewServlet extends HttpServlet {
         String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
 
         session.setAttribute("statuses", ToDoStatus.values());
-        session.setAttribute("categories", dashboardContent.keySet());
+        session.setAttribute("categories", this.getAllCategoryNames());
         session.setAttribute("todos", this.todoBean.findByUsername(currentUser.getUsername()));
         session.setAttribute("dashboard", dashboardContent);
         session.setAttribute("statusColors", statusColors);
@@ -128,6 +128,16 @@ public class ViewServlet extends HttpServlet {
             Long searchId = Long.parseLong(request.getParameter("searchToDo"));
             response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId); // Detailseite des gesuchten Todos aufrufen
         }
+    }
+
+    private Object getAllCategoryNames() {
+        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        return categoryNames;
     }
 
 }
