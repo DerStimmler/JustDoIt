@@ -36,7 +36,7 @@
             <c:forEach items="${categories}" var="category" varStatus="categoryLoop">
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">
                     <div class="card-header bg-light" id="heading${categoryLoop.index}">
-                        <a class="nav-link font-weight-bold" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="false" aria-controls="collapse${categoryLoop.index}">
+                        <a class="nav-link font-weight-bold" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="true" aria-controls="collapse${categoryLoop.index}">
                             <i class="fas fa-star mr-2"></i>${category}
                             <div class="progress">
                                 <c:set var="total" value="${0}"></c:set>
@@ -56,7 +56,7 @@
                             </div>
                         </a>
                     </div>
-                    <div id="collapse${categoryLoop.index}" class="collapse" aria-labelledby="heading${categoryLoop.index}">
+                    <div id="collapse${categoryLoop.index}" class="collapse show" aria-labelledby="heading${categoryLoop.index}">
                         <div class="row p-0 m-0">
                             <!-- Prüfen ob keine ToDos gespeichert sind-->
                             <c:choose>
