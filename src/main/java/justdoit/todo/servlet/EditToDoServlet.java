@@ -157,7 +157,9 @@ public class EditToDoServlet extends HttpServlet {
                 }
             } else {
                 Category categoryInputUser = this.getCategoryForUsername(inputUser.getUsername(), oldtodoCategories);
-                todoCategories.add(categoryInputUser);
+                if (categoryInputUser != null) {
+                    todoCategories.add(categoryInputUser);
+                }
             }
         }
 
