@@ -30,23 +30,23 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="username" value="${signup_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
+                            <input type="text" class="form-control" name="username" value="${signUp_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control mr-1" name="password1" value="${signup_form.values["password1"][0]}" placeholder="Passwort" required="required">
+                            <input type="password" class="form-control mr-1" name="password1" value="${signUp_form.values["password1"][0]}" placeholder="Passwort" required="required">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" name="password2" value="${signup_form.values["password2"][0]}" placeholder="Passwort wiederholen" required="required">
+                            <input type="password" class="form-control" name="password2" value="${signUp_form.values["password2"][0]}" placeholder="Passwort wiederholen" required="required">
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-at"></i></span>
                             </div>
-                            <input type="email" class="form-control" name="email" value="${signup_form.values["email"][0]}" placeholder="E-Mail" required="required">
+                            <input type="email" class="form-control" name="email" value="${signUp_form.values["email"][0]}" placeholder="E-Mail" required="required">
                         </div>
                         <%-- Button zum Abschicken --%>
                         <input class="btn btn-primary btn-block" type="submit" value="Registrieren">
@@ -55,9 +55,9 @@
                 </div>
 
                 <%-- Fehlermeldungen --%>
-                <c:if test="${!empty signup_form.errors}">
+                <c:if test="${!empty signUp_form.errors}">
                     <ul class="errors">
-                        <c:forEach items="${signup_form.errors}" var="error">
+                        <c:forEach items="${signUp_form.errors}" var="error">
                             <li>${error}</li>
                             </c:forEach>
                     </ul>
