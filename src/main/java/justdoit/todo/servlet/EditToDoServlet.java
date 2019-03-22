@@ -108,13 +108,9 @@ public class EditToDoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
         request.setCharacterEncoding("UTF-8");
-        String action = request.getParameter("action");
 
-        if (action.equals("edit")) {
-            this.editToDo(request, response);
-        }
+        this.editToDo(request, response);
     }
 
     private void editToDo(HttpServletRequest request, HttpServletResponse response)
@@ -123,7 +119,7 @@ public class EditToDoServlet extends HttpServlet {
         ToDo todo = this.getEditToDo(request.getPathInfo());
         List<User> users = new ArrayList<>();
         List<String> errors = new ArrayList<>();
-        List<User> toDoUser = todo.getUser();
+        List<User> toDoUsers = todo.getUser();
         List<Category> oldtodoCategories = todo.getCategories();
         List<Category> todoCategories = new ArrayList<>();
         Category todoCategory = null;
@@ -148,8 +144,8 @@ public class EditToDoServlet extends HttpServlet {
             CategoryId categoryId = new CategoryId(user, toDoCategoryName);
             todoCategory = this.categoryBean.findById(categoryId);
 
-            if (!toDoUser.contains(inputUser)) {
-                toDoUser.add(inputUser);
+            if (!toDoUsers.contains(inputUser)) {
+                toDoUsers.add(inputUser);
                 todo = this.addCategoryForNewUser(todoCategory, inputUser, toDoCategoryName, todo);
             } else if (inputUser.getUsername().equals(currentUser.getUsername())) {
                 if (!toDoCategoryName.equals(this.noCategory)) {
