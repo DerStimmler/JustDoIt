@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import javax.ejb.EJBContext;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 import justdoit.common.exception.UserAlreadyExistsException;
 import justdoit.hash.HashGenerator;
 
@@ -40,7 +41,11 @@ public class UserBean extends EntityBean<User, String> {
     }
 
     public User findByUniqueNumber(long uniqueNumber) {
-        return (User) em.createQuery("Select u FROM User u WHERE u.uniqueNumber = :uniqueNumber").setParameter("uniqueNumber", uniqueNumber).getSingleResult();
+        try {
+            return (User) em.createQuery("Select u FROM User u WHERE u.uniqueNumber = :uniqueNumber").setParameter("uniqueNumber", uniqueNumber).getSingleResult();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
     //</editor-fold>
 }
