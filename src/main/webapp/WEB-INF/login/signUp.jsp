@@ -36,11 +36,11 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control mr-1" name="password1" value="${signUp_form.values["password1"][0]}" placeholder="Passwort" required="required">
+                            <input type="password" class="form-control mr-1" name="password" value="${signUp_form.values["password"][0]}" placeholder="Passwort" required="required">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="password" class="form-control" name="password2" value="${signUp_form.values["password2"][0]}" placeholder="Passwort wiederholen" required="required">
+                            <input type="password" class="form-control" name="passwordConfirm" value="${signUp_form.values["passwordConfirm"][0]}" placeholder="Passwort wiederholen" required="required">
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
