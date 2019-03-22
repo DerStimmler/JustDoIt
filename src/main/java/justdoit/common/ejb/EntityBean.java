@@ -2,6 +2,7 @@ package justdoit.common.ejb;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import justdoit.common.exception.EntityAlreadyExistsException;
 
@@ -23,21 +24,19 @@ public abstract class EntityBean<Entity, EntityId> {
         this.entityClass = entityClass;
     }
 
-    //
-    // Vorhandene Datensätze finden
-    //
     public Entity findById(EntityId id) {
         return em.find(entityClass, id);
     }
 
     public List<Entity> findAll() {
-        String select = "SELECT s FROM $S s".replace("$S", this.entityClass.getName());
-        return em.createQuery(select).getResultList();
+        try {
+            String select = "SELECT s FROM $S s".replace("$S", this.entityClass.getName());
+            return em.createQuery(select).getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
-    //
-    // Datensätze speichern, ändern, löschen
-    //
     public Entity saveNew(Entity entity, EntityId id) throws EntityAlreadyExistsException {
         if (this.findById(id) != null) {
             throw new EntityAlreadyExistsException(this.entityClass.getName());
