@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import justdoit.common.ejb.ValidationBean;
 import justdoit.common.exception.UserAlreadyExistsException;
-import justdoit.mail.ejb.MailBean;
-import justdoit.mail.ejb.RegisterMailContent;
+import justdoit.mail.MailBean;
+import justdoit.mail.RegisterMailContent;
 import justdoit.common.jpa.User;
 import justdoit.common.ejb.UserBean;
 

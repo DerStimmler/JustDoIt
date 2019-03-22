@@ -5,6 +5,10 @@
  */
 package justdoit.mail.ejb;
 
+import justdoit.mail.RegisterMailContent;
+import justdoit.mail.ResetPasswordMailContent;
+import justdoit.mail.NotificationMailContent;
+import justdoit.mail.TemplateParser;
 import java.sql.Date;
 import java.sql.Time;
 import justdoit.common.jpa.FormatUtils;

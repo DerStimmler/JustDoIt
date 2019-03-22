@@ -1,10 +1,7 @@
-package justdoit.mail.ejb;
+package justdoit.mail;
 
-import justdoit.mail.ejb.MailContent;
-import javax.ejb.Stateless;
 import justdoit.common.jpa.User;
 
-@Stateless
 public class ResetPasswordMailContent extends MailContent {
 
     private String newPassword;

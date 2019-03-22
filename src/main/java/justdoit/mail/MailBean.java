@@ -1,4 +1,4 @@
-package justdoit.mail.ejb;
+package justdoit.mail;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

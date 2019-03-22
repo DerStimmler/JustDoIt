@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import justdoit.mail.ejb.MailBean;
-import justdoit.mail.ejb.RegisterMailContent;
+import justdoit.mail.MailBean;
+import justdoit.mail.RegisterMailContent;
 import justdoit.common.jpa.User;
 import justdoit.common.ejb.UserBean;
 

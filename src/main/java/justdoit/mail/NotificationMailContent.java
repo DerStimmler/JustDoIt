@@ -1,12 +1,10 @@
-package justdoit.mail.ejb;
+package justdoit.mail;
 
 import java.sql.Date;
 import java.sql.Time;
-import javax.ejb.Stateless;
 import justdoit.common.jpa.FormatUtils;
 import justdoit.common.jpa.User;
 
-@Stateless
 public class NotificationMailContent extends MailContent {
 
     private String taskName;

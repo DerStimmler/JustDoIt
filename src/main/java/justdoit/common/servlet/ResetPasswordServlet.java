@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import justdoit.common.ejb.ValidationBean;
 import justdoit.hash.HashGenerator;
-import justdoit.mail.ejb.MailBean;
-import justdoit.mail.ejb.ResetPasswordMailContent;
+import justdoit.mail.MailBean;
+import justdoit.mail.ResetPasswordMailContent;
 import justdoit.common.jpa.User;
 import justdoit.common.ejb.UserBean;
 

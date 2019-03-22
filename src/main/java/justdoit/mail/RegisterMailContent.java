@@ -1,9 +1,7 @@
-package justdoit.mail.ejb;
+package justdoit.mail;
 
-import javax.ejb.Stateless;
 import justdoit.common.jpa.User;
 
-@Stateless
 public class RegisterMailContent extends MailContent {
 
     private String activationUrl;

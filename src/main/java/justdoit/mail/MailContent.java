@@ -1,7 +1,6 @@
-package justdoit.mail.ejb;
+package justdoit.mail;
 
 import justdoit.common.jpa.User;
-import justdoit.mail.ejb.TemplateParser;
 
 abstract class MailContent {
 
