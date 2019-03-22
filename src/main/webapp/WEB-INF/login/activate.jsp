@@ -20,10 +20,13 @@
     <jsp:attribute name="main">
         <div class="container">
             <div class="card card-register mx-auto mt-5">
-                <div class="card-header">Aktivierung Erfolgreich</div>
+                <div class="card-header">Aktivierung Ihres Accounts</div>
                 <div class="card-body">
                     <c:choose>
                         <c:when test="${!empty errors}">
+                            <div class="text-center mb-4">
+                                <h4>Bei der Aktivierung sind Fehler aufgetreten:</h4>
+                            </div>
                             <ul class="errors">
                                 <c:forEach items="${errors}" var="error">
                                     <li>${error}</li>
