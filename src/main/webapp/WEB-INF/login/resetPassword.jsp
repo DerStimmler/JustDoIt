@@ -33,7 +33,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-user"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="username" value="${resetpw_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
+                            <input type="text" class="form-control" name="username" value="${resetPassword_form.values["username"][0]}" placeholder="Benutzername" required="required" autofocus="autofocus">
                         </div>
                         <%-- Button zum Abschicken --%>
                         <input class="btn btn-primary btn-block" type="submit" value="Passwort zurücksetzen">
@@ -41,9 +41,9 @@
                 </div>
 
                 <%-- Fehlermeldungen --%>
-                <c:if test="${!empty resetpw_form.errors}">
+                <c:if test="${!empty resetPassword_form.errors}">
                     <ul class="errors">
-                        <c:forEach items="${resetpw_form.errors}" var="error">
+                        <c:forEach items="${resetPassword_form.errors}" var="error">
                             <li>${error}</li>
                             </c:forEach>
                     </ul>

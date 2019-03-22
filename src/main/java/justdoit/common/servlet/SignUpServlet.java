@@ -45,12 +45,12 @@ public class SignUpServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/signup.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/signUp.jsp");
         dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
-        session.removeAttribute("signup_form");
+        session.removeAttribute("signUp_form");
     }
 
     @Override
@@ -61,30 +61,29 @@ public class SignUpServlet extends HttpServlet {
 
         // Formulareingaben auslesen
         String username = request.getParameter("username");
-        String password1 = request.getParameter("password1");
-        String password2 = request.getParameter("password2");
+        String password = request.getParameter("password");
+        String passwordConfirm = request.getParameter("passwordConfirm");
         String email = request.getParameter("email");
-        User user = new User(username, password1, email);
+        User user = new User(username, password, email);
         List<String> errors = new ArrayList<>();
 
         // Passwort länge nicht in ValidationBean geprüft da dort der hash (immer 64 Zeichen) getestet wird
-        if (password1.length() < 5 || password1.length() > 50) {
+        if (password.length() < 5 || password.length() > 50) {
             errors.add("Das Passwort muss zwischen 5 und 50 Zeichen lang sein");
         }
-        if (!password1.equals(password2)) {
+        if (!password.equals(passwordConfirm)) {
             errors.add("Die Passwörter stimmen nicht überein");
         }
         errors = validationBean.validate(user, errors);
         if (errors.isEmpty()) {
             try {
-                this.userBean.signup(username, password1, email);
+                this.userBean.signup(username, password, email);
                 User usermail = this.userBean.findById(username);
 
                 String activationUrl = "/activate/" + Long.toBinaryString(usermail.getUniqueNumber());
 
                 RegisterMailContent mailContent = new RegisterMailContent(usermail, activationUrl);
                 this.mailBean.sendMail(mailContent);
-                // Keine Fehler: Startseite aufrufen
                 response.sendRedirect(request.getContextPath() + "/index.html");
             } catch (EJBException ex) {
                 Exception exc = ex.getCausedByException();
@@ -100,7 +99,7 @@ public class SignUpServlet extends HttpServlet {
             form.setValues(request.getParameterMap());
             form.setErrors(errors);
             HttpSession session = request.getSession();
-            session.setAttribute("signup_form", form);
+            session.setAttribute("signUp_form", form);
             response.sendRedirect(request.getRequestURI());
         }
     }

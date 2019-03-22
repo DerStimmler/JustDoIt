@@ -7,7 +7,7 @@
 
 <template:base>
     <jsp:attribute name="title">
-        JustDoIt - Dashboard
+        Dashboard
     </jsp:attribute>
 
     <jsp:attribute name="head">
@@ -33,16 +33,23 @@
         </form>
 
         <div id="categoryContainer" class="mx-auto categoryContainer">
+
+            <!-- Pro Kategorie eine ein- und ausklappbare Karte erstellen -->
             <c:forEach items="${categories}" var="category" varStatus="categoryLoop">
                 <div class="card row bg-light mb-5 flex-nowrap pb-1">
                     <div class="card-header bg-light" id="heading${categoryLoop.index}">
                         <a class="nav-link font-weight-bold" data-toggle="collapse" data-target="#collapse${categoryLoop.index}" aria-expanded="true" aria-controls="collapse${categoryLoop.index}">
                             <i class="fas fa-star mr-2"></i>${category}
+
+                            <!-- Anzeige eines Fortschrittbalkens pro Kategorie -->
                             <div class="progress">
+                                <!-- Gesamte Anzahl an TODOs bestimmen -->
                                 <c:set var="total" value="${0}"></c:set>
                                 <c:forEach items="${statuses}" var="status">
                                     <c:set var="total" value="${total + fn:length(dashboard[category][status.label])}"></c:set>
                                 </c:forEach>
+                                <!-- Falls keine TODOs vorhanden sind, wird ein leerer Fortschrittsbalken angezeigt, ansonsten wird
+                                pro Status ein Teil für den Fortschrittsbalken erzeugt-->
                                 <c:choose>
                                     <c:when test="${total eq 0}">
                                         <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
@@ -58,7 +65,8 @@
                     </div>
                     <div id="collapse${categoryLoop.index}" class="collapse show" aria-labelledby="heading${categoryLoop.index}">
                         <div class="row p-0 m-0">
-                            <!-- Prüfen ob keine ToDos gespeichert sind-->
+
+                            <!-- Prüfen ob ToDos vorhanden sind-->
                             <c:choose>
                                 <c:when test="${empty dashboard[category]}">
                                     <div class="d-flex justify-content-center w-100">
@@ -68,14 +76,20 @@
                                     </div>
                                 </c:when>
                                 <c:otherwise>
+
+                                    <!-- Pro Status eine Spalte mit den entsprechenden TODOs erzeugen -->
                                     <c:forEach items="${statuses}" var="status" varStatus="statusloop">
                                         <div class="card col bg-secondary ml-1 mr-1">
                                             <div class="card-body pl-0 pr-0">
                                                 <h5 class="card-title text-light">${status.label}<span class="float-right badge badge-light">${fn:length(dashboard[category][status.label])}</span></h5>
-                                                    <c:forEach items="${dashboard[category][status.label]}" var="todo" varStatus="itemloop">
+
+                                                <!-- Pro TODO eine Karte erzeugen -->
+                                                <c:forEach items="${dashboard[category][status.label]}" var="todo" varStatus="itemloop">
                                                     <div class="card bg-light mt-1 mb-1">
                                                         <div class="row mr-0">
                                                             <div class="col-md-1 centered my-auto">
+
+                                                                <!-- Pfeile zum Ändern des Status nach links erzeugen -->
                                                                 <c:if test="${not statusloop.first}">
                                                                     <form method="post" id="backForm${todo.id}">
                                                                         <input type="text" name="back" value="${todo.id}" class="d-none">
@@ -83,6 +97,8 @@
                                                                     </form>
                                                                 </c:if>
                                                             </div>
+
+                                                            <!-- Inhalt des TODOS anzeigen -->
                                                             <div class="col">
                                                                 <div class="row">
                                                                     <a href="${pageContext.request.contextPath}/view/todo/detail/${todo.id}" class="col href">${todo.name}</a>
@@ -97,6 +113,8 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-1 centered my-auto">
+
+                                                                <!-- Pfeil zum Ändern des Status nach rechts erzeugen -->
                                                                 <c:if test="${not statusloop.last}">
                                                                     <form method="post" id="forwardForm${todo.id}">
                                                                         <input type="text" name="forward" value="${todo.id}" class="d-none">
@@ -116,6 +134,7 @@
                     </div>
                 </div>
             </c:forEach>
+
             <!-- Bemerkung anzeigen wenn keine Kategorien vorhanden sind-->
             <c:if test="${empty categories}">
                 <div class="d-flex justify-content-center w-100 mt-5">

@@ -59,9 +59,7 @@ public class CategoriesServlet extends HttpServlet {
         request.setAttribute("categories", categories);
 
         request.getRequestDispatcher("/WEB-INF/view/categories.jsp").forward(request, response);
-
-        HttpSession session = request.getSession();
-        session.removeAttribute("category_form");
+        request.getSession().removeAttribute("category_form");
     }
 
     /**

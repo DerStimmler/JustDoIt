@@ -7,11 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet for the welcome page /index.html. The user is redirected to
- * "/view/dashboard/"-page. If he is not logged in he will be redirected to the
- * login page to authenticate himself
- */
 @WebServlet(urlPatterns = {"/login/"})
 public class LoginServlet extends HttpServlet {
 

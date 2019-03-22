@@ -72,8 +72,10 @@
                 <c:if test="${!empty todo_form.errors}">
                     <ul class="errors">
                         <c:forEach items="${todo_form.errors}" var="error">
-                            <li>${error}</li>
-                            </c:forEach>
+                            <li>
+                                ${error}
+                            </li>
+                        </c:forEach>
                     </ul>
                 </c:if>
             </div>
