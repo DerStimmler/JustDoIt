@@ -21,9 +21,6 @@ import justdoit.mail.RegisterMailContent;
 import justdoit.common.jpa.User;
 import justdoit.common.ejb.UserBean;
 
-/**
- * Sign Up Controller
- */
 @WebServlet(urlPatterns = {"/signup/"})
 public class SignUpServlet extends HttpServlet {
 
