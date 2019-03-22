@@ -41,9 +41,6 @@ public class Category implements Serializable {
     @NotNull(message = "Die Kategorie muss einem Benutzer zugeordnet werden")
     private User user;
 
-//    @Id
-//    @NotNull
-//    private String categoryUsername;
     @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
     List<ToDo> toDos = new ArrayList<>();
 
@@ -126,7 +123,6 @@ public class Category implements Serializable {
         hash = 47 * hash + Objects.hashCode(this.categoryName);
         hash = 47 * hash + Objects.hashCode(this.username);
         hash = 47 * hash + Objects.hashCode(this.user);
-        hash = 47 * hash + Objects.hashCode(this.toDos);
         return hash;
     }
 
@@ -155,5 +151,4 @@ public class Category implements Serializable {
         return true;
     }
 //</editor-fold>
-
 }

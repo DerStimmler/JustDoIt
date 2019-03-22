@@ -20,7 +20,7 @@
     <jsp:attribute name="main">
         <div class="container">
             <div class="card card-register mx-auto mt-5">
-                <div class="card-header">Todo bearbeiten</div>
+                <div class="card-header">ToDo bearbeiten</div>
                 <div class="card-body">
                     <form method="post" class="stacked">
                         <%-- Eingabefelder --%>
@@ -91,8 +91,10 @@
                 <c:if test="${!empty todo_form.errors}">
                     <ul class="errors">
                         <c:forEach items="${todo_form.errors}" var="error">
-                            <li>${error}</li>
-                            </c:forEach>
+                            <li>
+                                ${error}
+                            </li>
+                        </c:forEach>
                     </ul>
                 </c:if>
                 </form>

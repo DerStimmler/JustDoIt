@@ -40,7 +40,7 @@ public class ResendActivationServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/resendactivation.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/resendActivation.jsp");
         dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen

@@ -22,7 +22,7 @@ import justdoit.mail.ejb.ResetPasswordMailContent;
 import justdoit.common.jpa.User;
 import justdoit.common.ejb.UserBean;
 
-@WebServlet(urlPatterns = {"/resetpw/"})
+@WebServlet(urlPatterns = {"/resetpassword/"})
 public class ResetPasswordServlet extends HttpServlet {
 
     @EJB
@@ -44,12 +44,12 @@ public class ResetPasswordServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // Anfrage an dazugerhörige JSP weiterleiten
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/resetpw.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/resetPassword.jsp");
         dispatcher.forward(request, response);
 
         // Alte Formulardaten aus der Session entfernen
         HttpSession session = request.getSession();
-        session.removeAttribute("resetpw_form");
+        session.removeAttribute("resetPassword_form");
     }
 
     @Override
@@ -81,7 +81,7 @@ public class ResetPasswordServlet extends HttpServlet {
         } else {
             // Fehler: Formuler erneut anzeigen
             HttpSession session = request.getSession();
-            session.setAttribute("resetpw_form", form);
+            session.setAttribute("resetPassword_form", form);
 
             response.sendRedirect(request.getRequestURI());
         }

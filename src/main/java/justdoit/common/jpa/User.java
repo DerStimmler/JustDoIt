@@ -38,7 +38,7 @@ public class User implements Serializable {
     @NotNull(message = "Bitte geben Sie einen Benutzernamen ein!")
     private String username = "";
 
-//    //Length 64 reuqired becuase of sha-256
+    //Length 64 reuqired becuase of sha-256
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Bitte geben Sie ein Passwort ein!")
     private String password = "";
@@ -52,6 +52,7 @@ public class User implements Serializable {
             name = "USER_GROUP",
             joinColumns = @JoinColumn(name = "USERNAME")
     )
+
     @Column(name = "GROUPNAME")
     List<String> groups = new ArrayList<>();
 

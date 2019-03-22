@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.comment.ejb;
 
 import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import justdoit.comment.jpa.Comment;
 import justdoit.common.ejb.EntityBean;
@@ -25,6 +21,10 @@ public class CommentBean extends EntityBean<Comment, Long> {
     }
 
     public List<Comment> findByToDoId(long id) {
-        return this.em.createQuery("SELECT c FROM Comment c JOIN c.todo t where t.id= :id").setParameter("id", id).getResultList();
+        try {
+            return this.em.createQuery("SELECT c FROM Comment c JOIN c.todo t where t.id= :id").setParameter("id", id).getResultList();
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 }

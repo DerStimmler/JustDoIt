@@ -25,7 +25,6 @@ public class ActivateAccountServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         List<String> errors = new ArrayList<>();
-
         session.removeAttribute("errors");
 
         long uniqueNumberOfUser = 0;
@@ -34,7 +33,7 @@ public class ActivateAccountServlet extends HttpServlet {
             try {
                 uniqueNumberOfUser = Long.parseLong(pathInfo.split("/")[1], 2);
             } catch (NumberFormatException ex) {
-                errors.add("Es wurde eine ungültige ID angegeben! Bitte kontaktieren Sie den Support!");
+                errors.add("Die ID wurde in der URL nicht im erwarteten Format angegeben! Bitte kontaktieren Sie den Support!");
             }
         }
         errors = this.activateAccount(uniqueNumberOfUser, errors);
@@ -47,15 +46,13 @@ public class ActivateAccountServlet extends HttpServlet {
     }
 
     private List<String> activateAccount(long uniqueNumberOfUser, List<String> errors) {
-        if (errors.isEmpty()) {
-            User activateUser = this.userBean.findByUniqueNumber(uniqueNumberOfUser);
-            if (activateUser != null) {
-                activateUser.removeFromGroup("justdoit-user-inactive");
-                activateUser.addToGroup("justdoit-user");
-                this.userBean.update(activateUser);
-            } else {
-                errors.add("Zur ID des Aktivierungslinks konnte kein Benutzer ermittelt werden! Bitte kontatkieren Sie den Support!");
-            }
+        User activateUser = this.userBean.findByUniqueNumber(uniqueNumberOfUser);
+        if (activateUser != null) {
+            activateUser.removeFromGroup("justdoit-user-inactive");
+            activateUser.addToGroup("justdoit-user");
+            this.userBean.update(activateUser);
+        } else {
+            errors.add("Zur ID des Aktivierungslinks konnte kein Benutzer ermittelt werden! Bitte kontatkieren Sie den Support!");
         }
         return errors;
     }

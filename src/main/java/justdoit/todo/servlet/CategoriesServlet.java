@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -60,9 +59,7 @@ public class CategoriesServlet extends HttpServlet {
         request.setAttribute("categories", categories);
 
         request.getRequestDispatcher("/WEB-INF/view/categories.jsp").forward(request, response);
-
-        HttpSession session = request.getSession();
-        session.removeAttribute("category_form");
+        request.getSession().removeAttribute("category_form");
     }
 
     /**
