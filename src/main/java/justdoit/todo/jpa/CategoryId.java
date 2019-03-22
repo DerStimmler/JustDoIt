@@ -1,23 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package justdoit.todo.jpa;
 
 import java.io.Serializable;
 import java.util.Objects;
-import javax.validation.constraints.NotNull;
-import justdoit.common.jpa.User;
 
-/**
- *
- * @author Lichter, Ansgar
- */
-public class CategoryId implements Serializable{
-    
+public class CategoryId implements Serializable {
+
     private String categoryName;
-    
+
     private String username;
 
     //<editor-fold defaultstate="collapsed" desc="Konstruktoren">

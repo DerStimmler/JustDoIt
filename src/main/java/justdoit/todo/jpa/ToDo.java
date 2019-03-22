@@ -39,7 +39,6 @@ public class ToDo implements Serializable {
     private String description;
 
     @Enumerated(EnumType.STRING)
-    //vgl. http://tomee.apache.org/examples-trunk/jpa-enumerated/
     @NotNull(message = "Der Aufgabe muss ein Status zugeordnet werden")
     private ToDoStatus status;
 
