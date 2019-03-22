@@ -52,6 +52,7 @@ public class User implements Serializable {
             name = "USER_GROUP",
             joinColumns = @JoinColumn(name = "USERNAME")
     )
+
     @Column(name = "GROUPNAME")
     List<String> groups = new ArrayList<>();
 
