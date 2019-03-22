@@ -4,8 +4,7 @@ To-Do-Management Applikation for Java.
 Schulprojekt für die Vorlesung Webbasierte Datenbankanwendungen an der DHBW Karlsruhe.
 
 
-Kurzbeschreibung
-----------------
+#### Kurzbeschreibung
 
 Dies ist ein Beispiel für eine in Java realisierte, serverseitige MVC-Webanwendung.
 Die Anwendung setzt dabei ganz klassisch auf der „Jakarta Enterprise Edition”
@@ -17,8 +16,7 @@ generierte HTML-Seite abgerufen und im Browser dargestellt wird.
 
 ## Hinweise zum Deployment
 
-Verwendete Technologien
------------------------
+#### Verwendete Technologien
 
 Während der Entwicklung haben wir einen speziell konfigurierten TomEE-Server
 genutzt. Als Datenbank wurde die Derby-Datenbank verwendet. In unseren Dateien,
@@ -33,7 +31,6 @@ wie folgt strukturiert:
  * **Persistence Entities** modellieren das Datenmodell und werden für sämtliche Datenbankzugriffe genutzt.
  * **Java Server Pages** sowie verschiedene statische Dateien bilden die View und generieren den
    auf dem Bildschirm angezeigten HTML-Code.
- * **REST-Webserivce** dient zum auslesen von Datensätzen.
 
 Folgende Entwicklungswerkzeuge kommen dabei zum Einsatz:
 
@@ -44,8 +41,7 @@ Folgende Entwicklungswerkzeuge kommen dabei zum Einsatz:
  * [Derby:](https://db.apache.org/derby/) In Java implementierte SQL-Datenbank zum Testen der Anwendung
 
 
-Konfiguration der Benutzerauthentifizierung
--------------------------------------------
+#### Konfiguration der Benutzerauthentifizierung
 
 In den Klassen justdoit.common.jpa.User sowie justdoit.common.ejb.UserBean wurde
 die Benutzerverwaltung realisiert.
@@ -61,7 +57,9 @@ Datei `/Web Pages/WEB-INF/web.xml`.
 Dort befinden sich die anwendungsspezifischen Einstellungen, welche Aktionen
 welche Berechtigungen erfordern. Am Ende wird dabei mit folgender Zeile
 
-    `<realm-name>justdoit</realm-name>`
+```
+    <realm-name>justdoit</realm-name>
+```
 
 das Realm zugewiesen. Realm ist dabei nur ein schöner Begriff für eine
 beliebige Datenbank mit Benutzern, ihren Passwörtern und Berechtigungen.
@@ -115,8 +113,7 @@ Das Beispiel geht dabei von der Derby-Beispieldatenbank aus, die Bestandteil
 von Netbeans ist.
 
 
-Hinweise zum E-Mail-Versand
-===========================
+## Hinweise zum E-Mail-Versand
 
 Der E-Mail-Versand wird mit der [JavaMail API](https://javaee.github.io/javamail/docs/api/) umgesetzt.
 Ein Teil der benötigten Einstellungen wird in einer JSON Datei gespeichert:
@@ -132,8 +129,8 @@ Ein Teil der benötigten Einstellungen wird in einer JSON Datei gespeichert:
 }
 ```
 
-`from`: Adresse die als Absenderadresse angezeigt werden soll.
-`host`: Adresse des Postausgangssevers (SMTP-Server)
-`port`: Port des Postausgangsservers (SMTP-Server)
-`username`: Benutzername des Kontos beim Mail-Provider
-`password`: Passwort des Kontos beim Mail-Provider
+* `from`: Adresse die als Absenderadresse angezeigt werden soll.
+* `host`: Adresse des Postausgangssevers (SMTP-Server)
+* `port`: Port des Postausgangsservers (SMTP-Server)
+* `username`: Benutzername des Kontos beim Mail-Provider
+* `password`: Passwort des Kontos beim Mail-Provider
