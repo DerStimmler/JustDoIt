@@ -1,6 +1,8 @@
 package justdoit.common.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,8 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import justdoit.common.ejb.ValidationBean;
-import justdoit.mail.ejb.MailBean;
+import javax.servlet.http.HttpSession;
 import justdoit.common.jpa.User;
 import justdoit.common.ejb.UserBean;
 
@@ -19,42 +20,35 @@ public class ActivateAccountServlet extends HttpServlet {
     @EJB
     UserBean userBean;
 
-    @EJB
-    MailBean mailBean;
-
-    @EJB
-    ValidationBean validationBean;
-
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        List<String> errors = new ArrayList<>();
 
-        //ID aus der URL auslesen
-        long id = 0;
+        long uniqueNumberOfUser = 0;
         String pathInfo = request.getPathInfo();
         if (pathInfo != null && pathInfo.length() > 2) {
             try {
-                id = Long.parseLong(pathInfo.split("/")[1], 2);
+                uniqueNumberOfUser = Long.parseLong(pathInfo.split("/")[1], 2);
             } catch (NumberFormatException ex) {
-                // URL enthält keine gültige Long-Zahl
+                errors.add("Es wurde eine ungültige ID angegeben! Bitte kontaktieren Sie den Support!");
             }
         }
 
-        //User auf aktiv setzen
-        User activateUser = this.userBean.findByUniqueNumber(id);
-        activateUser.removeFromGroup("justdoit-user-inactive");
-        activateUser.addToGroup("justdoit-user");
-        //User speichern
-        this.userBean.update(activateUser);
+        User activateUser = this.userBean.findByUniqueNumber(uniqueNumberOfUser);
+        if (activateUser != null) {
+            activateUser.removeFromGroup("justdoit-user-inactive");
+            activateUser.addToGroup("justdoit-user");
+            this.userBean.update(activateUser);
+        } else {
+            errors.add("Zur ID des Aktivierungslinks konnte kein Benutzer ermittelt werden! Bitte kontatkieren Sie den Support!");
+        }
 
-        //Aktivierungsnachricht
+        if (!errors.isEmpty()) {
+            session.setAttribute("errors", errors);
+        }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/activate.jsp");
         dispatcher.forward(request, response);
-    }
-
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
     }
 }
