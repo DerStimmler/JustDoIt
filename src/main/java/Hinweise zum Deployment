@@ -3,43 +3,42 @@ Hinweise zum Deployment
 =======================
 
 
-Der TomEE-Applikationsserver empfiehlt sich
+Der TomEE-Applikationsserver wird empfohlen
 -------------------------------------------
 
-Während der Entwicklung haben wir einen speziell konfiguriertern TomEE-Server
-genutzt. Als Datenbank haben wir die Derby-Datenbank benutzt. In unsere Dateien,
-die wir Ihnen bei der Projektabgabe hochgeladen haben, haben wir Ihnen beide zur
-Verfügung gestellt.
+Während der Entwicklung haben wir einen speziell konfigurierten TomEE-Server
+genutzt. Als Datenbank wurde die Derby-Datenbank verwendet. In unseren Dateien,
+die bei der Projektabgabe hochgeladen werden, ist beides enthalten.
 
 
 Konfiguration der Benutzerauthentifizierung
 -------------------------------------------
 
-In den Klassen ....jpa.User.java sowie ….ejb.UserBean haben wir unsere
-Benutzerverwaltung realisiert.
-Die Anwendung verwaltet hierfür eine eigene Tabelle, in der die Benutzer,
-Passwörter und zugeordneten Benutzergruppen (Steuerung der Berechtigungen)
-gespeichert werden.
+In den Klassen justdoit.common.jpa.User sowie justdoit.common.ejb.UserBean wurde
+die Benutzerverwaltung realisiert.
+Die Anwendung verwaltet hierfür eine eigene Tabelle in der Datenbank, in der
+die Benutzer,Passwörter und zugeordneten Benutzergruppen gespeichert werden.
 
 Die Authentifizierung und Autorisierung werden allerdings vom
 Applikationsserver vorgenommen, der hierfür entsprechend konfiguriert
 werden muss. Das heißt, der Applikationsserver muss wissen, in welchen Tabellen
 die Benutzer gespeichert sind. Dies erfolgt anhand den Einstellungen in der
-Datei /Web Pages/WEB-INF/web.xml.
+Datei `/Web Pages/WEB-INF/web.xml`.
 
 Dort befinden sich die anwendungsspezifischen Einstellungen, welche Aktionen
 welche Berechtigungen erfordern. Am Ende wird dabei mit folgender Zeile
 
-    <realm-name>justdoit</realm-name>
+    `<realm-name>justdoit</realm-name>`
 
 das Realm zugewiesen. Realm ist dabei nur ein schöner Begriff für eine
-beliebige Datenbank mit Benutzern und ihren Passwörtern und Berechtigungen.
+beliebige Datenbank mit Benutzern, ihren Passwörtern und Berechtigungen.
 
 Im TomEE geschieht dies durch folgende Zeilen in der Konfigurationsdatei
-conf/server.xml:
+`conf/server.xml`:
 Die Definition des Realms geschieht durch folgende Zeilen in der Datei
-/Web Pages/META-INF/context.xml:
+`/Web Pages/META-INF/context.xml`:
 
+```
     <Realm
             className      = "org.apache.catalina.realm.DataSourceRealm"
 
@@ -56,10 +55,12 @@ Die Definition des Realms geschieht durch folgende Zeilen in der Datei
                 algorithm = "SHA-256"
             />
     </Realm>
+```
 
-Die unter „dataSourceName“ genannte Datenbankverbindung muss dabei in der Datei
-conf/tomee.xml wie folgt definiert werden:
+Die unter `dataSourceName` genannte Datenbankverbindung muss dabei in der Datei
+`conf/tomee.xml` wie folgt definiert werden:
 
+```
     <Resource id="Derby-Sample-Managed" type="javax.sql.DataSource">
         JdbcDriver = org.apache.derby.jdbc.ClientDriver
         JdbcUrl    = jdbc:derby://localhost:1527/sample
@@ -75,6 +76,7 @@ conf/tomee.xml wie folgt definiert werden:
         Password   = app
         JtaManaged = false
     </Resource>
+```
 
 Das Beispiel geht dabei von der Derby-Beispieldatenbank aus, die Bestandteil
 von Netbeans ist.
@@ -83,9 +85,11 @@ von Netbeans ist.
 Hinweise zum E-Mail-Versand
 ===========================
 
-Der E-Mail-Versand wird mit der JavaMail API umgesetzt.
-Ein Teil der benötigten Einstellungen wird in einer JSON Datei gespeichert (src/main/resources/mailConfig.json).
+Der E-Mail-Versand wird mit der [JavaMail API](https://javaee.github.io/javamail/docs/api/) umgesetzt.
+Ein Teil der benötigten Einstellungen wird in einer JSON Datei gespeichert:
+`src/main/resources/mailConfig.json`
 
+```
 {
     "from": "",
     "host": "",
@@ -93,10 +97,11 @@ Ein Teil der benötigten Einstellungen wird in einer JSON Datei gespeichert (src
     "username": "",
     "password": ""
 }
+```
 
-from: Adresse die als Absenderadresse angezeigt werden soll.
-host: Adresse des Postausgangssevers (SMTP-Server)
-port: Port des Postausgangsservers (SMTP-Server)
-username: Benutzername des Kontos beim Mail-Provider
-password: Passwort des Kontos beim Mail-Provider
+`from`: Adresse die als Absenderadresse angezeigt werden soll.
+`host`: Adresse des Postausgangssevers (SMTP-Server)
+`port`: Port des Postausgangsservers (SMTP-Server)
+`username`: Benutzername des Kontos beim Mail-Provider
+`password`: Passwort des Kontos beim Mail-Provider
 
