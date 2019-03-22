@@ -99,15 +99,10 @@
         <script type="text/javascript" src="<c:url value="/js/select2/select2_single.js"/>"></script>
         <script type="text/javascript" src="<c:url value="/js/select2/select2_multiple.js"/>"></script>
         <!-- Skript für Bootstrap Theme for Select2 -->
-        <script>
-            $("#dropdown").select2({
-                theme: "bootstrap"
-            });
-            $.fn.select2.defaults.set("theme", "bootstrap");
-        </script>
+        <script type="text/javascript" src="<c:url value="/js/select2/select2_bootstrapTheme.js"/>">></script>
         <!-- Preselect Current User in CreateToDo -->
         <script>
-            $('#usernameSelectCreateToDo').val('${pageContext.request.userPrincipal.name}');
+                    $('#usernameSelectCreateToDo').val('${pageContext.request.userPrincipal.name}');
             $('#usernameSelectCreateToDo').trigger('change');
         </script>
         <!-- Preselect Users in EditToDo -->
