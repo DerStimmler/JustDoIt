@@ -26,6 +26,8 @@ public class ActivateAccountServlet extends HttpServlet {
         HttpSession session = request.getSession();
         List<String> errors = new ArrayList<>();
 
+        session.removeAttribute("errors");
+
         long uniqueNumberOfUser = 0;
         String pathInfo = request.getPathInfo();
         if (pathInfo != null && pathInfo.length() > 2) {
@@ -35,20 +37,26 @@ public class ActivateAccountServlet extends HttpServlet {
                 errors.add("Es wurde eine ungültige ID angegeben! Bitte kontaktieren Sie den Support!");
             }
         }
-
-        User activateUser = this.userBean.findByUniqueNumber(uniqueNumberOfUser);
-        if (activateUser != null) {
-            activateUser.removeFromGroup("justdoit-user-inactive");
-            activateUser.addToGroup("justdoit-user");
-            this.userBean.update(activateUser);
-        } else {
-            errors.add("Zur ID des Aktivierungslinks konnte kein Benutzer ermittelt werden! Bitte kontatkieren Sie den Support!");
-        }
+        errors = this.activateAccount(uniqueNumberOfUser, errors);
 
         if (!errors.isEmpty()) {
             session.setAttribute("errors", errors);
         }
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login/activate.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private List<String> activateAccount(long uniqueNumberOfUser, List<String> errors) {
+        if (errors.isEmpty()) {
+            User activateUser = this.userBean.findByUniqueNumber(uniqueNumberOfUser);
+            if (activateUser != null) {
+                activateUser.removeFromGroup("justdoit-user-inactive");
+                activateUser.addToGroup("justdoit-user");
+                this.userBean.update(activateUser);
+            } else {
+                errors.add("Zur ID des Aktivierungslinks konnte kein Benutzer ermittelt werden! Bitte kontatkieren Sie den Support!");
+            }
+        }
+        return errors;
     }
 }
