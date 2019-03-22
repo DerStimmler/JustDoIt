@@ -18,7 +18,7 @@ public class ValidationBean {
     @Resource
     Validator validator;
 
-    private final String regex = "\\S+@\\S+.[a-z]{2,}";
+    private final String regex = "\\S+@\\S+\\.[a-z]{2,}";
 
     /**
      * This method validates an entity and returns a new List of errors.
