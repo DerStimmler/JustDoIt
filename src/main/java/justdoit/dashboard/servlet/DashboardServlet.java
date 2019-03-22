@@ -24,7 +24,7 @@ import justdoit.todo.jpa.ToDoStatus;
 import org.apache.commons.collections.map.MultiValueMap;
 
 @WebServlet(urlPatterns = {"/view/dashboard/"})
-public class ViewServlet extends HttpServlet {
+public class DashboardServlet extends HttpServlet {
 
     private final String noCategory = "Keine Kategorie";
 
@@ -54,7 +54,7 @@ public class ViewServlet extends HttpServlet {
         session.setAttribute("dashboard", dashboardContent);
         session.setAttribute("statusColors", statusColors);
 
-        request.getRequestDispatcher("/WEB-INF/view/view.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/dashboard.jsp").forward(request, response);
     }
 
     @Override
