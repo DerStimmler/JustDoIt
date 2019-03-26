@@ -88,7 +88,7 @@ public class SignUpServlet extends HttpServlet {
                     errors.add(this.userAlreadyExistsExceptionMessage.replace("$username", user.getUsername()));
                 }
             } catch (MessagingException ex) {
-                errors.add("Die E-Mail Adresse ist ungültig!");
+                errors.add("Fehler beim Mailversand! Der Benutzer wurde trotzdem angelegt.");
             }
         }
         if (!errors.isEmpty()) {
