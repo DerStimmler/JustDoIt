@@ -10,6 +10,9 @@ Während der Entwicklung haben wir einen speziell konfigurierten TomEE-Server
 genutzt. Als Datenbank wurde die Derby-Datenbank verwendet. In unseren Dateien,
 die bei der Projektabgabe hochgeladen werden, ist beides enthalten.
 
+Eine Installationsanleitung in Verbindung mit Netbeans finden Sie unter folgendem Link:
+	https://www.wpvs.de/software/#10
+
 
 Konfiguration der Benutzerauthentifizierung
 -------------------------------------------

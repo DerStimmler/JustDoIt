@@ -44,15 +44,19 @@ public class DashboardServlet extends HttpServlet {
 
         HttpSession session = request.getSession();
         User currentUser = this.userBean.getCurrentUser();
+        List<String> categoryNames = this.getAllCategoryNames();
         Map<String, MultiValueMap> dashboardContent = this.getDashboardContent(currentUser);
 
         String[] statusColors = {"bg-primary", "bg-warning", "bg-success", "bg-danger"};
         session.setAttribute("statuses", ToDoStatus.values());
-        session.setAttribute("categories", dashboardContent.keySet());
         session.setAttribute("todos", this.todoBean.findByUsername(currentUser.getUsername()));
         session.setAttribute("dashboard", dashboardContent);
         session.setAttribute("statusColors", statusColors);
 
+        if (dashboardContent.get(this.noCategory) == null) {
+            categoryNames.remove(this.noCategory);
+        }
+        session.setAttribute("categories", categoryNames);
         request.getRequestDispatcher("/WEB-INF/view/dashboard.jsp").forward(request, response);
     }
 
@@ -133,5 +137,15 @@ public class DashboardServlet extends HttpServlet {
             Long searchId = Long.parseLong(searchToDo);
             response.sendRedirect(request.getContextPath() + "/view/todo/detail/" + searchId); // Detailseite des gesuchten Todos aufrufen
         }
+    }
+
+    private List<String> getAllCategoryNames() {
+        List<Category> categories = this.categoryBean.findByUser(this.userBean.getCurrentUser());
+        List<String> categoryNames = new ArrayList<>();
+        categories.forEach((category) -> {
+            categoryNames.add(category.getCategoryName());
+        });
+        categoryNames.add(this.noCategory);
+        return categoryNames;
     }
 }
